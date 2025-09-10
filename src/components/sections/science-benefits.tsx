@@ -118,10 +118,13 @@ export const ScienceBenefits = () => {
                 }}
               >
                 {/* Play/Pause button overlay */}
-                <div className="absolute inset-0 flex items-center justify-center group opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <div 
+                  className="absolute inset-0 flex items-center justify-center group opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                  onClick={togglePlayPause}
+                >
                   <button
-                    onClick={togglePlayPause}
-                    className="bg-black/50 hover:bg-black/70 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm"
+                    onClick={(e) => e.stopPropagation()}
+                    className="bg-black/50 hover:bg-black/70 text-white p-4 rounded-full transition-all duration-300 backdrop-blur-sm pointer-events-none"
                   >
                     {isPlaying ? (
                       <Pause className="w-8 h-8" />
