@@ -1,0 +1,45 @@
+import { HeroButton } from "@/components/ui/hero-button"
+import heroImage from "@/assets/hero-banner.jpg"
+
+export const HeroSection = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={heroImage} 
+          alt="Focused professionals in South African office environment" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-royal-purple/80 via-royal-purple/60 to-transparent"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-6 text-center md:text-left">
+        <div className="max-w-4xl mx-auto md:mx-0">
+          <h1 className="heading-xl text-white mb-6 animate-fade-in-up">
+            Scientifically Proven Formulas for 
+            <span className="block text-fresh-teal mt-2">Mental Clarity & Fortitude</span>
+          </h1>
+          
+          <p className="body-lg text-grey-100 mb-8 max-w-2xl animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+            Partnering with leading neuroceutical brands to bring you science-backed 
+            solutions for focus, energy, and stress relief.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+            <HeroButton variant="hero" size="lg">
+              Explore Our Partners
+            </HeroButton>
+            <HeroButton variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-royal-purple">
+              Learn More
+            </HeroButton>
+          </div>
+        </div>
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+    </section>
+  )
+}

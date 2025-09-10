@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Neuroceutical Solutions Design System - Premium Scientific Theme */
+@layer base {
+  :root {
+    /* Brand Colors */
+    --royal-purple: 271 50% 35%;          /* Deep royal purple #5A2D82 */
+    --royal-purple-light: 271 50% 45%;    /* Lighter variant */
+    --royal-purple-dark: 271 55% 25%;     /* Darker variant */
+    --fresh-teal: 172 70% 50%;            /* Fresh teal #2DD4BF */
+    --fresh-teal-light: 172 70% 60%;      /* Lighter variant */
+    --fresh-teal-dark: 172 70% 40%;       /* Darker variant */
+
+    /* Neutral Palette */
+    --white: 0 0% 100%;
+    --grey-50: 210 20% 98%;
+    --grey-100: 210 20% 95%;
+    --grey-200: 210 16% 90%;
+    --grey-300: 210 14% 83%;
+    --grey-400: 210 14% 64%;
+    --grey-500: 210 11% 46%;
+    --grey-600: 210 12% 35%;
+    --grey-700: 210 14% 25%;
+    --grey-800: 210 18% 15%;
+    --grey-900: 210 22% 8%;
+
+    /* Semantic Colors */
+    --background: var(--white);
+    --foreground: var(--grey-900);
+    --card: var(--white);
+    --card-foreground: var(--grey-900);
+    --popover: var(--white);
+    --popover-foreground: var(--grey-900);
+    --primary: var(--royal-purple);
+    --primary-foreground: var(--white);
+    --secondary: var(--grey-100);
+    --secondary-foreground: var(--grey-900);
+    --muted: var(--grey-100);
+    --muted-foreground: var(--grey-500);
+    --accent: var(--fresh-teal);
+    --accent-foreground: var(--white);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--white);
+    --border: var(--grey-200);
+    --input: var(--grey-200);
+    --ring: var(--royal-purple);
+
+    /* Design tokens */
+    --radius: 0.75rem;
+    --shadow-subtle: 0 1px 3px 0 hsl(var(--grey-900) / 0.1);
+    --shadow-medium: 0 4px 6px -1px hsl(var(--grey-900) / 0.1);
+    --shadow-large: 0 20px 25px -5px hsl(var(--grey-900) / 0.1);
+    --shadow-purple: 0 10px 30px -10px hsl(var(--royal-purple) / 0.3);
+    --shadow-teal: 0 10px 30px -10px hsl(var(--fresh-teal) / 0.3);
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--royal-purple)), hsl(var(--royal-purple-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--fresh-teal)), hsl(var(--fresh-teal-light)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--grey-50)), hsl(var(--white)));
+
+    /* Typography */
+    --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Component Styles */
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .accent-gradient {
+    background: var(--gradient-accent);
+  }
+
+  .subtle-gradient {
+    background: var(--gradient-subtle);
+  }
+
+  /* Typography Scale */
+  .heading-xl {
+    @apply font-heading font-bold text-5xl md:text-6xl lg:text-7xl leading-tight tracking-tight;
+  }
+
+  .heading-lg {
+    @apply font-heading font-bold text-3xl md:text-4xl lg:text-5xl leading-tight tracking-tight;
+  }
+
+  .heading-md {
+    @apply font-heading font-semibold text-2xl md:text-3xl leading-snug;
+  }
+
+  .heading-sm {
+    @apply font-heading font-semibold text-xl md:text-2xl leading-snug;
+  }
+
+  .body-lg {
+    @apply font-body text-lg md:text-xl leading-relaxed;
+  }
+
+  .body-md {
+    @apply font-body text-base md:text-lg leading-relaxed;
+  }
+
+  .body-sm {
+    @apply font-body text-sm md:text-base leading-relaxed;
+  }
+
+  /* Animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes hover-lift {
+    to {
+      transform: translateY(-4px);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.4s ease-out forwards;
+  }
+
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-lift:hover {
+    animation: hover-lift 0.3s ease-out forwards;
+  }
+
+  /* Carousel optimization */
+  .carousel-optimized {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  .carousel-container {
+    contain: layout style paint;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
