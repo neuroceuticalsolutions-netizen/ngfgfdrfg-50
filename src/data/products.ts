@@ -129,12 +129,7 @@ export const products: Product[] = [
     logo: naokiMatchaLogo,
     productImage: "/lovable-uploads/9d2ae4ea-38f6-4827-a422-83aa2b576f6d.png",
     carouselImages: [
-      { src: "/lovable-uploads/106fd05f-0563-4626-a615-b6daa3d88ced.png", alt: "Naoki First Spring Blend Organic Ceremonial Grade Matcha" },
-      { src: "/lovable-uploads/f57f4cd3-d21e-4a72-9ca6-cea3e78a7344.png", alt: "Naoki Fragrant Yame Blend Ceremonial Grade Matcha" },
-      { src: "/lovable-uploads/16a61dab-efdc-4241-9770-d7786d75fa13.png", alt: "Naoki Chiran Harvest Masters Collection Matcha" },
-      { src: "/lovable-uploads/ffd75f9a-8d62-426a-aaa4-97f165ed43bb.png", alt: "Traditional Matcha Preparation with Bamboo Whisk" },
-      { src: "/lovable-uploads/7610a0a9-d856-421c-aae0-294f428d6468.png", alt: "Pouring Fresh Matcha Tea" },
-      { src: "/lovable-uploads/d6cbbb6a-312c-4fbe-8cc4-8ca60a0e4f7a.png", alt: "Stirring Matcha Tea with Traditional Tools" }
+      { src: "/lovable-uploads/9d2ae4ea-38f6-4827-a422-83aa2b576f6d.png", alt: "Naoki Matcha Tea Premium Product" }
     ],
     backgroundColor: "#203c43",
     category: "cognitive",
