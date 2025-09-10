@@ -117,26 +117,6 @@ export const ScienceBenefits = () => {
                   clipPath: 'polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%)'
                 }}
               >
-                {/* Navigation buttons overlay */}
-                <div className="absolute top-4 right-4 flex flex-col gap-2">
-                  {benefits.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setCurrentIndex(index)
-                        setIsPlaying(false)
-                      }}
-                      className={`w-12 h-3 transition-all duration-300 hover:h-4 hover:scale-110 cursor-pointer rounded-sm ${
-                        index === currentIndex 
-                          ? 'bg-white shadow-lg' 
-                          : 'bg-white/50 hover:bg-white/80'
-                      }`}
-                      aria-label={`Navigate to ${benefits[index].title}`}
-                      title={benefits[index].title}
-                    />
-                  ))}
-                </div>
-
                 {/* Play/Pause button overlay */}
                 <div className="absolute inset-0 flex items-center justify-center group opacity-0 hover:opacity-100 transition-opacity duration-300">
                   <button
