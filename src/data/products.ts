@@ -101,7 +101,11 @@ export const products: Product[] = [
     logo: usnLogo,
     productImage: "/lovable-uploads/dd883032-239f-4a1c-ae71-be82bb7091e5.png",
     carouselImages: [
-      { src: "/lovable-uploads/dd883032-239f-4a1c-ae71-be82bb7091e5.png", alt: "USN Creatine Monohydrate Product" }
+      { src: "/lovable-uploads/927e818d-632e-49e4-bdad-c04fa319a4d1.png", alt: "USN 3-in-1 Creatine Product Container" },
+      { src: "/lovable-uploads/48a16022-e7c1-4232-a105-298836454a2e.png", alt: "USN Creatine Benefits - 3000mg Creatine Monohydrate with Cognitive Function Support" },
+      { src: "/lovable-uploads/5100ac94-e41b-4605-a904-8e7d0abf1ab2.png", alt: "Creatine Muscle Strength & Recovery - 5500mg 3-in-1 Muscle Growth Stack" },
+      { src: "/lovable-uploads/d00b21a9-9653-498d-9082-919da9cf51b5.png", alt: "3-in-1 Creatine Label - 5500mg Muscle Growth Stack with Creatine Monohydrate & Aminos" },
+      { src: "/lovable-uploads/c9364dfe-fd09-4a94-a451-12940ee063e5.png", alt: "USN Creatine Flavours - Available in Unflavoured, Orange & Grape with Usage Instructions" }
     ],
     backgroundColor: "#0156a6",
     category: "performance",
