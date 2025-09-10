@@ -35,9 +35,11 @@ export const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <HeroButton variant="hero" size="sm">
-              Get Started
-            </HeroButton>
+            <Link to="/get-started">
+              <HeroButton variant="hero" size="sm">
+                Get Started
+              </HeroButton>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
