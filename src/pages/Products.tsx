@@ -89,7 +89,7 @@ const Products = () => {
                     
                     <div className="flex gap-3">
                       <HeroButton variant="hero" className="flex-1">
-                        Add to Cart
+                        Contact Sales
                       </HeroButton>
                       <Link to={`/products/${product.slug}`}>
                         <HeroButton variant="outline" size="default">
