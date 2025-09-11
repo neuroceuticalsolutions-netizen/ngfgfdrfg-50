@@ -71,7 +71,7 @@ export const products: Product[] = [
     scientificBacking: "Over 50 peer-reviewed studies demonstrate the synergistic effects of L-Theanine and caffeine on cognitive performance and alertness.",
     partnerInfo: "EU Natural sources premium ingredients from European suppliers with strict quality control standards and third-party testing.",
     logo: euNaturalLogo,
-    productImage: "/lovable-uploads/da44d402-3c44-49a9-a8c7-5ba205fa1aad.png",
+    productImage: "/lovable-uploads/86ec61db-ac63-4d6b-aa0b-23f5fe023a7c.png",
     carouselImages: [
       { src: "/lovable-uploads/cc6efb1b-0e6e-4ad2-9c22-ca424cf63dee.png", alt: "Elite Focus Product Bottle" },
       { src: "/lovable-uploads/215e8a35-e143-41e9-a023-4622b163ed4a.png", alt: "Elite Focus - Brains, Gains & Everything in Between" },
