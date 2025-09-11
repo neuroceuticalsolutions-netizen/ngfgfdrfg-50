@@ -1,4 +1,5 @@
 import { HeroButton } from "@/components/ui/hero-button";
+import { MapPin } from "lucide-react";
 export const Footer = () => {
   return <footer className="bg-grey-900 text-white py-16">
       <div className="container mx-auto px-6">
@@ -44,7 +45,7 @@ export const Footer = () => {
                 </div>
               </div>
               <div className="flex items-start">
-                <span className="text-fresh-teal mr-2">📍</span>
+                <MapPin className="text-fresh-teal mr-2" size={16} />
                 <div>
                   <p className="text-grey-300">Address</p>
                   <p className="text-white">Pietermaritzburg<br />KwaZulu-Natal, South Africa</p>
