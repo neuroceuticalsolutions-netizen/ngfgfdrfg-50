@@ -127,7 +127,7 @@ export const products: Product[] = [
     scientificBacking: "Studies show matcha's unique catechin profile and L-theanine content provide sustained cognitive benefits and stress reduction.",
     partnerInfo: "Naoki sources directly from traditional tea gardens in Uji, Japan, ensuring authentic quality and supporting sustainable farming practices.",
     logo: naokiMatchaLogo,
-    productImage: "/lovable-uploads/9d2ae4ea-38f6-4827-a422-83aa2b576f6d.png",
+    productImage: "/lovable-uploads/060c30c7-523a-4a55-a949-74362c456015.png",
     carouselImages: [
       { src: "/lovable-uploads/106fd05f-0563-4626-a615-b6daa3d88ced.png", alt: "Naoki First Spring Blend Organic Ceremonial Grade Matcha" },
       { src: "/lovable-uploads/f57f4cd3-d21e-4a72-9ca6-cea3e78a7344.png", alt: "Naoki Fragrant Yame Blend Ceremonial Grade Matcha" },
