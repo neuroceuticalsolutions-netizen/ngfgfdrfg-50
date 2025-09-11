@@ -61,7 +61,7 @@ const Products = () => {
                 <div key={productIndex} className="bg-white rounded-2xl shadow-medium overflow-hidden hover:shadow-large transition-shadow duration-300">
                   <div className="aspect-video bg-grey-100 relative overflow-hidden">
                     <img 
-                      src="/lovable-uploads/90dd6983-4e25-40ae-a9fe-a907857921b8.png" 
+                      src={product.productImage} 
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
