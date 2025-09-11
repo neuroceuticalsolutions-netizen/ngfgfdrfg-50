@@ -73,12 +73,8 @@ const Products = () => {
                   </div>
                   
                   <div className="p-8">
-                    <div className="flex justify-between items-start mb-4">
+                    <div className="mb-4">
                       <h3 className="heading-sm text-grey-900">{product.name}</h3>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-royal-purple">{product.price}</div>
-                        <div className="text-sm text-grey-500">per unit</div>
-                      </div>
                     </div>
                     
                     <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
