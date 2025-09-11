@@ -41,7 +41,7 @@ export const products: Product[] = [
     scientificBacking: "Clinical studies show nicotine pouches provide effective nicotine delivery with 95% less harmful chemicals than traditional cigarettes.",
     partnerInfo: "ZYN is a leading Swedish brand in the smoke-free category, committed to providing adult smokers with better alternatives.",
     logo: zynLogo,
-    productImage: "/lovable-uploads/0d343316-5888-4919-9490-4dc374ddbd70.png",
+    productImage: "/lovable-uploads/e2d1b06e-16c6-4f8f-ae6c-7fe6ad4fe47b.png",
     carouselImages: [
       { src: "/lovable-uploads/fe9d3437-c5cf-4811-a333-40eb69dfa195.png", alt: "ZYN Nicotine Pouches - Spearmint X-Low 1.5mg" },
       { src: "/lovable-uploads/df196978-5314-425a-a22d-1035119e1ca4.png", alt: "ZYN Nicotine Pouches - Cool Mint 3mg" },
