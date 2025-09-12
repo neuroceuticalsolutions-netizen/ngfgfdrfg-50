@@ -5,7 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { products } from "@/data/products";
 
 const Contact = () => {
   return (
@@ -57,7 +59,18 @@ const Contact = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="product">Product Interest</Label>
-                  <Input id="product" placeholder="Which product are you interested in?" />
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a product..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {products.map((product) => (
+                        <SelectItem key={product.id} value={product.id}>
+                          {product.brand} - {product.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
