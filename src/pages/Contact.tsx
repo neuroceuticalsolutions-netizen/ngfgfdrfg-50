@@ -8,10 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { products } from "@/data/products";
-
 const Contact = () => {
-  return (
-    <main className="min-h-screen bg-background">
+  return <main className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
@@ -64,21 +62,15 @@ const Contact = () => {
                       <SelectValue placeholder="Select a product..." />
                     </SelectTrigger>
                     <SelectContent>
-                      {products.map((product) => (
-                        <SelectItem key={product.id} value={product.id}>
+                      {products.map(product => <SelectItem key={product.id} value={product.id}>
                           {product.brand} - {product.name}
-                        </SelectItem>
-                      ))}
+                        </SelectItem>)}
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
-                  <Textarea 
-                    id="message" 
-                    placeholder="Tell us about your order or any questions you have..."
-                    rows={5}
-                  />
+                  <Textarea id="message" placeholder="Tell us about your order or any questions you have..." rows={5} />
                 </div>
                 <HeroButton variant="hero" className="w-full">
                   Send Message
@@ -100,14 +92,14 @@ const Contact = () => {
                     <Mail className="h-6 w-6 text-royal-purple" />
                     <div>
                       <p className="font-semibold">Email</p>
-                      <p className="text-grey-600">orders@nootropicssa.com</p>
+                      <p className="text-grey-600">orders@neuroceutical.co.za</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
                     <Phone className="h-6 w-6 text-royal-purple" />
                     <div>
                       <p className="font-semibold">Phone</p>
-                      <p className="text-grey-600">+27 (0) 11 123 4567</p>
+                      <p className="text-grey-600">+27 (0) 62 476 7535</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -145,8 +137,6 @@ const Contact = () => {
       </section>
 
       <Footer />
-    </main>
-  );
+    </main>;
 };
-
 export default Contact;
