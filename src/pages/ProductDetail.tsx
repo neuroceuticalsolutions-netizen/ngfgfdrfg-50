@@ -103,7 +103,7 @@ const ProductDetail = () => {
                 </HeroButton>
                 <HeroButton variant="outline" className="flex-1" asChild>
                   <a href="https://store.eunatural.com/products/caffeine-l-theanine#:~:text=Caffeine%20%26%20L%2DTheanine%20is%20a,Caffeine%20%2B%20200mg%20L%2DTheanine." target="_blank" rel="noopener noreferrer">
-                    Product Information
+                    News Blog
                   </a>
                 </HeroButton>
               </div>
