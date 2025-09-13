@@ -94,7 +94,7 @@ const About = () => {
               </div>
               <h3 className="heading-sm text-grey-900 mb-2">Tapelo Daniel</h3>
               <p className="text-royal-purple mb-4 font-medium">CEO & Founder</p>
-              <p className="body-sm text-grey-600">Former pharmaceutical executive with a passion for making cognitive enhancement accessible to all.</p>
+              <p className="body-sm text-grey-600">Passionate entrepreneur dedicated to making cognitive enhancement accessible to all through innovative partnerships.</p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 text-center shadow-medium">
