@@ -65,46 +65,27 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Founder Section */}
       <section className="py-20 bg-subtle-gradient">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="heading-lg text-royal-purple mb-6">Our Team</h2>
+            <h2 className="heading-lg text-royal-purple mb-6">Meet the Founder</h2>
             <p className="body-lg text-grey-600 max-w-3xl mx-auto">
-              Our diverse team combines expertise in neuroscience, nutrition, and business 
-              to deliver exceptional cognitive enhancement solutions.
+              Dedicated to bridging the gap between cutting-edge neuroscience research 
+              and accessible cognitive enhancement solutions.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="max-w-md mx-auto">
             <div className="bg-white rounded-2xl p-8 text-center shadow-medium">
-              <div className="w-20 h-20 bg-royal-purple/10 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <span className="text-2xl font-bold text-royal-purple">Dr</span>
+              <div className="w-24 h-24 bg-royal-purple/10 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <span className="text-3xl font-bold text-royal-purple">TD</span>
               </div>
-              <h3 className="heading-sm text-grey-900 mb-2">Dr. Sarah Chen</h3>
-              <p className="text-fresh-teal mb-4 font-medium">Chief Scientific Officer</p>
-              <p className="body-sm text-grey-600">
-                PhD in Neuroscience from MIT with 15+ years in cognitive research and supplement development.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-8 text-center shadow-medium">
-              <div className="w-20 h-20 bg-fresh-teal/10 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <span className="text-2xl font-bold text-fresh-teal">MB</span>
-              </div>
-              <h3 className="heading-sm text-grey-900 mb-2">Tapelo Daniel</h3>
-              <p className="text-royal-purple mb-4 font-medium">CEO & Founder</p>
-              <p className="body-sm text-grey-600">Passionate entrepreneur dedicated to making cognitive enhancement accessible to all through innovative partnerships.</p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-8 text-center shadow-medium">
-              <div className="w-20 h-20 bg-royal-purple/10 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <span className="text-2xl font-bold text-royal-purple">AK</span>
-              </div>
-              <h3 className="heading-sm text-grey-900 mb-2">Amanda Kim</h3>
-              <p className="text-fresh-teal mb-4 font-medium">Head of Quality Assurance</p>
-              <p className="body-sm text-grey-600">
-                Ensures every product meets our rigorous standards through comprehensive testing and validation.
+              <h3 className="heading-md text-grey-900 mb-2">Tapelo Daniel</h3>
+              <p className="text-royal-purple mb-4 font-medium">Founder & CEO</p>
+              <p className="body-md text-grey-600">
+                Passionate entrepreneur dedicated to making cognitive enhancement accessible to all through 
+                innovative partnerships with leading supplement manufacturers and rigorous scientific research.
               </p>
             </div>
           </div>
