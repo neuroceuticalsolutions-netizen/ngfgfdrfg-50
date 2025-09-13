@@ -101,6 +101,9 @@ const ProductDetail = () => {
                 <HeroButton variant="hero" className="flex-1" asChild>
                   <Link to="/contact">Contact to Order</Link>
                 </HeroButton>
+                <HeroButton variant="outline" className="flex-1">
+                  Product Information
+                </HeroButton>
               </div>
             </div>
           </div>
