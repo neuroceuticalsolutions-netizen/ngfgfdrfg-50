@@ -1,5 +1,5 @@
 import { HeroButton } from "@/components/ui/hero-button";
-import { MapPin } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 export const Footer = () => {
   return <footer className="bg-grey-900 text-white py-16">
       <div className="container mx-auto px-6">
@@ -27,7 +27,7 @@ export const Footer = () => {
             <h4 className="heading-sm mb-4">Contact Info</h4>
             <div className="space-y-3 text-sm">
               <div className="flex items-start">
-                <span className="text-fresh-teal mr-2">📧</span>
+                <Mail className="text-fresh-teal mr-2" size={16} />
                 <div>
                   <p className="text-grey-300">Email</p>
                   <a href="mailto:info@neuroceuticalsolutions.co.za" className="text-white hover:text-fresh-teal">
@@ -36,7 +36,7 @@ export const Footer = () => {
                 </div>
               </div>
               <div className="flex items-start">
-                <span className="text-fresh-teal mr-2">📞</span>
+                <Phone className="text-white mr-2" size={16} />
                 <div>
                   <p className="text-grey-300">Phone</p>
                   <a href="tel:+27123456789" className="text-white hover:text-fresh-teal">
