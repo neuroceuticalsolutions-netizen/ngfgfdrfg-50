@@ -96,8 +96,8 @@ export const ScienceBenefits = () => {
                         </div>
                       </div>
                       {index === currentIndex && (
-                        <div className="ml-20">
-                          <h5 className="heading-xs text-grey-900 leading-tight mb-4">
+                        <div className="mb-4">
+                          <h5 className="heading-xs text-grey-900 leading-tight">
                             {benefit.description}
                           </h5>
                         </div>
