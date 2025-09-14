@@ -3,6 +3,7 @@ import { Footer } from "@/components/sections/footer"
 import { HeroButton } from "@/components/ui/hero-button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { CheckCircle, Brain, Target, Zap, Calendar } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const GetStarted = () => {
   return (
@@ -107,9 +108,11 @@ const GetStarted = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <HeroButton variant="hero" size="lg" className="w-full">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Schedule a Call
+                <HeroButton variant="hero" size="lg" className="w-full" asChild>
+                  <Link to="/contact">
+                    <Calendar className="w-5 h-5 mr-2" />
+                    Schedule a Call
+                  </Link>
                 </HeroButton>
                 <HeroButton variant="outline" size="lg" className="w-full">
                   View Our Partners
