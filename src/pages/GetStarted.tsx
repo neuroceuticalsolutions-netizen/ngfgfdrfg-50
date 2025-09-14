@@ -101,21 +101,21 @@ const GetStarted = () => {
             
             <Card className="p-8 border-grey-200">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="text-royal-purple mb-2">Ready to Begin?</CardTitle>
+                <CardTitle className="text-royal-purple mb-2">Get Your Personal Protocol</CardTitle>
                 <CardDescription>
-                  Book a consultation to create your personalized neuroceutical plan
+                  Our experts will assess your goals, health profile, and create a customized cognitive enhancement plan with safety protocols and usage guidelines.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <HeroButton variant="hero" size="lg" className="w-full">
                   <Calendar className="w-5 h-5 mr-2" />
-                  Book Free Consultation
+                  Get My Custom Plan
                 </HeroButton>
                 <HeroButton variant="outline" size="lg" className="w-full">
                   Browse Products
                 </HeroButton>
                 <p className="text-sm text-grey-500 text-center">
-                  No commitment required • Expert guidance included
+                  Free 30-min strategy session • Safety assessment included • Ongoing support
                 </p>
               </CardContent>
             </Card>
@@ -159,7 +159,7 @@ const GetStarted = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  We recommend consulting with our experts to create a safe and effective combination protocol tailored to your needs.
+                  Our cognitive enhancement specialists will create a personalized protocol that considers your health profile, goals, potential interactions, and optimal timing for maximum safety and effectiveness.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -170,7 +170,7 @@ const GetStarted = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Yes, our team provides continuous guidance, protocol adjustments, and answers to your questions throughout your journey.
+                  Absolutely. We provide protocol adjustments, progress tracking, safety monitoring, and expert guidance throughout your cognitive enhancement journey at no additional cost.
                 </CardDescription>
               </CardContent>
             </Card>
