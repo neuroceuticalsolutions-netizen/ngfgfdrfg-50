@@ -101,21 +101,21 @@ const GetStarted = () => {
             
             <Card className="p-8 border-grey-200">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="text-royal-purple mb-2">Ready to Optimize?</CardTitle>
+                <CardTitle className="text-royal-purple mb-2">Ready to Connect?</CardTitle>
                 <CardDescription>
-                  Get advanced protocols and optimization tips from experts who understand cognitive enhancement.
+                  Speak with our team about accessing premium cognitive enhancement products and exclusive partnerships.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <HeroButton variant="hero" size="lg" className="w-full">
                   <Calendar className="w-5 h-5 mr-2" />
-                  Get Optimization Tips
+                  Schedule a Call
                 </HeroButton>
                 <HeroButton variant="outline" size="lg" className="w-full">
-                  Browse Products
+                  View Our Partners
                 </HeroButton>
                 <p className="text-sm text-grey-500 text-center">
-                  Optional expert guidance • Advanced protocols • Stack optimization
+                  Exclusive access • Premium sourcing • Partnership opportunities
                 </p>
               </CardContent>
             </Card>
@@ -155,22 +155,22 @@ const GetStarted = () => {
 
             <Card className="border-grey-200">
                <CardHeader>
-                 <CardTitle className="text-lg text-royal-purple">Can I stack different products?</CardTitle>
+                 <CardTitle className="text-lg text-royal-purple">How do I access these products?</CardTitle>
                </CardHeader>
                <CardContent>
                  <CardDescription className="text-grey-600">
-                   Yes! Our experts can help you optimize combinations and timing for maximum synergy while avoiding any potential interactions.
+                   Contact our team to discuss product availability, pricing, and access to our exclusive partner network. We'll connect you with the right solutions.
                  </CardDescription>
                </CardContent>
             </Card>
 
             <Card className="border-grey-200">
                <CardHeader>
-                 <CardTitle className="text-lg text-royal-purple">Do you provide ongoing optimization support?</CardTitle>
+                 <CardTitle className="text-lg text-royal-purple">What makes your sourcing special?</CardTitle>
                </CardHeader>
                <CardContent>
                  <CardDescription className="text-grey-600">
-                   Yes! We offer advanced protocols, stack optimization tips, and expert guidance to help you get maximum results from your cognitive enhancement routine.
+                   We have exclusive partnerships with premium brands and can provide access to products not widely available in South Africa, with verified quality and authenticity.
                  </CardDescription>
                </CardContent>
             </Card>
