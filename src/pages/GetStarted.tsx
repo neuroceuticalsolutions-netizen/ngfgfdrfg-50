@@ -101,21 +101,21 @@ const GetStarted = () => {
             
             <Card className="p-8 border-grey-200">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="text-royal-purple mb-2">Get Your Personal Protocol</CardTitle>
+                <CardTitle className="text-royal-purple mb-2">Ready to Optimize?</CardTitle>
                 <CardDescription>
-                  Our experts will assess your goals, health profile, and create a customized cognitive enhancement plan with safety protocols and usage guidelines.
+                  Get advanced protocols and optimization tips from experts who understand cognitive enhancement.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <HeroButton variant="hero" size="lg" className="w-full">
                   <Calendar className="w-5 h-5 mr-2" />
-                  Get My Custom Plan
+                  Get Optimization Tips
                 </HeroButton>
                 <HeroButton variant="outline" size="lg" className="w-full">
                   Browse Products
                 </HeroButton>
                 <p className="text-sm text-grey-500 text-center">
-                  Free 30-min strategy session • Safety assessment included • Ongoing support
+                  Optional expert guidance • Advanced protocols • Stack optimization
                 </p>
               </CardContent>
             </Card>
@@ -154,25 +154,25 @@ const GetStarted = () => {
             </Card>
 
             <Card className="border-grey-200">
-              <CardHeader>
-                <CardTitle className="text-lg text-royal-purple">Can I combine different products?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-grey-600">
-                  Our cognitive enhancement specialists will create a personalized protocol that considers your health profile, goals, potential interactions, and optimal timing for maximum safety and effectiveness.
-                </CardDescription>
-              </CardContent>
+               <CardHeader>
+                 <CardTitle className="text-lg text-royal-purple">Can I stack different products?</CardTitle>
+               </CardHeader>
+               <CardContent>
+                 <CardDescription className="text-grey-600">
+                   Yes! Our experts can help you optimize combinations and timing for maximum synergy while avoiding any potential interactions.
+                 </CardDescription>
+               </CardContent>
             </Card>
 
             <Card className="border-grey-200">
-              <CardHeader>
-                <CardTitle className="text-lg text-royal-purple">Do you offer ongoing support?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-grey-600">
-                  Absolutely. We provide protocol adjustments, progress tracking, safety monitoring, and expert guidance throughout your cognitive enhancement journey at no additional cost.
-                </CardDescription>
-              </CardContent>
+               <CardHeader>
+                 <CardTitle className="text-lg text-royal-purple">Do you provide ongoing optimization support?</CardTitle>
+               </CardHeader>
+               <CardContent>
+                 <CardDescription className="text-grey-600">
+                   Yes! We offer advanced protocols, stack optimization tips, and expert guidance to help you get maximum results from your cognitive enhancement routine.
+                 </CardDescription>
+               </CardContent>
             </Card>
           </div>
         </div>
