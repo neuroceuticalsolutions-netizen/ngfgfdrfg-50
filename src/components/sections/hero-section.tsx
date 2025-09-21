@@ -3,7 +3,7 @@ import heroImage from "@/assets/hero-banner.jpg"
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -15,19 +15,19 @@ export const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center md:text-left">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center">
         <div className="max-w-4xl mx-auto md:mx-0">
           <h1 className="heading-xl text-white mb-6 animate-fade-in-up">
             Scientifically Proven Formulas for 
             <span className="block text-fresh-teal mt-2">Mental Clarity & Fortitude</span>
           </h1>
           
-          <p className="body-lg text-grey-100 mb-8 max-w-2xl animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+          <p className="body-lg text-grey-100 mb-8 max-w-2xl mx-auto md:mx-0 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
             Partnering with leading neuroceutical brands to bring you science-backed 
             solutions for focus, energy, and stress relief.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{animationDelay: '0.4s'}}>
             <HeroButton variant="hero" size="lg">
               Explore Our Partners
             </HeroButton>

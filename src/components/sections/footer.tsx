@@ -3,15 +3,15 @@ import { MapPin, Phone, Mail } from "lucide-react";
 export const Footer = () => {
   return <footer className="bg-grey-900 text-white py-16">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
           <div className="lg:col-span-2">
             <h3 className="heading-sm text-fresh-teal mb-4">Neuroceutical Solutions</h3>
-            <p className="body-sm text-grey-300 mb-6 leading-relaxed">
+            <p className="text-sm sm:body-sm text-grey-300 mb-6 leading-relaxed">
               South Africa's trusted partner for science-backed neuroceutical solutions. 
               We connect you with premium cognitive enhancement products from leading international brands.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
               
               <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal">
                 Facebook
@@ -25,7 +25,7 @@ export const Footer = () => {
           {/* Contact Information */}
           <div>
             <h4 className="heading-sm mb-4">Contact Info</h4>
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-xs sm:text-sm">
               <div className="flex items-start">
                 <Mail className="text-fresh-teal mr-2" size={16} />
                 <div>
@@ -57,7 +57,7 @@ export const Footer = () => {
           {/* Quick Links */}
           <div>
             <h4 className="heading-sm mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-xs sm:text-sm">
               <li><a href="#about" className="text-grey-300 hover:text-fresh-teal">About Us</a></li>
               <li><a href="#products" className="text-grey-300 hover:text-fresh-teal">Products</a></li>
               <li><a href="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</a></li>
@@ -71,9 +71,9 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-grey-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-col md:flex-row gap-4 text-sm text-grey-400">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-xs sm:text-sm text-grey-400 text-center md:text-left">
               <p>© 2024 Neuroceutical Solution. All rights reserved.</p>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-4">
                 <a href="/privacy" className="hover:text-fresh-teal">Privacy Policy</a>
                 <a href="/terms" className="hover:text-fresh-teal">Terms of Service</a>
                 <a href="/disclaimer" className="hover:text-fresh-teal">Disclaimer</a>
@@ -87,7 +87,7 @@ export const Footer = () => {
 
         {/* Disclaimer */}
         <div className="mt-8 p-4 bg-grey-800 rounded-lg">
-          <p className="text-xs text-grey-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-grey-400 leading-relaxed">
             <strong>Disclaimer:</strong> These statements have not been evaluated by the South African Health Products Regulatory Authority (SAHPRA). 
             These products are not intended to diagnose, treat, cure, or prevent any disease. 
             Always consult with a healthcare professional before starting any new supplement regimen.
