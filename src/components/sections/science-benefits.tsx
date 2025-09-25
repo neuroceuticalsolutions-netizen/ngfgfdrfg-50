@@ -67,10 +67,10 @@ export const ScienceBenefits = () => {
 
         {/* Main diagonal split layout */}
         <div className="relative max-w-7xl mx-auto mb-16">
-          <div className="relative h-[500px] md:h-[500px] h-auto min-h-[400px] overflow-hidden border-2 border-grey-200 md:border-grey-200 border-transparent">
+          <div className="relative h-[500px] overflow-hidden border-2 border-grey-200">
             {/* Left side - Text content */}
-            <div className="absolute inset-0 bg-white md:bg-white bg-transparent flex items-center">
-              <div className="w-full md:w-1/2 p-6 md:p-12 relative z-10">
+            <div className="absolute inset-0 bg-white flex items-center">
+              <div className="w-1/2 p-12">
                 {/* All bullet points with dynamic description */}
                 <div className="space-y-6">
                   {benefits.map((benefit, index) => (
@@ -81,7 +81,7 @@ export const ScienceBenefits = () => {
                             setCurrentIndex(index)
                             setIsPlaying(false) // Pause auto-play when user interacts
                           }}
-                          className={`w-8 md:w-12 h-1 mr-4 md:mr-8 transition-all duration-300 hover:h-2 hover:scale-110 cursor-pointer ${
+                          className={`w-12 h-1 mr-8 transition-all duration-300 hover:h-2 hover:scale-110 cursor-pointer ${
                             index === currentIndex 
                               ? 'bg-royal-purple shadow-sm' 
                               : 'bg-grey-300 hover:bg-royal-purple/70'
@@ -91,13 +91,13 @@ export const ScienceBenefits = () => {
                         />
                         <div className="flex-1">
                           {index === currentIndex && (
-                            <span className="text-sm md:text-base text-white md:text-grey-600 font-semibold md:font-normal">{benefit.title}</span>
+                            <span className="text-base text-grey-600">{benefit.title}</span>
                           )}
                         </div>
                       </div>
                       {index === currentIndex && (
                         <div className="mb-4">
-                          <h5 className="text-sm md:text-lg text-white md:text-grey-900 leading-tight font-medium md:font-semibold">
+                          <h5 className="heading-xs text-grey-900 leading-tight">
                             {benefit.description}
                           </h5>
                         </div>
@@ -108,21 +108,10 @@ export const ScienceBenefits = () => {
               </div>
             </div>
 
-            {/* Background image for mobile, right side image for desktop */}
+            {/* Right side - Image with diagonal clip */}
             <div className="absolute inset-0">
-              {/* Mobile: Full background image with overlay */}
               <div 
-                className="absolute inset-0 bg-cover bg-center md:hidden"
-                style={{
-                  backgroundImage: `url(${currentBenefit.image})`,
-                }}
-              >
-                <div className="absolute inset-0 bg-black/40"></div>
-              </div>
-              
-              {/* Desktop: Right side image with diagonal clip */}
-              <div 
-                className="absolute right-0 top-0 w-1/2 h-full bg-cover bg-center hidden md:block"
+                className="absolute right-0 top-0 w-1/2 h-full bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${currentBenefit.image})`,
                   clipPath: 'polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%)'
@@ -145,35 +134,19 @@ export const ScienceBenefits = () => {
                   </button>
                 </div>
               </div>
-              
-              {/* Mobile: Play/Pause button */}
-              <div 
-                className="absolute top-4 right-4 md:hidden z-20"
-                onClick={togglePlayPause}
-              >
-                <button
-                  className="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
-                >
-                  {isPlaying ? (
-                    <Pause className="w-5 h-5" />
-                  ) : (
-                    <Play className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
             </div>
           </div>
 
           {/* Progress indicators */}
-          <div className="flex justify-center mt-6 space-x-2 relative z-10">
+          <div className="flex justify-center mt-6 space-x-2">
             {benefits.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex 
-                    ? 'bg-royal-purple border-royal-purple' 
-                    : 'bg-white/80 md:bg-grey-300 border-white md:border-grey-300 hover:bg-white md:hover:bg-grey-400'
+                    ? 'bg-royal-purple' 
+                    : 'bg-grey-300 hover:bg-grey-400'
                 }`}
               />
             ))}
