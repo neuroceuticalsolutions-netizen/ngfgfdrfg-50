@@ -30,21 +30,33 @@ export const FeaturedProducts = () => {
               {products.map((product, index) => (
                 <CarouselItem key={index}>
                   <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[400px] sm:min-h-[300px] transition-shadow duration-200 hover:shadow-large">
+                    {/* Mobile background image */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center opacity-20 sm:hidden"
+                      style={{
+                        backgroundImage: `url(${product.logo})`,
+                        backgroundColor: product.backgroundColor,
+                        backgroundBlendMode: 'overlay'
+                      }}
+                    />
+                    {/* Mobile overlay for better text readability */}
+                    <div className="absolute inset-0 bg-black/20 sm:hidden" />
+                    
                     <div className="flex flex-col sm:flex-row h-full">
                       {/* Left side - Product Info */}
-                      <div className="w-full sm:w-1/2 p-4 sm:p-8 flex flex-col justify-center">
-                        <h3 className="text-xl sm:text-3xl font-bold text-primary mb-2 text-center">{product.name}</h3>
-                        <p className="text-accent font-semibold mb-6 text-center">Partner: {product.brand}</p>
+                      <div className="w-full sm:w-1/2 p-4 sm:p-8 flex flex-col justify-center relative z-10">
+                        <h3 className="text-xl sm:text-3xl font-bold text-white sm:text-primary mb-2 text-center">{product.name}</h3>
+                        <p className="text-white/90 sm:text-accent font-semibold mb-6 text-center">Partner: {product.brand}</p>
                         
-                        <p className="text-muted-foreground text-sm sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-xl">
+                        <p className="text-white/80 sm:text-muted-foreground text-sm sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-xl">
                           {product.shortDescription}
                         </p>
 
                         <ul className="space-y-2 sm:space-y-4 mb-6 sm:mb-10">
                           {product.benefits.map((benefit, i) => (
-                            <li key={i} className="flex items-center text-foreground text-sm sm:text-lg">
-                              <span className="w-4 h-4 sm:w-6 sm:h-6 bg-accent rounded-full mr-2 sm:mr-4 flex-shrink-0 flex items-center justify-center">
-                                <span className="text-accent-foreground font-bold text-xs sm:text-sm">✓</span>
+                            <li key={i} className="flex items-center text-white sm:text-foreground text-sm sm:text-lg">
+                              <span className="w-4 h-4 sm:w-6 sm:h-6 bg-white/80 sm:bg-accent rounded-full mr-2 sm:mr-4 flex-shrink-0 flex items-center justify-center">
+                                <span className="text-black sm:text-accent-foreground font-bold text-xs sm:text-sm">✓</span>
                               </span>
                               {benefit}
                             </li>
@@ -53,7 +65,7 @@ export const FeaturedProducts = () => {
 
                         <Link 
                           to={`/products/${product.slug}`}
-                          className="self-center px-4 sm:px-8 py-2 sm:py-3 text-primary font-semibold text-sm sm:text-lg hover:bg-secondary transition-colors rounded-lg"
+                          className="self-center px-4 sm:px-8 py-2 sm:py-3 text-white sm:text-primary font-semibold text-sm sm:text-lg bg-white/20 sm:bg-transparent hover:bg-white/30 sm:hover:bg-secondary transition-colors rounded-lg border border-white/40 sm:border-transparent"
                         >
                           Learn More
                         </Link>
