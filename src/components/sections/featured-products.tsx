@@ -73,7 +73,7 @@ export const FeaturedProducts = () => {
                       
                       {/* Right side - Logo with gradient and diagonal edge */}
                       <div 
-                        className="w-full sm:w-1/2 flex items-center justify-center relative min-h-[200px] sm:min-h-auto"
+                        className="hidden sm:flex sm:w-1/2 items-center justify-center relative min-h-[200px] sm:min-h-auto"
                         style={{
                           backgroundColor: product.backgroundColor,
                           clipPath: window.innerWidth >= 640 ? 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%)' : 'none',
