@@ -32,7 +32,7 @@ export const FeaturedProducts = () => {
                   <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[400px] sm:min-h-[300px] transition-shadow duration-200 hover:shadow-large">
                     {/* Mobile background image */}
                     <div 
-                      className="absolute inset-0 bg-cover bg-center opacity-20 sm:hidden"
+                      className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20 sm:hidden"
                       style={{
                         backgroundImage: `url(${product.logo})`,
                         backgroundColor: product.backgroundColor,
