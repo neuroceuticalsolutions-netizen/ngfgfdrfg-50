@@ -1,11 +1,27 @@
 import { HeroButton } from "@/components/ui/hero-button"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
 
 export const FeaturedProducts = () => {
   const [api, setApi] = useState<CarouselApi>()
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  useEffect(() => {
+    if (!api) return
+
+    const onSelect = () => {
+      setCurrentSlide(api.selectedScrollSnap())
+    }
+
+    api.on('select', onSelect)
+    onSelect()
+
+    return () => {
+      api.off('select', onSelect)
+    }
+  }, [api])
 
   const scrollToSlide = useCallback((index: number) => {
     api?.scrollTo(index)
@@ -98,6 +114,22 @@ export const FeaturedProducts = () => {
             <CarouselPrevious className="hidden sm:block left-2 sm:left-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <CarouselNext className="hidden sm:block right-2 sm:right-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Carousel>
+
+          {/* Mobile slider indicator */}
+          <div className="flex sm:hidden justify-center gap-2 mt-6">
+            {products.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className={`h-2 rounded-full transition-all ${
+                  currentSlide === index 
+                    ? 'w-8 bg-royal-purple' 
+                    : 'w-2 bg-grey-300'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="text-center">
