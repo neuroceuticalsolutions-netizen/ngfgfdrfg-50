@@ -170,10 +170,10 @@ export const ScienceBenefits = () => {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${
+                className={`w-4 h-4 md:w-3 md:h-3 rounded-full transition-all duration-300 border-2 ${
                   index === currentIndex 
                     ? 'bg-royal-purple border-royal-purple' 
-                    : 'bg-white/80 md:bg-grey-300 border-white md:border-grey-300 hover:bg-white md:hover:bg-grey-400'
+                    : 'bg-grey-300 border-grey-400 hover:bg-grey-400'
                 }`}
               />
             ))}
