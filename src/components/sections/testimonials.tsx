@@ -1,27 +1,40 @@
+import zynLogo from "@/assets/partners/zyn-logo.png"
+import euNaturalLogo from "@/assets/partners/eu-natural-logo.png"
+import usnLogo from "@/assets/partners/usn-logo.png"
+import naokiLogo from "@/assets/partners/naoki-matcha-logo.png"
+
 const testimonials = [
   {
     quote: "The L-Theanine blend has completely transformed my daily focus without the crash I used to get from regular coffee.",
     name: "Sarah M.",
     location: "Cape Town",
-    role: "Marketing Executive"
+    role: "Marketing Executive",
+    logo: zynLogo,
+    brand: "ZYN"
   },
   {
     quote: "As someone working in high-pressure finance, these formulations help me maintain clarity during long trading sessions.",
     name: "Michael K.",
     location: "Johannesburg", 
-    role: "Financial Analyst"
+    role: "Financial Analyst",
+    logo: euNaturalLogo,
+    brand: "EU Natural"
   },
   {
     quote: "The quality and effectiveness of these products exceeded my expectations. Truly science-backed solutions.",
     name: "Dr. Priya N.",
     location: "Durban",
-    role: "Research Scientist"
+    role: "Research Scientist",
+    logo: usnLogo,
+    brand: "USN"
   },
   {
     quote: "Finally found a South African distributor I can trust for premium cognitive enhancement supplements.",
     name: "James R.",
     location: "Pretoria",
-    role: "Software Developer"
+    role: "Software Developer",
+    logo: naokiLogo,
+    brand: "Naoki"
   }
 ]
 
@@ -43,9 +56,14 @@ export const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="bg-grey-50 rounded-2xl p-6 sm:p-8 hover-lift animate-fade-in-up"
+              className="bg-grey-50 rounded-2xl p-6 sm:p-8 hover-lift animate-fade-in-up relative"
               style={{animationDelay: `${0.1 * index}s`}}
             >
+              <img 
+                src={testimonial.logo} 
+                alt={`${testimonial.brand} logo`}
+                className="absolute top-4 right-4 w-12 h-12 sm:w-16 sm:h-16 object-contain opacity-30"
+              />
               <div className="mb-6">
                 <div className="flex text-fresh-teal text-lg sm:text-xl mb-4">
                   {"★".repeat(5)}
