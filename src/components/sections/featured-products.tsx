@@ -95,8 +95,8 @@ export const FeaturedProducts = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-2 sm:left-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <CarouselNext className="right-2 sm:right-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <CarouselPrevious className="hidden sm:block left-2 sm:left-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <CarouselNext className="hidden sm:block right-2 sm:right-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Carousel>
         </div>
 
