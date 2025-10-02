@@ -117,7 +117,7 @@ export const ScienceBenefits = () => {
                   backgroundImage: `url(${currentBenefit.image})`,
                 }}
               >
-                <div className="absolute inset-0 bg-black/40"></div>
+                <div className="absolute inset-0 bg-black/40 md:pointer-events-none cursor-pointer" onClick={togglePlayPause}></div>
               </div>
               
               {/* Desktop: Right side image with diagonal clip */}
