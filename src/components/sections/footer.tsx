@@ -22,19 +22,6 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="heading-sm mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              <li><a href="#about" className="text-grey-300 hover:text-fresh-teal">About Us</a></li>
-              <li><a href="#products" className="text-grey-300 hover:text-fresh-teal">Products</a></li>
-              <li><a href="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</a></li>
-              <li><a href="#partners" className="text-grey-300 hover:text-fresh-teal">Partners</a></li>
-              <li><a href="#science" className="text-grey-300 hover:text-fresh-teal">Science</a></li>
-              <li><a href="#newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
-            </ul>
-          </div>
-
           {/* Contact Information */}
           <div>
             <h4 className="heading-sm mb-4">Contact Info</h4>
@@ -65,6 +52,19 @@ export const Footer = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="heading-sm mb-4">Quick Links</h4>
+            <ul className="space-y-2 text-xs sm:text-sm">
+              <li><a href="#about" className="text-grey-300 hover:text-fresh-teal">About Us</a></li>
+              <li><a href="#products" className="text-grey-300 hover:text-fresh-teal">Products</a></li>
+              <li><a href="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</a></li>
+              <li><a href="#partners" className="text-grey-300 hover:text-fresh-teal">Partners</a></li>
+              <li><a href="#science" className="text-grey-300 hover:text-fresh-teal">Science</a></li>
+              <li><a href="#newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
+            </ul>
           </div>
         </div>
 
