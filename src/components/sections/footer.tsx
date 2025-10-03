@@ -35,6 +35,9 @@ export const Footer = () => {
             </ul>
           </div>
 
+          {/* Empty space placeholder */}
+          <div></div>
+
           {/* Contact Information */}
           <div>
             <h4 className="heading-sm mb-4">Contact Info</h4>
