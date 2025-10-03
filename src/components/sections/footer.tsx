@@ -22,37 +22,8 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Contact Information */}
-          <div>
-            <h4 className="heading-sm mb-4">Contact Info</h4>
-            <div className="space-y-3 text-xs sm:text-sm">
-              <div className="flex items-start">
-                <Mail className="text-fresh-teal mr-2" size={16} />
-                <div>
-                  <p className="text-grey-300">Email</p>
-                  <a href="mailto:info@neuroceuticalsolutions.co.za" className="text-white hover:text-fresh-teal">
-                    info@neuroceuticalsolutions.co.za
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <Phone className="text-white mr-2" size={16} />
-                <div>
-                  <p className="text-grey-300">Phone</p>
-                  <a href="tel:+27123456789" className="text-white hover:text-fresh-teal">
-                    +27 12 345 6789
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <MapPin className="text-fresh-teal mr-2" size={16} />
-                <div>
-                  <p className="text-grey-300">Address</p>
-                  <p className="text-white">Pietermaritzburg<br />KwaZulu-Natal, South Africa</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Empty space placeholder */}
+          <div></div>
 
           {/* Quick Links */}
           <div>
@@ -65,6 +36,38 @@ export const Footer = () => {
               <li><a href="#science" className="text-grey-300 hover:text-fresh-teal">Science</a></li>
               <li><a href="#newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
             </ul>
+          </div>
+        </div>
+
+        {/* Contact Information */}
+        <div className="mb-12">
+          <h4 className="heading-sm mb-4">Contact Info</h4>
+          <div className="space-y-3 text-xs sm:text-sm">
+            <div className="flex items-start">
+              <Mail className="text-fresh-teal mr-2" size={16} />
+              <div>
+                <p className="text-grey-300">Email</p>
+                <a href="mailto:info@neuroceuticalsolutions.co.za" className="text-white hover:text-fresh-teal">
+                  info@neuroceuticalsolutions.co.za
+                </a>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <Phone className="text-white mr-2" size={16} />
+              <div>
+                <p className="text-grey-300">Phone</p>
+                <a href="tel:+27123456789" className="text-white hover:text-fresh-teal">
+                  +27 12 345 6789
+                </a>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <MapPin className="text-fresh-teal mr-2" size={16} />
+              <div>
+                <p className="text-grey-300">Address</p>
+                <p className="text-white">Pietermaritzburg<br />KwaZulu-Natal, South Africa</p>
+              </div>
+            </div>
           </div>
         </div>
 
