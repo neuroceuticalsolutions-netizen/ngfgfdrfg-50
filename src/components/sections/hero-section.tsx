@@ -28,8 +28,19 @@ export const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-            <HeroButton variant="hero" size="lg">
-              Explore Our Partners
+            <HeroButton 
+              variant="hero" 
+              size="lg"
+              asChild
+            >
+              <a href="/#featured-products" onClick={(e) => {
+                if (window.location.pathname === '/') {
+                  e.preventDefault();
+                  document.getElementById('featured-products')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}>
+                Explore Our Partners
+              </a>
             </HeroButton>
             <HeroButton variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-royal-purple">
               Learn More
