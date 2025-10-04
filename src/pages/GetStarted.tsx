@@ -115,9 +115,9 @@ const GetStarted = () => {
                   </Link>
                 </HeroButton>
                 <HeroButton variant="outline" size="lg" className="w-full" asChild>
-                  <Link to="/#featured-products">
+                  <a href="/#featured-products">
                     View Our Partners
-                  </Link>
+                  </a>
                 </HeroButton>
                 <p className="text-sm text-grey-500 text-center">
                   Exclusive access • Premium sourcing • Partnership opportunities
