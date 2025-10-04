@@ -115,7 +115,7 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.7,
     reviewCount: 189,
-    newsUrl: "https://www.usn.co.za/blogs/news"
+    newsUrl: "https://za.usn.global/blogs/news/tagged/creatine"
   },
   {
     id: "matcha-tea-premium",
