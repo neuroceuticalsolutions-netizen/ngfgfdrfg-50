@@ -102,7 +102,7 @@ const ProductDetail = () => {
                   <Link to="/contact">Contact to Order</Link>
                 </HeroButton>
                 <HeroButton variant="outline" className="flex-1" asChild>
-                  <a href="https://za.zyn.com/news-blog" target="_blank" rel="noopener noreferrer">
+                  <a href={product.newsUrl} target="_blank" rel="noopener noreferrer">
                     News Blog
                   </a>
                 </HeroButton>

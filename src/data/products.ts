@@ -19,6 +19,7 @@ export interface Product {
   inStock: boolean;
   rating: number;
   reviewCount: number;
+  newsUrl: string;
 }
 
 const zynLogo = "/lovable-uploads/da44d402-3c44-49a9-a8c7-5ba205fa1aad.png"
@@ -55,7 +56,8 @@ export const products: Product[] = [
     category: "performance",
     inStock: true,
     rating: 4.6,
-    reviewCount: 234
+    reviewCount: 234,
+    newsUrl: "https://za.zyn.com/news-blog"
   },
   {
     id: "l-theanine-caffeine-blend",
@@ -83,7 +85,8 @@ export const products: Product[] = [
     category: "cognitive",
     inStock: true,
     rating: 4.8,
-    reviewCount: 156
+    reviewCount: 156,
+    newsUrl: "https://store.eunatural.com/products/caffeine-l-theanine?srsltid=AfmBOor7d8VWggOnWz8pMzvyeW5wgIw7Wty8CCfnRbOXcyJrqgtRuPAH"
   },
   {
     id: "creatine-monohydrate",
@@ -111,7 +114,8 @@ export const products: Product[] = [
     category: "performance",
     inStock: true,
     rating: 4.7,
-    reviewCount: 189
+    reviewCount: 189,
+    newsUrl: "https://www.usn.co.za/blogs/news"
   },
   {
     id: "matcha-tea-premium",
@@ -140,7 +144,8 @@ export const products: Product[] = [
     category: "cognitive",
     inStock: true,
     rating: 4.9,
-    reviewCount: 267
+    reviewCount: 267,
+    newsUrl: "https://naokimatcha.com/blogs/news"
   }
 ];
 
