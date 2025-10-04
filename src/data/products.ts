@@ -145,7 +145,7 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.9,
     reviewCount: 267,
-    newsUrl: "https://naokimatcha.com/blogs/news"
+    newsUrl: "https://naokimatcha.com/pages/our-matcha"
   }
 ];
 
