@@ -114,11 +114,11 @@ const GetStarted = () => {
                     Schedule a Call
                   </Link>
                 </HeroButton>
-                <HeroButton variant="outline" size="lg" className="w-full" asChild>
-                  <Link to="/#featured-products">
+                <a href="/#featured-products" className="inline-flex items-center justify-center w-full">
+                  <HeroButton variant="outline" size="lg" className="w-full">
                     View Our Partners
-                  </Link>
-                </HeroButton>
+                  </HeroButton>
+                </a>
                 <p className="text-sm text-grey-500 text-center">
                   Exclusive access • Premium sourcing • Partnership opportunities
                 </p>
