@@ -141,10 +141,6 @@ export default {
 					to: {
 						height: '0'
 					}
-				},
-				'wiggle': {
-					'0%, 100%': { transform: 'rotate(-5deg) translateX(0)' },
-					'50%': { transform: 'rotate(5deg) translateX(5px)' }
 				}
 			},
 			animation: {
@@ -153,8 +149,7 @@ export default {
 				'scale-in': 'scale-in 0.4s ease-out forwards',
 				'hover-lift': 'hover-lift 0.3s ease-out forwards',
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
-				'wiggle': 'wiggle 1s ease-in-out infinite'
+				'accordion-up': 'accordion-up 0.2s ease-out'
 			}
 		}
 	},
