@@ -63,7 +63,7 @@ export const Footer = () => {
               <li><a href="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</a></li>
               <li><a href="#partners" className="text-grey-300 hover:text-fresh-teal">Partners</a></li>
               <li><a href="#science" className="text-grey-300 hover:text-fresh-teal">Science</a></li>
-              <li><a href="#newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
+              <li><a href="/newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
             </ul>
           </div>
         </div>
