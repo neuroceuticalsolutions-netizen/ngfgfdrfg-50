@@ -3,16 +3,20 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
+import { Hand } from "lucide-react"
 
 export const FeaturedProducts = () => {
   const [api, setApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const [showIndicator, setShowIndicator] = useState(true)
 
   useEffect(() => {
     if (!api) return
 
     const onSelect = () => {
       setCurrentSlide(api.selectedScrollSnap())
+      setHasInteracted(true)
     }
 
     api.on('select', onSelect)
@@ -23,8 +27,25 @@ export const FeaturedProducts = () => {
     }
   }, [api])
 
+  // Auto-hide swipe indicator after 4 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIndicator(false)
+    }, 4000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Hide indicator when user has interacted
+  useEffect(() => {
+    if (hasInteracted) {
+      setShowIndicator(false)
+    }
+  }, [hasInteracted])
+
   const scrollToSlide = useCallback((index: number) => {
     api?.scrollTo(index)
+    setHasInteracted(true)
   }, [api])
 
   return (
@@ -41,6 +62,16 @@ export const FeaturedProducts = () => {
         </div>
 
         <div className="relative mb-12">
+          {/* Swipe Indicator */}
+          {showIndicator && !hasInteracted && (
+            <div className="sm:hidden absolute right-4 top-1/2 -translate-y-1/2 z-30 pointer-events-none">
+              <div className="flex items-center gap-2 bg-royal-purple/90 text-white px-4 py-3 rounded-full shadow-elegant animate-fade-in">
+                <Hand className="w-5 h-5 animate-[wiggle_1s_ease-in-out_infinite]" />
+                <span className="text-sm font-semibold">Swipe</span>
+              </div>
+            </div>
+          )}
+          
           <Carousel className="w-full max-w-6xl mx-auto group" setApi={setApi}>
             <CarouselContent className="p-4">
               {products.map((product, index) => (
@@ -120,7 +151,10 @@ export const FeaturedProducts = () => {
             {products.map((_, index) => (
               <button
                 key={index}
-                onClick={() => api?.scrollTo(index)}
+                onClick={() => {
+                  api?.scrollTo(index)
+                  setHasInteracted(true)
+                }}
                 className={`h-2 rounded-full transition-all ${
                   currentSlide === index 
                     ? 'w-8 bg-royal-purple' 
