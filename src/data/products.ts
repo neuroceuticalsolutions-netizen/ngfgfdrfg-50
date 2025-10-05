@@ -25,7 +25,7 @@ export interface Product {
 const zynLogo = "/lovable-uploads/da44d402-3c44-49a9-a8c7-5ba205fa1aad.png"
 const usnLogo = "/lovable-uploads/dd883032-239f-4a1c-ae71-be82bb7091e5.png"
 const euNaturalLogo = "/lovable-uploads/9d2ae4ea-38f6-4827-a422-83aa2b576f6d.png"
-const naokiMatchaLogo = "/lovable-uploads/1693d746-7a78-4cb8-9cfd-99c426c36307.png"
+const naokiMatchaLogo = "/src/assets/partners/NAOKI (Transparent).png"
 
 export const products: Product[] = [
   {
