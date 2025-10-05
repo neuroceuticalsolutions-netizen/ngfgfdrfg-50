@@ -3,16 +3,20 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
+import { Hand } from "lucide-react"
 
 export const FeaturedProducts = () => {
   const [api, setApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const [showIndicator, setShowIndicator] = useState(true)
 
   useEffect(() => {
     if (!api) return
 
     const onSelect = () => {
       setCurrentSlide(api.selectedScrollSnap())
+      setHasInteracted(true)
     }
 
     api.on('select', onSelect)
@@ -23,8 +27,17 @@ export const FeaturedProducts = () => {
     }
   }, [api])
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIndicator(false)
+    }, 4000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   const scrollToSlide = useCallback((index: number) => {
     api?.scrollTo(index)
+    setHasInteracted(true)
   }, [api])
 
   return (
@@ -113,6 +126,15 @@ export const FeaturedProducts = () => {
             </CarouselContent>
             <CarouselPrevious className="hidden sm:block left-2 sm:left-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <CarouselNext className="hidden sm:block right-2 sm:right-8 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            {/* Swipe indicator for mobile */}
+            {showIndicator && !hasInteracted && (
+              <div className="sm:hidden absolute right-4 top-1/2 -translate-y-1/2 z-30 pointer-events-none">
+                <div className="bg-white/90 rounded-full p-3 shadow-large animate-swipe-hint">
+                  <Hand className="w-6 h-6 text-royal-purple" />
+                </div>
+              </div>
+            )}
           </Carousel>
 
           {/* Mobile slider indicator */}
@@ -120,7 +142,10 @@ export const FeaturedProducts = () => {
             {products.map((_, index) => (
               <button
                 key={index}
-                onClick={() => api?.scrollTo(index)}
+                onClick={() => {
+                  api?.scrollTo(index)
+                  setHasInteracted(true)
+                }}
                 className={`h-2 rounded-full transition-all ${
                   currentSlide === index 
                     ? 'w-8 bg-royal-purple' 
