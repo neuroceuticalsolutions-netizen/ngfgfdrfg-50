@@ -62,7 +62,7 @@ export const Testimonials = () => {
               <img 
                 src={testimonial.logo} 
                 alt={`${testimonial.brand} logo`}
-                className="absolute top-4 right-4 w-12 h-12 sm:w-16 sm:h-16 object-contain opacity-30"
+                className="absolute top-4 right-4 w-12 h-12 sm:w-16 sm:h-16 object-contain"
               />
               <div className="mb-6">
                 <div className="flex text-fresh-teal text-lg sm:text-xl mb-4">
