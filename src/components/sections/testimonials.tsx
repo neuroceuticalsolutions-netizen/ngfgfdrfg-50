@@ -1,7 +1,7 @@
-import zynLogo from "@/assets/partners/zyn-logo.png"
-import euNaturalLogo from "@/assets/partners/eu-natural-logo.png"
-import usnLogo from "@/assets/partners/usn-logo.png"
-import naokiLogo from "@/assets/partners/naoki-matcha-logo.png"
+import zynLogo from "@/assets/partners/zyn-logo-new.png"
+import euNaturalLogo from "@/assets/partners/eu-natural-logo-new.jpg"
+import usnLogo from "@/assets/partners/usn-logo-new.png"
+import naokiLogo from "@/assets/partners/naoki-matcha-logo-new.jpg"
 
 const testimonials = [
   {
