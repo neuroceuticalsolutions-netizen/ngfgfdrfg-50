@@ -2,6 +2,8 @@ import zynLogo from "@/assets/partners/zyn-logo-new.png"
 import euNaturalLogo from "@/assets/partners/eu-natural-logo-new.jpg"
 import usnLogo from "@/assets/partners/usn-logo-new.png"
 import naokiLogo from "@/assets/partners/naoki-matcha-logo-new.jpg"
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
 const testimonials = [
   {
@@ -52,7 +54,60 @@ export const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
+        {/* Mobile Carousel */}
+        <div className="md:hidden mb-16">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+              }),
+            ]}
+          >
+            <CarouselContent>
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index}>
+                  <div 
+                    className="bg-grey-50 rounded-2xl p-6 sm:p-8 hover-lift relative"
+                  >
+                    <img 
+                      src={testimonial.logo} 
+                      alt={`${testimonial.brand} logo`}
+                      className="absolute top-4 right-4 w-12 h-12 sm:w-16 sm:h-16 object-contain"
+                    />
+                    <div className="mb-6">
+                      <div className="flex text-fresh-teal text-lg sm:text-xl mb-4">
+                        {"★".repeat(5)}
+                      </div>
+                      <p className="body-md text-grey-700 italic leading-relaxed">
+                        "{testimonial.quote}"
+                      </p>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-hero-gradient rounded-full flex items-center justify-center mr-3 sm:mr-4">
+                        <span className="text-white font-semibold text-sm sm:text-lg">
+                          {testimonial.name.charAt(0)}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-royal-purple text-sm sm:text-base">{testimonial.name}</p>
+                        <p className="text-xs sm:text-sm text-grey-600">{testimonial.role}</p>
+                        <p className="text-xs text-fresh-teal">{testimonial.location}</p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
