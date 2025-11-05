@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
 import { Hand } from "lucide-react"
-import capsuleLeafIcon from "@/assets/capsule-leaf-icon.jpeg"
+import capsuleLeafIcon from "@/assets/capsule-leaf-icon.png"
 
 export const FeaturedProducts = () => {
   const [api, setApi] = useState<CarouselApi>()
