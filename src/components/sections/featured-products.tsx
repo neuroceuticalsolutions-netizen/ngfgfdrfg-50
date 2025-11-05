@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
 import { Hand } from "lucide-react"
+import capsuleLeafIcon from "@/assets/capsule-leaf-icon.jpeg"
 
 export const FeaturedProducts = () => {
   const [api, setApi] = useState<CarouselApi>()
@@ -110,11 +111,10 @@ export const FeaturedProducts = () => {
                         }}
                       >
                         <img 
-                          src={product.logo} 
+                          src={capsuleLeafIcon} 
                           alt={`${product.brand} logo`} 
                           className="w-24 h-24 sm:w-40 sm:h-40 object-contain transition-transform duration-200 hover:scale-105" 
                           style={{
-                            filter: 'brightness(0) invert(1)',
                             transform: 'translate3d(0, 0, 0)'
                           }}
                         />
