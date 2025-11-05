@@ -15,8 +15,8 @@ const About = () => {
             <p className="body-lg text-grey-600 mb-8 animate-fade-in-up" style={{
             animationDelay: '0.2s'
           }}>
-              We're pioneering the future of cognitive enhancement through science-backed formulations 
-              and partnerships with leading supplement manufacturers.
+              We're a sample distribution company connecting innovative products with consumers 
+              through a rigorous evaluation and distribution process.
             </p>
           </div>
         </div>
@@ -27,19 +27,49 @@ const About = () => {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
             <div>
-              <h2 className="heading-lg text-royal-purple mb-6">Our Mission</h2>
-              <p className="body-md text-grey-600 mb-6">
-                At Neuroceutical Solutions, we believe that optimal cognitive performance shouldn't be left to chance. 
-                Our mission is to bridge the gap between cutting-edge neuroscience research and accessible, 
-                effective cognitive enhancement solutions.
-              </p>
+              <h2 className="heading-lg text-royal-purple mb-6">How to Get Your Products Distributed</h2>
               <p className="body-md text-grey-600 mb-8">
-                We work exclusively with established manufacturers who share our commitment to quality, 
-                transparency, and scientific rigor, ensuring every product we offer meets the highest standards.
+                At Neuroceutical Solutions, we make the distribution process simple and transparent. 
+                Here's how we work with brands to bring their sample products to market:
               </p>
-              <HeroButton variant="hero">
-                Learn More About Our Process
-              </HeroButton>
+              
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-royal-purple/10 rounded-full flex items-center justify-center">
+                    <span className="text-lg font-bold text-royal-purple">1</span>
+                  </div>
+                  <div>
+                    <h3 className="heading-sm text-grey-900 mb-2">Reach Out to Us</h3>
+                    <p className="body-md text-grey-600">
+                      Contact us via email or direct call to start the conversation about distributing your sample products.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-royal-purple/10 rounded-full flex items-center justify-center">
+                    <span className="text-lg font-bold text-royal-purple">2</span>
+                  </div>
+                  <div>
+                    <h3 className="heading-sm text-grey-900 mb-2">Product Evaluation</h3>
+                    <p className="body-md text-grey-600">
+                      We'll thoroughly evaluate your product for market safety, quality standards, and consumer appeal.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-royal-purple/10 rounded-full flex items-center justify-center">
+                    <span className="text-lg font-bold text-royal-purple">3</span>
+                  </div>
+                  <div>
+                    <h3 className="heading-sm text-grey-900 mb-2">Decision & Next Steps</h3>
+                    <p className="body-md text-grey-600">
+                      We'll communicate our decision and work with you to determine the best approach for distributing your product samples.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="bg-grey-100 rounded-2xl p-8 text-center">
               <div className="grid grid-cols-2 gap-8">
@@ -84,8 +114,8 @@ const About = () => {
               <h3 className="heading-md text-grey-900 mb-2">Tapelo Daniel</h3>
               <p className="text-royal-purple mb-4 font-medium">Founder & CEO</p>
               <p className="body-md text-grey-600">
-                Passionate entrepreneur dedicated to making cognitive enhancement accessible to all through 
-                innovative partnerships with leading supplement manufacturers and rigorous scientific research.
+                Passionate entrepreneur dedicated to connecting innovative sample products with consumers through 
+                a careful evaluation process and strategic distribution partnerships.
               </p>
             </div>
           </div>
