@@ -112,7 +112,7 @@ const About = () => {
                 <span className="text-3xl font-bold text-royal-purple">TD</span>
               </div>
               <h3 className="heading-md text-grey-900 mb-2">Tapelo Daniel</h3>
-              <p className="text-royal-purple mb-4 font-medium">Founder & CEO</p>
+              <p className="text-royal-purple mb-4 font-medium">Founder</p>
               <p className="body-md text-grey-600">
                 Passionate entrepreneur dedicated to connecting innovative sample products with consumers through 
                 a careful evaluation process and strategic distribution partnerships.
