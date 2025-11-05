@@ -24,7 +24,7 @@ export const AboutSection = () => {
               that support cognitive function, reduce mental fatigue, and promote sustained focus throughout your day.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-8 animate-fade-in-up" style={{
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mt-8 animate-fade-in-up" style={{
             animationDelay: '0.6s'
           }}>
               <div className="text-center">
