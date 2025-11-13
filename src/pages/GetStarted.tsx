@@ -1,13 +1,11 @@
-import { Navigation } from "@/components/sections/navigation"
-import { Footer } from "@/components/sections/footer"
-import { HeroButton } from "@/components/ui/hero-button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { CheckCircle, Brain, Target, Zap, Calendar } from "lucide-react"
-import { Link } from "react-router-dom"
-
+import { Navigation } from "@/components/sections/navigation";
+import { Footer } from "@/components/sections/footer";
+import { HeroButton } from "@/components/ui/hero-button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CheckCircle, Brain, Target, Zap, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 const GetStarted = () => {
-  return (
-    <main className="min-h-screen bg-background">
+  return <main className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
@@ -84,19 +82,10 @@ const GetStarted = () => {
                 What You'll Experience
               </h2>
               <div className="space-y-4">
-                {[
-                  "Enhanced focus and mental clarity",
-                  "Reduced stress and anxiety",
-                  "Improved cognitive performance",
-                  "Better energy levels throughout the day",
-                  "Science-backed, safe formulations",
-                  "Expert guidance and support"
-                ].map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-3">
+                {["Enhanced focus and mental clarity", "Reduced stress and anxiety", "Improved cognitive performance", "Better energy levels throughout the day", "Science-backed, safe formulations", "Expert guidance and support"].map((benefit, index) => <div key={index} className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-fresh-teal flex-shrink-0" />
                     <span className="text-grey-700">{benefit}</span>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
             
@@ -109,10 +98,7 @@ const GetStarted = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <HeroButton variant="hero" size="lg" className="w-full" asChild>
-                  <Link to="/contact">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    Schedule a Call
-                  </Link>
+                  
                 </HeroButton>
                 <HeroButton variant="outline" size="lg" className="w-full" asChild>
                   <Link to="/#featured-products">
@@ -184,8 +170,6 @@ const GetStarted = () => {
       </section>
 
       <Footer />
-    </main>
-  )
-}
-
-export default GetStarted
+    </main>;
+};
+export default GetStarted;
