@@ -54,7 +54,7 @@ export const products: Product[] = [
       { src: "/lovable-uploads/cd2988b2-7af8-4dbc-94c2-89f7f43cd7a2.png", alt: "ZYN Nicotine Pouches - Coffee 3mg" },
       { src: "/lovable-uploads/1f359ed7-fe0b-46fc-b272-4121643f40e3.png", alt: "ZYN Nicotine Pouches - Peach 6mg" }
     ],
-    backgroundColor: "#18a9dc",
+    backgroundColor: "#0ea5e9",
     category: "performance",
     inStock: true,
     rating: 4.6,
@@ -83,7 +83,7 @@ export const products: Product[] = [
       { src: "/lovable-uploads/91467fde-fa61-480d-b22a-adb403ab89b8.png", alt: "Potent Nootropic Blend - Caffeine & L-Theanine" },
       { src: "/lovable-uploads/58fac0ca-c5d1-46d8-9b9d-37226c16d6e4.png", alt: "Power Through Work, Study, & Life with Elite Focus" }
     ],
-    backgroundColor: "#056e8c",
+    backgroundColor: "#059669",
     category: "cognitive",
     inStock: true,
     rating: 4.8,
@@ -112,7 +112,7 @@ export const products: Product[] = [
       { src: "/lovable-uploads/d00b21a9-9653-498d-9082-919da9cf51b5.png", alt: "3-in-1 Creatine Label - 5500mg Muscle Growth Stack with Creatine Monohydrate & Aminos" },
       { src: "/lovable-uploads/c9364dfe-fd09-4a94-a451-12940ee063e5.png", alt: "USN Creatine Flavours - Available in Unflavoured, Orange & Grape with Usage Instructions" }
     ],
-    backgroundColor: "#0156a6",
+    backgroundColor: "#1e40af",
     category: "performance",
     inStock: true,
     rating: 4.7,
@@ -142,7 +142,7 @@ export const products: Product[] = [
       { src: "/lovable-uploads/7610a0a9-d856-421c-aae0-294f428d6468.png", alt: "Pouring Fresh Matcha Tea" },
       { src: "/lovable-uploads/d6cbbb6a-312c-4fbe-8cc4-8ca60a0e4f7a.png", alt: "Stirring Matcha Tea with Traditional Tools" }
     ],
-    backgroundColor: "#203c43",
+    backgroundColor: "#065f46",
     category: "cognitive",
     inStock: true,
     rating: 4.9,
