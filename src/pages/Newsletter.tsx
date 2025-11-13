@@ -80,7 +80,6 @@ const Newsletter = () => {
               for the latest research, expert insights, and practical tips.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Badge variant="secondary">10,000+ Subscribers</Badge>
               <Badge variant="secondary">Weekly Updates</Badge>
               <Badge variant="secondary">Evidence-Based</Badge>
               <Badge variant="secondary">Expert Curated</Badge>
