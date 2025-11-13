@@ -25,7 +25,7 @@ const About = () => {
       {/* Mission Section */}
       <section className="py-20">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
+          <div className="max-w-3xl mx-auto mb-20">
             <div>
               <h2 className="heading-lg text-royal-purple mb-6">How to Get Your Products Distributed</h2>
               <p className="body-md text-grey-600 mb-8">
@@ -68,26 +68,6 @@ const About = () => {
                       We'll communicate our decision and work with you to determine the best approach for distributing your product samples.
                     </p>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-grey-100 rounded-2xl p-8 text-center">
-              <div className="grid grid-cols-2 gap-8">
-                <div>
-                  <div className="text-3xl font-bold text-royal-purple mb-2">50+</div>
-                  <div className="text-sm text-grey-600">Research Studies</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-royal-purple mb-2">10+</div>
-                  <div className="text-sm text-grey-600">Partner Brands</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-royal-purple mb-2">1000+</div>
-                  <div className="text-sm text-grey-600">Satisfied Customers</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-royal-purple mb-2">99%</div>
-                  <div className="text-sm text-grey-600">Quality Rating</div>
                 </div>
               </div>
             </div>
