@@ -76,8 +76,8 @@ const Newsletter = () => {
               Stay Ahead with Cognitive Science Insights
             </h1>
             <p className="body-lg text-grey-600 mb-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-              Join thousands of cognitive enhancement enthusiasts who rely on our newsletter 
-              for the latest research, expert insights, and practical tips.
+              Stay informed about free sample campaigns, new product launches, and partnership 
+              announcements across South Africa. Be first to try innovative cognitive enhancement products.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <Badge variant="secondary">Weekly Updates</Badge>
