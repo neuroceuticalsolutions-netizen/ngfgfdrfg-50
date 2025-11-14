@@ -73,7 +73,7 @@ const Newsletter = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="heading-xl text-royal-purple mb-6 animate-fade-in-up">
-              Stay Ahead with Cognitive Science Insights
+              Get Free Samples & Early Product Access
             </h1>
             <p className="body-lg text-grey-600 mb-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
               Stay informed about free sample campaigns, new product launches, and partnership 
