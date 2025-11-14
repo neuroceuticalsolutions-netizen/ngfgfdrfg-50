@@ -81,8 +81,8 @@ const Newsletter = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <Badge variant="secondary">Weekly Updates</Badge>
-              <Badge variant="secondary">Evidence-Based</Badge>
-              <Badge variant="secondary">Expert Curated</Badge>
+              <Badge variant="secondary">Free Samples</Badge>
+              <Badge variant="secondary">Product Launches</Badge>
             </div>
           </div>
         </div>
