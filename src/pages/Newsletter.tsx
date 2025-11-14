@@ -12,7 +12,7 @@ const Newsletter = () => {
         </svg>
       ),
       title: "Free Sample Campaigns",
-      description: "Get notified when new free sample campaigns launch and be among the first to try products"
+      description: "Get notified when new nootropics and brain-enhancing product samples launch in South Africa"
     },
     {
       icon: (
@@ -21,7 +21,7 @@ const Newsletter = () => {
         </svg>
       ),
       title: "Early Product Access",
-      description: "Be first to know about new product launches before they hit the market"
+      description: "Be first to know about new cognitive enhancement and nootropic product launches"
     },
     {
       icon: (
@@ -39,7 +39,7 @@ const Newsletter = () => {
         </svg>
       ),
       title: "Exclusive Offers",
-      description: "Receive subscriber-only discounts and special promotions on cognitive enhancement products"
+      description: "Receive subscriber-only discounts and special promotions on nootropics and brain-enhancing supplements"
     }
   ]
 
@@ -76,8 +76,8 @@ const Newsletter = () => {
               Get Free Samples & Early Product Access
             </h1>
             <p className="body-lg text-grey-600 mb-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-              Stay informed about free sample campaigns, new product launches, and partnership 
-              announcements across South Africa. Be first to try innovative cognitive enhancement products.
+              Stay informed about free sample campaigns, new nootropics launches, and partnership 
+              announcements across South Africa. Be first to try brain-enhancing products designed to optimize your cognitive performance.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <Badge variant="secondary">Weekly Updates</Badge>
@@ -93,9 +93,9 @@ const Newsletter = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="heading-lg text-royal-purple mb-6">What You'll Get</h2>
-            <p className="body-lg text-grey-600 max-w-3xl mx-auto">
-              Our newsletter keeps you connected to the latest free samples, product launches, 
-              and exclusive opportunities to try cognitive enhancement products across South Africa.
+            <p className="body-lg text-grey-600 max-w-3xl mx-auto mb-12 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
+              Our newsletter keeps you connected to the latest free samples, nootropics launches, and exclusive 
+              opportunities to try brain-enhancing products that optimize mental performance across South Africa.
             </p>
           </div>
 

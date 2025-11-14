@@ -4,21 +4,40 @@ import { HeroButton } from "@/components/ui/hero-button"
 import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
+import { useState } from "react"
 
 const Products = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  
   const cognitiveProducts = products.filter(p => p.category === 'cognitive');
+  const energyProducts = products.filter(p => p.category === 'energy');
   const performanceProducts = products.filter(p => p.category === 'performance');
+  
+  const getFilteredProducts = () => {
+    if (selectedCategory === 'all') return products;
+    return products.filter(p => p.category === selectedCategory);
+  };
+  
+  const filteredProducts = getFilteredProducts();
   
   const productCategories = [
     {
-      name: "Cognitive Enhancement",
-      description: "Boost focus, memory, and mental clarity",
-      products: cognitiveProducts
+      name: "Nootropics & Cognitive Enhancement",
+      description: "Science-backed brain-enhancing supplements for focus, memory, and mental clarity",
+      products: cognitiveProducts,
+      category: 'cognitive'
     },
     {
-      name: "Energy & Performance", 
-      description: "Natural energy without the crash",
-      products: performanceProducts
+      name: "Energy Optimization", 
+      description: "Natural energy supplements without the crash",
+      products: energyProducts,
+      category: 'energy'
+    },
+    {
+      name: "Performance Enhancement", 
+      description: "Products designed to optimize physical and mental performance",
+      products: performanceProducts,
+      category: 'performance'
     }
   ]
 
@@ -31,11 +50,11 @@ const Products = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="heading-xl text-royal-purple mb-6 animate-fade-in-up">
-              Premium Cognitive Enhancement Products
+              Premium Nootropics & Brain Enhancement
             </h1>
             <p className="body-lg text-grey-600 mb-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-              Discover our carefully curated selection of science-backed supplements from 
-              trusted manufacturers, designed to optimize your cognitive performance.
+              Discover our carefully curated selection of science-backed nootropics and brain-enhancing supplements from 
+              trusted manufacturers, designed to optimize your cognitive performance and mental clarity.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <Badge variant="secondary">Science-Backed</Badge>
@@ -43,12 +62,57 @@ const Products = () => {
               <Badge variant="secondary">Premium Quality</Badge>
               <Badge variant="secondary">Trusted Brands</Badge>
             </div>
+            
+            {/* Category Filter */}
+            <div className="flex flex-wrap justify-center gap-3 mt-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`px-6 py-2 rounded-full transition-all ${
+                  selectedCategory === 'all'
+                    ? 'bg-royal-purple text-white shadow-medium'
+                    : 'bg-white text-grey-700 hover:bg-grey-100 border border-grey-300'
+                }`}
+              >
+                All Products
+              </button>
+              <button
+                onClick={() => setSelectedCategory('cognitive')}
+                className={`px-6 py-2 rounded-full transition-all ${
+                  selectedCategory === 'cognitive'
+                    ? 'bg-royal-purple text-white shadow-medium'
+                    : 'bg-white text-grey-700 hover:bg-grey-100 border border-grey-300'
+                }`}
+              >
+                Nootropics
+              </button>
+              <button
+                onClick={() => setSelectedCategory('energy')}
+                className={`px-6 py-2 rounded-full transition-all ${
+                  selectedCategory === 'energy'
+                    ? 'bg-royal-purple text-white shadow-medium'
+                    : 'bg-white text-grey-700 hover:bg-grey-100 border border-grey-300'
+                }`}
+              >
+                Energy
+              </button>
+              <button
+                onClick={() => setSelectedCategory('performance')}
+                className={`px-6 py-2 rounded-full transition-all ${
+                  selectedCategory === 'performance'
+                    ? 'bg-royal-purple text-white shadow-medium'
+                    : 'bg-white text-grey-700 hover:bg-grey-100 border border-grey-300'
+                }`}
+              >
+                Performance
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Product Categories */}
-      {productCategories.map((category, categoryIndex) => (
+      {/* Filtered Products Display */}
+      {selectedCategory === 'all' ? (
+        productCategories.map((category, categoryIndex) => (
         <section key={categoryIndex} className={`py-20 ${categoryIndex % 2 === 1 ? 'bg-subtle-gradient' : ''}`}>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
@@ -103,7 +167,71 @@ const Products = () => {
             </div>
           </div>
         </section>
-      ))}
+      ))
+      ) : (
+        <section className="py-20">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="heading-lg text-royal-purple mb-4">
+                {selectedCategory === 'cognitive' && 'Nootropics & Cognitive Enhancement'}
+                {selectedCategory === 'energy' && 'Energy Optimization'}
+                {selectedCategory === 'performance' && 'Performance Enhancement'}
+              </h2>
+              <p className="body-lg text-grey-600 max-w-2xl mx-auto">
+                {selectedCategory === 'cognitive' && 'Science-backed brain-enhancing supplements for focus, memory, and mental clarity'}
+                {selectedCategory === 'energy' && 'Natural energy supplements without the crash'}
+                {selectedCategory === 'performance' && 'Products designed to optimize physical and mental performance'}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {filteredProducts.map((product, productIndex) => (
+                <div key={productIndex} className="bg-white rounded-2xl shadow-medium overflow-hidden hover:shadow-large transition-shadow duration-300">
+                  <div className="aspect-video bg-grey-100 relative overflow-hidden">
+                    <img 
+                      src={product.productImage} 
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <Badge variant="outline" className="bg-white/90">
+                        {product.brand}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="p-8">
+                    <div className="mb-4">
+                      <h3 className="heading-sm text-grey-900">{product.name}</h3>
+                    </div>
+                    
+                    <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
+                    
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {product.benefits.map((benefit, benefitIndex) => (
+                        <Badge key={benefitIndex} variant="secondary" className="text-xs">
+                          {benefit}
+                        </Badge>
+                      ))}
+                    </div>
+                    
+                    <div className="flex gap-3">
+                      <HeroButton variant="hero" className="flex-1">
+                        Contact Sales
+                      </HeroButton>
+                      <Link to={`/products/${product.slug}`}>
+                        <HeroButton variant="outline" size="default">
+                          Learn More
+                        </HeroButton>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Why Choose Our Products */}
       <section className="py-20 bg-royal-purple text-white">
