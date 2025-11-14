@@ -8,38 +8,38 @@ const Newsletter = () => {
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+        </svg>
+      ),
+      title: "Free Sample Campaigns",
+      description: "Get notified when new free sample campaigns launch and be among the first to try products"
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       ),
-      title: "Latest Research Updates",
-      description: "Stay informed about breakthrough studies in cognitive enhancement and neuroscience"
+      title: "Early Product Access",
+      description: "Be first to know about new product launches before they hit the market"
     },
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
       ),
-      title: "Expert Insights & Tips",
-      description: "Get practical advice from neuroscientists and cognitive enhancement experts"
+      title: "Partnership Announcements",
+      description: "Stay updated on new brand partnerships and exclusive collaborations across South Africa"
     },
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-      title: "Exclusive Product Access",
-      description: "Be first to know about new products and exclusive subscriber discounts"
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z" />
-        </svg>
-      ),
-      title: "Performance Tracking",
-      description: "Learn how to measure and optimize your cognitive performance over time"
+      title: "Exclusive Offers",
+      description: "Receive subscriber-only discounts and special promotions on cognitive enhancement products"
     }
   ]
 
@@ -94,8 +94,8 @@ const Newsletter = () => {
           <div className="text-center mb-16">
             <h2 className="heading-lg text-royal-purple mb-6">What You'll Get</h2>
             <p className="body-lg text-grey-600 max-w-3xl mx-auto">
-              Our newsletter delivers actionable insights that help you optimize your 
-              cognitive performance and stay informed about the latest developments.
+              Our newsletter keeps you connected to the latest free samples, product launches, 
+              and exclusive opportunities to try cognitive enhancement products across South Africa.
             </p>
           </div>
 
