@@ -4,6 +4,7 @@ import { HeroButton } from "@/components/ui/hero-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Brain, Target, Zap, Calendar, Mail, Search } from "lucide-react";
 import { Link } from "react-router-dom";
+import { PartnerContactForm } from "@/components/sections/partner-contact-form";
 const GetStarted = () => {
   return <main className="min-h-screen bg-background">
       <Navigation />
@@ -194,8 +195,11 @@ const GetStarted = () => {
         </div>
       </section>
 
+      {/* Contact Form Section */}
+      <PartnerContactForm />
+
       {/* FAQ Section */}
-      <section className="py-16">
+      <section className="py-16 bg-grey-50">
         <div className="container mx-auto px-6">
           <h2 className="heading-lg text-center text-royal-purple mb-12">
             Frequently Asked Questions
