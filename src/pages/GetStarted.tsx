@@ -79,10 +79,10 @@ const GetStarted = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="heading-lg text-royal-purple mb-6">
-                What You'll Experience
+                What You'll Get
               </h2>
               <div className="space-y-4">
-                {["Enhanced focus and mental clarity", "Reduced stress and anxiety", "Improved cognitive performance", "Better energy levels throughout the day", "Science-backed, safe formulations", "Expert guidance and support"].map((benefit, index) => <div key={index} className="flex items-center gap-3">
+                {["Access to premium distribution network", "Comprehensive product evaluation and feedback", "Market insights and consumer analytics", "Partnership with established retail channels", "Expert guidance on product positioning", "Increased brand visibility in South Africa"].map((benefit, index) => <div key={index} className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-fresh-teal flex-shrink-0" />
                     <span className="text-grey-700">{benefit}</span>
                   </div>)}
@@ -91,9 +91,9 @@ const GetStarted = () => {
             
             <Card className="p-8 border-grey-200">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="text-royal-purple mb-2">Ready to Connect?</CardTitle>
+                <CardTitle className="text-royal-purple mb-2">Ready to Partner?</CardTitle>
                 <CardDescription>
-                  Speak with our team about accessing premium cognitive enhancement products and exclusive partnerships.
+                  Connect with our distribution team to discuss getting your products into the South African market.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -106,7 +106,7 @@ const GetStarted = () => {
                   </Link>
                 </HeroButton>
                 <p className="text-sm text-grey-500 text-center">
-                  Exclusive access • Premium sourcing • Partnership opportunities
+                  Premium distribution • Market access • Partnership opportunities
                 </p>
               </CardContent>
             </Card>
