@@ -73,8 +73,88 @@ const GetStarted = () => {
         </div>
       </section>
 
-      {/* Benefits Checklist */}
+      {/* Requirements Section */}
       <section className="py-16 bg-grey-50">
+        <div className="container mx-auto px-6">
+          <h2 className="heading-lg text-center text-royal-purple mb-4">
+            Partner Requirements
+          </h2>
+          <p className="body-lg text-grey-600 text-center max-w-2xl mx-auto mb-12">
+            To ensure we maintain the highest standards for our distribution network, we look for partners who meet the following criteria.
+          </p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="border-grey-200">
+              <CardHeader>
+                <CardTitle className="text-lg text-royal-purple">Quality Certifications</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-grey-600">
+                  Products must have relevant quality certifications (e.g., GMP, ISO, or equivalent standards) to ensure safety and efficacy.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-grey-200">
+              <CardHeader>
+                <CardTitle className="text-lg text-royal-purple">Product Documentation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-grey-600">
+                  Complete ingredient lists, third-party testing results, and compliance documentation for South African market regulations.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-grey-200">
+              <CardHeader>
+                <CardTitle className="text-lg text-royal-purple">Minimum Order Quantities</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-grey-600">
+                  Ability to fulfill minimum order quantities for distribution partnerships and maintain consistent supply chain.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-grey-200">
+              <CardHeader>
+                <CardTitle className="text-lg text-royal-purple">Safety & Compliance</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-grey-600">
+                  Full compliance with South African health regulations and proper product labeling in accordance with local laws.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-grey-200">
+              <CardHeader>
+                <CardTitle className="text-lg text-royal-purple">Market Readiness</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-grey-600">
+                  Products should be market-ready with professional packaging, branding, and consumer-facing materials.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-grey-200">
+              <CardHeader>
+                <CardTitle className="text-lg text-royal-purple">Brand Values Alignment</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-grey-600">
+                  Commitment to transparency, quality, and ethical business practices that align with our distribution standards.
+                </CardDescription>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Checklist */}
+      <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
