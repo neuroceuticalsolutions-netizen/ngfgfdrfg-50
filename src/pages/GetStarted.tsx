@@ -2,7 +2,7 @@ import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { HeroButton } from "@/components/ui/hero-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Brain, Target, Zap, Calendar } from "lucide-react";
+import { CheckCircle, Brain, Target, Zap, Calendar, Mail, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 const GetStarted = () => {
   return <main className="min-h-screen bg-background">
@@ -31,13 +31,13 @@ const GetStarted = () => {
             <Card className="text-center border-grey-200 hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="mx-auto w-16 h-16 bg-royal-purple/10 rounded-full flex items-center justify-center mb-4">
-                  <Target className="w-8 h-8 text-royal-purple" />
+                  <Mail className="w-8 h-8 text-royal-purple" />
                 </div>
-                <CardTitle className="text-royal-purple">1. Identify Your Goals</CardTitle>
+                <CardTitle className="text-royal-purple">1. Reach Out to Us</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Determine what you want to achieve - better focus, stress relief, or enhanced mental performance.
+                  Contact us via email or direct call to start the conversation about distributing your sample products.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -45,13 +45,13 @@ const GetStarted = () => {
             <Card className="text-center border-grey-200 hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="mx-auto w-16 h-16 bg-fresh-teal/10 rounded-full flex items-center justify-center mb-4">
-                  <Brain className="w-8 h-8 text-fresh-teal" />
+                  <Search className="w-8 h-8 text-fresh-teal" />
                 </div>
-                <CardTitle className="text-royal-purple">2. Choose Your Solution</CardTitle>
+                <CardTitle className="text-royal-purple">2. Product Evaluation</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Explore our carefully selected products from leading neuroceutical brands.
+                  We'll thoroughly evaluate your product for market safety, quality standards, and consumer appeal.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -59,13 +59,13 @@ const GetStarted = () => {
             <Card className="text-center border-grey-200 hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="mx-auto w-16 h-16 bg-royal-purple/10 rounded-full flex items-center justify-center mb-4">
-                  <Zap className="w-8 h-8 text-royal-purple" />
+                  <Calendar className="w-8 h-8 text-royal-purple" />
                 </div>
-                <CardTitle className="text-royal-purple">3. Start Your Journey</CardTitle>
+                <CardTitle className="text-royal-purple">3. Decision & Next Steps</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Begin with our recommended protocols and track your progress.
+                  We'll communicate our decision and work with you to determine the best approach for distributing your product samples.
                 </CardDescription>
               </CardContent>
             </Card>
