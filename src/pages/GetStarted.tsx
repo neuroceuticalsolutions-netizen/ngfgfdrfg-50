@@ -10,13 +10,17 @@ const GetStarted = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-gradient-to-br from-royal-purple/10 to-fresh-teal/10">
+      <section className="pt-24 pb-12 bg-gradient-to-br from-royal-purple to-royal-purple/80">
         <div className="container mx-auto px-6 text-center">
-          <h1 className="heading-xl text-royal-purple mb-6">
-            Start Your Journey to Mental Clarity
+          <div className="inline-block px-4 py-2 bg-fresh-teal/20 rounded-full mb-6">
+            <span className="text-white font-semibold text-sm">FOR BRANDS & DISTRIBUTORS</span>
+          </div>
+          <h1 className="heading-xl text-white mb-6">
+            Partner With Us for Distribution
           </h1>
-          <p className="body-lg text-grey-600 max-w-2xl mx-auto mb-8">
-            Take the first step towards enhanced focus, reduced stress, and improved cognitive performance with our science-backed neuroceutical solutions.
+          <p className="body-lg text-white/90 max-w-2xl mx-auto mb-8">
+            Get your premium neuroceutical products distributed in South Africa's growing cognitive enhancement market. 
+            We connect innovative brands with consumers through our trusted distribution network.
           </p>
         </div>
       </section>

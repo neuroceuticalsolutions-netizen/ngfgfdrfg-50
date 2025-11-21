@@ -23,8 +23,8 @@ export const HeroSection = () => {
           </h1>
           
           <p className="body-lg text-grey-100 mb-8 max-w-2xl mx-auto md:mx-0 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-            Partnering with leading neuroceutical brands to bring you science-backed 
-            solutions for focus, energy, and stress relief.
+            Bringing premium, science-backed neuroceutical products to South African consumers 
+            through trusted partnerships with innovative brands worldwide.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{animationDelay: '0.4s'}}>
@@ -33,17 +33,19 @@ export const HeroSection = () => {
               size="lg"
               asChild
             >
-              <a href="/#featured-products" onClick={(e) => {
-                if (window.location.pathname === '/') {
-                  e.preventDefault();
-                  document.getElementById('featured-products')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}>
-                Explore Our Partners
+              <a href="/products">
+                Explore Products
               </a>
             </HeroButton>
-            <HeroButton variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-royal-purple">
-              Learn More
+            <HeroButton 
+              variant="outline" 
+              size="lg" 
+              className="border-white text-white hover:bg-white hover:text-royal-purple"
+              asChild
+            >
+              <a href="/get-started">
+                Partner With Us
+              </a>
             </HeroButton>
           </div>
         </div>

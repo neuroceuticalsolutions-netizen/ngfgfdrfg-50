@@ -15,8 +15,7 @@ const About = () => {
             <p className="body-lg text-grey-600 mb-8 animate-fade-in-up" style={{
             animationDelay: '0.2s'
           }}>
-              We're a sample distribution company connecting innovative products with consumers 
-              through a rigorous evaluation and distribution process.
+              Your trusted source for premium, science-backed neuroceutical products in South Africa.
             </p>
           </div>
         </div>
@@ -25,51 +24,46 @@ const About = () => {
       {/* Mission Section */}
       <section className="py-20">
         <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto mb-20">
-            <div>
-              <h2 className="heading-lg text-royal-purple mb-6">How to Get Your Products Distributed</h2>
-              <p className="body-md text-grey-600 mb-8">
-                At Neuroceutical Solutions, we make the distribution process simple and transparent. 
-                Here's how we work with brands to bring their sample products to market:
-              </p>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-royal-purple/10 rounded-full flex items-center justify-center">
-                    <span className="text-lg font-bold text-royal-purple">1</span>
-                  </div>
-                  <div>
-                    <h3 className="heading-sm text-grey-900 mb-2">Reach Out to Us</h3>
-                    <p className="body-md text-grey-600">
-                      Contact us via email or direct call to start the conversation about distributing your sample products.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-royal-purple/10 rounded-full flex items-center justify-center">
-                    <span className="text-lg font-bold text-royal-purple">2</span>
-                  </div>
-                  <div>
-                    <h3 className="heading-sm text-grey-900 mb-2">Product Evaluation</h3>
-                    <p className="body-md text-grey-600">
-                      We'll thoroughly evaluate your product for market safety, quality standards, and consumer appeal.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-royal-purple/10 rounded-full flex items-center justify-center">
-                    <span className="text-lg font-bold text-royal-purple">3</span>
-                  </div>
-                  <div>
-                    <h3 className="heading-sm text-grey-900 mb-2">Decision & Next Steps</h3>
-                    <p className="body-md text-grey-600">
-                      We'll communicate our decision and work with you to determine the best approach for distributing your product samples.
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div className="max-w-3xl mx-auto">
+            <h2 className="heading-lg text-royal-purple mb-6 text-center">Our Mission</h2>
+            <p className="body-lg text-grey-600 mb-6 text-center">
+              Bringing premium neuroceutical products to South African consumers through rigorous evaluation and trusted partnerships.
+            </p>
+            <p className="body-md text-grey-600 mb-8">
+              At Neuroceutical Solutions, we're passionate about making cutting-edge cognitive enhancement accessible to you. 
+              We partner with leading international brands to bring you science-backed products that have been thoroughly 
+              evaluated for quality, safety, and effectiveness. Every product in our catalog meets our strict standards, 
+              so you can trust that you're getting the very best for your mental performance.
+            </p>
+            
+            <div className="bg-white rounded-2xl p-8 shadow-medium">
+              <h3 className="heading-sm text-royal-purple mb-4">Why Trust Us?</h3>
+              <ul className="space-y-3 text-grey-700">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-fresh-teal mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Rigorous product evaluation process ensuring only premium quality products</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-fresh-teal mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Partnerships with trusted international brands backed by science</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-fresh-teal mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Based in South Africa, serving our local community with premium cognitive solutions</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-fresh-teal mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Commitment to transparency, quality, and your cognitive wellness journey</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

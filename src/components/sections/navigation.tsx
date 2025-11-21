@@ -40,7 +40,7 @@ export const Navigation = () => {
           <div className="hidden md:block">
             <Link to="/get-started">
               <HeroButton variant="hero" size="sm">
-                Get Started
+                Partner With Us
               </HeroButton>
             </Link>
           </div>
@@ -94,7 +94,7 @@ export const Navigation = () => {
               </Link>
               <Link to="/get-started" onClick={() => setIsMobileMenuOpen(false)}>
                 <HeroButton variant="hero" size="sm" className="w-full mt-2">
-                  Get Started
+                  Partner With Us
                 </HeroButton>
               </Link>
             </div>
