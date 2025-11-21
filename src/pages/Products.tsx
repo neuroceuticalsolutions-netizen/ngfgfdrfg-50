@@ -152,9 +152,11 @@ const Products = () => {
                     </div>
                     
                     <div className="flex gap-3">
-                      <HeroButton variant="hero" className="flex-1">
-                        Contact Sales
-                      </HeroButton>
+                      <Link to="/contact" className="flex-1">
+                        <HeroButton variant="hero" className="w-full">
+                          Get Product Info
+                        </HeroButton>
+                      </Link>
                       <Link to={`/products/${product.slug}`}>
                         <HeroButton variant="outline" size="default">
                           Learn More
@@ -216,9 +218,11 @@ const Products = () => {
                     </div>
                     
                     <div className="flex gap-3">
-                      <HeroButton variant="hero" className="flex-1">
-                        Contact Sales
-                      </HeroButton>
+                      <Link to="/contact" className="flex-1">
+                        <HeroButton variant="hero" className="w-full">
+                          Get Product Info
+                        </HeroButton>
+                      </Link>
                       <Link to={`/products/${product.slug}`}>
                         <HeroButton variant="outline" size="default">
                           Learn More
