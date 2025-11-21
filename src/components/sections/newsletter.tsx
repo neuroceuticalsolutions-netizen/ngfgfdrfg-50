@@ -23,7 +23,7 @@ export const Newsletter = () => {
             <h2 className="heading-lg mb-4">Thank You!</h2>
             <p className="body-lg opacity-90">
               You've successfully subscribed to our newsletter. 
-              Stay tuned for updates on free samples and new partnerships.
+              Stay tuned for updates on free samples and new product launches.
             </p>
           </div>
         </div>
@@ -40,8 +40,8 @@ export const Newsletter = () => {
           </h2>
           
           <p className="body-md sm:body-lg mb-8 opacity-90 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-            Sign up to get updates on free sample campaigns, new partnerships, 
-            and product launches across South Africa.
+            Sign up to get updates on free sample campaigns, new product launches, 
+            and exclusive offers across South Africa.
           </p>
 
           <form onSubmit={handleSubmit} className="max-w-sm sm:max-w-md mx-auto animate-fade-in-up" style={{animationDelay: '0.4s'}}>
@@ -70,7 +70,7 @@ export const Newsletter = () => {
             <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-3">
               <span className="bg-white/10 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Free Sample Campaigns</span>
               <span className="bg-white/10 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">New Product Launches</span>
-              <span className="bg-white/10 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Partnership Announcements</span>
+              <span className="bg-white/10 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">New Product Launches</span>
               <span className="bg-white/10 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">Educational Content</span>
             </div>
           </div>

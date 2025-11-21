@@ -18,7 +18,7 @@ const Contact = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="heading-xl text-royal-purple mb-6">Contact Us</h1>
             <p className="body-lg text-grey-600 mb-12">
-              Ready to place an order or have questions about our products? Get in touch with us today.
+              Have questions about our products? Want to learn more about cognitive enhancement? Get in touch with us today.
             </p>
           </div>
         </div>
@@ -31,9 +31,9 @@ const Contact = () => {
             {/* Contact Form */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-royal-purple">Send us a Message</CardTitle>
+                <CardTitle className="text-royal-purple">Get Product Information</CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  Interested in our products? Fill out the form below and we'll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -70,7 +70,7 @@ const Contact = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
-                  <Textarea id="message" placeholder="Tell us about your order or any questions you have..." rows={5} />
+                  <Textarea id="message" placeholder="Tell us about your interest in our products or any questions you have..." rows={5} />
                 </div>
                 <HeroButton variant="hero" className="w-full">
                   Send Message
@@ -92,7 +92,7 @@ const Contact = () => {
                     <Mail className="h-6 w-6 text-royal-purple" />
                     <div>
                       <p className="font-semibold">Email</p>
-                      <p className="text-grey-600">orders@neuroceutical.co.za</p>
+                      <p className="text-grey-600">info@neuroceuticalsolutions.co.za</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
