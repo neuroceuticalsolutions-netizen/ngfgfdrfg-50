@@ -7,36 +7,36 @@ import Autoplay from "embla-carousel-autoplay"
 
 const testimonials = [
   {
-    quote: "The L-Theanine blend has completely transformed my daily focus without the crash I used to get from regular coffee.",
-    name: "Sarah M.",
-    location: "Cape Town",
-    role: "Marketing Executive",
+    quote: "So far I've enjoyed Zyn. Just trying to find the right flavours and strength. What has stood out so far is that Zyn placed a follow up call for my order to ask how I was doing with the product. Really nice lady Lily called and checked how I liked the product.",
+    name: "Don H.",
+    location: "United Kingdom",
+    role: "Verified Customer",
     logo: zynLogo,
     brand: "ZYN"
   },
   {
-    quote: "As someone working in high-pressure finance, these formulations help me maintain clarity during long trading sessions.",
-    name: "Michael K.",
-    location: "Johannesburg", 
-    role: "Financial Analyst",
+    quote: "Absolutely love this product. The caffeine is gradual and it actually works. I use it when I'm about to workout or when I need to focus at work. It's the real deal.",
+    name: "Tiffany C.",
+    location: "United States", 
+    role: "Verified Customer",
     logo: euNaturalLogo,
     brand: "EU Natural"
   },
   {
-    quote: "The quality and effectiveness of these products exceeded my expectations. Truly science-backed solutions.",
-    name: "Dr. Priya N.",
-    location: "Durban",
-    role: "Research Scientist",
+    quote: "Great! This creatine is a game-changer. It gives you a great entrance for the workout by noticeably improving my strength and endurance from the first set.",
+    name: "Bayanda",
+    location: "South Africa",
+    role: "Verified Reviewer",
     logo: usnLogo,
     brand: "USN"
   },
   {
-    quote: "Finally found a South African distributor I can trust for premium cognitive enhancement supplements.",
-    name: "James R.",
-    location: "Pretoria",
-    role: "Software Developer",
+    quote: "I appreciated Naoki Matcha's aesthetic for one simple reason. They appeared to be a no-nonsense matcha company. They told it like it was, and provided all the necessary information about the products they offered.",
+    name: "Greg",
+    location: "LazyLiteratus",
+    role: "Tea Enthusiast",
     logo: naokiLogo,
-    brand: "Naoki"
+    brand: "Naoki Matcha"
   }
 ]
 
