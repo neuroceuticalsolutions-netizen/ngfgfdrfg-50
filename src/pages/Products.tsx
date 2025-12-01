@@ -152,7 +152,7 @@ const Products = () => {
                     </div>
                     
                     <div className="flex gap-3">
-                      <Link to="/contact" className="flex-1">
+                      <Link to="/products" className="flex-1">
                         <HeroButton variant="hero" className="w-full">
                           Get Product Info
                         </HeroButton>
@@ -218,7 +218,7 @@ const Products = () => {
                     </div>
                     
                     <div className="flex gap-3">
-                      <Link to="/contact" className="flex-1">
+                      <Link to="/products" className="flex-1">
                         <HeroButton variant="hero" className="w-full">
                           Get Product Info
                         </HeroButton>
