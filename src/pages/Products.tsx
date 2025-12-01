@@ -157,7 +157,7 @@ const Products = () => {
                           Get Product Info
                         </HeroButton>
                       </Link>
-                      <Link to={`/products/${product.slug}`}>
+                      <Link to="/newsletter#recent-newsletters">
                         <HeroButton variant="outline" size="default">
                           Learn More
                         </HeroButton>
@@ -223,7 +223,7 @@ const Products = () => {
                           Get Product Info
                         </HeroButton>
                       </Link>
-                      <Link to={`/products/${product.slug}`}>
+                      <Link to="/newsletter#recent-newsletters">
                         <HeroButton variant="outline" size="default">
                           Learn More
                         </HeroButton>
