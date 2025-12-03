@@ -28,9 +28,9 @@ const ProductDetail = () => {
       <section className="pt-32 pb-8">
         <div className="container mx-auto px-6">
           <nav className="text-sm text-grey-500">
-            <a href="/" className="hover:text-royal-purple">Home</a>
+            <Link to="/" className="hover:text-royal-purple">Home</Link>
             <span className="mx-2">/</span>
-            <a href="/products" className="hover:text-royal-purple">Products</a>
+            <Link to={`/products#${slug}`} className="hover:text-royal-purple">Products</Link>
             <span className="mx-2">/</span>
             <span className="text-grey-700">{product.name}</span>
           </nav>
