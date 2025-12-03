@@ -122,7 +122,7 @@ const Products = () => {
 
             <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {category.products.map((product, productIndex) => (
-                <div key={productIndex} className="bg-white rounded-2xl shadow-medium overflow-hidden hover:shadow-large transition-shadow duration-300">
+                <div id={product.slug} key={productIndex} className="bg-white rounded-2xl shadow-medium overflow-hidden hover:shadow-large transition-shadow duration-300">
                   <div className="aspect-video bg-grey-100 relative overflow-hidden">
                     <img 
                       src={product.productImage} 
@@ -187,8 +187,8 @@ const Products = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-              {filteredProducts.map((product, productIndex) => (
-                <div key={productIndex} className="bg-white rounded-2xl shadow-medium overflow-hidden hover:shadow-large transition-shadow duration-300">
+            {filteredProducts.map((product, productIndex) => (
+                <div id={product.slug} key={productIndex} className="bg-white rounded-2xl shadow-medium overflow-hidden hover:shadow-large transition-shadow duration-300">
                   <div className="aspect-video bg-grey-100 relative overflow-hidden">
                     <img 
                       src={product.productImage} 
