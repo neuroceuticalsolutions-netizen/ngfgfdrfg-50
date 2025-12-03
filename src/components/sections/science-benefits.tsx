@@ -187,7 +187,7 @@ export const ScienceBenefits = () => {
               Our solutions are sourced from trusted brands and backed by peer-reviewed research. 
               We believe in transparency and evidence-based formulations that deliver real results.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <div className="grid grid-cols-2 justify-items-center gap-4 text-sm">
               <span className="bg-grey-100 px-4 py-2 rounded-lg text-grey-700">Peer-Reviewed Studies</span>
               <span className="bg-grey-100 px-4 py-2 rounded-lg text-grey-700">Clinical Research</span>
               <span className="bg-grey-100 px-4 py-2 rounded-lg text-grey-700">Third-Party Testing</span>
