@@ -167,7 +167,7 @@ const GetStarted = () => {
                 What You'll Get
               </h2>
               <div className="space-y-4">
-                {["Access to premium distribution network", "Comprehensive product evaluation and feedback", "Market insights and consumer analytics", "Partnership with established retail channels", "Expert guidance on product positioning", "Increased brand visibility in South Africa"].map((benefit, index) => <div key={index} className="flex items-center gap-3">
+                {["Access to a distribution network", "Comprehensive product evaluation and feedback", "Market insights and consumer analytics", "Increased brand visibility in South Africa"].map((benefit, index) => <div key={index} className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-fresh-teal flex-shrink-0" />
                     <span className="text-grey-700">{benefit}</span>
                   </div>)}
