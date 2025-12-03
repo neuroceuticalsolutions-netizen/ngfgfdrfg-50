@@ -52,21 +52,25 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links - Consumers */}
-          <div>
-            <h4 className="heading-sm mb-4">For Consumers</h4>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              <li><a href="/products" className="text-grey-300 hover:text-fresh-teal">Products</a></li>
-              <li><a href="/science" className="text-grey-300 hover:text-fresh-teal">Science</a></li>
-              <li><a href="/about" className="text-grey-300 hover:text-fresh-teal">About Us</a></li>
-              <li><a href="/newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
-              <li><a href="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</a></li>
-            </ul>
-            <h4 className="heading-sm mb-4 mt-6">For Partners</h4>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              <li><a href="/get-started" className="text-grey-300 hover:text-fresh-teal">Distribution Opportunities</a></li>
-              <li><a href="/get-started#requirements" className="text-grey-300 hover:text-fresh-teal">Partner Requirements</a></li>
-            </ul>
+          {/* Quick Links - Consumers & Partners */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <h4 className="heading-sm mb-4">For Consumers</h4>
+              <ul className="space-y-2 text-xs sm:text-sm">
+                <li><a href="/products" className="text-grey-300 hover:text-fresh-teal">Products</a></li>
+                <li><a href="/science" className="text-grey-300 hover:text-fresh-teal">Science</a></li>
+                <li><a href="/about" className="text-grey-300 hover:text-fresh-teal">About Us</a></li>
+                <li><a href="/newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
+                <li><a href="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="heading-sm mb-4">For Partners</h4>
+              <ul className="space-y-2 text-xs sm:text-sm">
+                <li><a href="/get-started" className="text-grey-300 hover:text-fresh-teal">Distribution Opportunities</a></li>
+                <li><a href="/get-started#requirements" className="text-grey-300 hover:text-fresh-teal">Partner Requirements</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
