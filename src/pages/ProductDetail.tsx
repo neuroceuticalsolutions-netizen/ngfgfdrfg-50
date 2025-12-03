@@ -26,7 +26,7 @@ const ProductDetail = () => {
       
       {/* Breadcrumb */}
       <section className="pt-32 pb-8">
-        <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
           <nav className="text-sm text-grey-500">
             <Link to="/" className="hover:text-royal-purple">Home</Link>
             <span className="mx-2">/</span>
@@ -39,7 +39,7 @@ const ProductDetail = () => {
 
       {/* Product Hero */}
       <section className="pb-20">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Product Image Carousel */}
             <div className="aspect-square bg-grey-100 rounded-2xl overflow-hidden max-w-md mx-auto lg:mx-0">
@@ -77,7 +77,7 @@ const ProductDetail = () => {
                 {product.inStock && <Badge className="bg-green-100 text-green-800">In Stock</Badge>}
               </div>
               
-              <h1 className="heading-xl text-royal-purple mb-4">{product.name}</h1>
+              <h1 className="heading-xl text-royal-purple mb-4 break-words">{product.name}</h1>
               
               <div className="flex items-center gap-2 mb-6">
                 <div className="flex text-yellow-400">
