@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { HeroButton } from "@/components/ui/hero-button";
@@ -5,10 +6,31 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Mail, Phone, MapPin, ChevronDown } from "lucide-react";
 import { products } from "@/data/products";
+import { cn } from "@/lib/utils";
+
 const Contact = () => {
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+
+  const toggleProduct = (productId: string) => {
+    setSelectedProducts(prev =>
+      prev.includes(productId)
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    );
+  };
+
+  const getSelectedProductNames = () => {
+    if (selectedProducts.length === 0) return null;
+    if (selectedProducts.length === 1) {
+      const product = products.find(p => p.id === selectedProducts[0]);
+      return product ? `${product.brand} - ${product.name}` : null;
+    }
+    return `${selectedProducts.length} products selected`;
+  };
   return <main className="min-h-screen bg-background">
       <Navigation />
       
@@ -57,16 +79,39 @@ const Contact = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="product">Product Interest</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a product..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {products.map(product => <SelectItem key={product.id} value={product.id}>
-                          {product.brand} - {product.name}
-                        </SelectItem>)}
-                    </SelectContent>
-                  </Select>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        className={cn(
+                          "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                          !selectedProducts.length && "text-muted-foreground"
+                        )}
+                      >
+                        <span className="truncate">
+                          {getSelectedProductNames() || "Select products..."}
+                        </span>
+                        <ChevronDown className="h-4 w-4 opacity-50 flex-shrink-0" />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-2 max-h-60 overflow-y-auto" align="start">
+                      <div className="space-y-2">
+                        {products.map(product => (
+                          <div
+                            key={product.id}
+                            className="flex items-center space-x-2 p-2 hover:bg-accent rounded-md cursor-pointer"
+                            onClick={() => toggleProduct(product.id)}
+                          >
+                            <Checkbox
+                              checked={selectedProducts.includes(product.id)}
+                              onCheckedChange={() => toggleProduct(product.id)}
+                            />
+                            <span className="text-sm">{product.brand} - {product.name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
