@@ -71,7 +71,7 @@ const About = () => {
       </section>
 
       {/* Partner Distribution Section */}
-      <section className="py-20 bg-white">
+      <section className="bg-white py-[40px]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
