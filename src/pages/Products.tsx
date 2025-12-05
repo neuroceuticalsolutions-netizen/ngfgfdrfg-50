@@ -113,7 +113,7 @@ const Products = () => {
       {/* Filtered Products Display */}
       {selectedCategory === 'all' ? (
         productCategories.map((category, categoryIndex) => (
-        <section key={categoryIndex} className={`py-20 ${categoryIndex % 2 === 1 ? 'bg-subtle-gradient' : ''}`}>
+        <section key={categoryIndex} className={`pt-10 pb-20 ${categoryIndex % 2 === 1 ? 'bg-subtle-gradient' : ''}`}>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="heading-lg text-royal-purple mb-4">{category.name}</h2>
