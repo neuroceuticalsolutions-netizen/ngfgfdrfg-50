@@ -23,7 +23,7 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-[40px]">
+      <section className="py-0">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             <h2 className="heading-lg text-royal-purple mb-6 text-center">Our Mission</h2>
