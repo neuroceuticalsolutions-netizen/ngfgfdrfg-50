@@ -137,23 +137,50 @@ export const FeaturedProducts = () => {
             )}
           </Carousel>
 
-          {/* Mobile slider indicator */}
-          <div className="flex sm:hidden justify-center gap-2 mt-6">
-            {products.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  api?.scrollTo(index)
-                  setHasInteracted(true)
-                }}
-                className={`h-2 rounded-full transition-all ${
-                  currentSlide === index 
-                    ? 'w-8 bg-royal-purple' 
-                    : 'w-2 bg-grey-300'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+          {/* Mobile partner badges navigation */}
+          <div className="flex sm:hidden flex-wrap justify-center gap-2 mt-6">
+            <span className="text-sm text-grey-500 w-full text-center mb-2">Trusted Partners:</span>
+            <button 
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+                currentSlide === 0 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
+              onClick={() => scrollToSlide(0)}
+            >
+              ZYN
+            </button>
+            <button 
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+                currentSlide === 1 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
+              onClick={() => scrollToSlide(1)}
+            >
+              EU Natural
+            </button>
+            <button 
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+                currentSlide === 2 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
+              onClick={() => scrollToSlide(2)}
+            >
+              USN
+            </button>
+            <button 
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+                currentSlide === 3 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
+              onClick={() => scrollToSlide(3)}
+            >
+              Naoki
+            </button>
+            <span className="px-3 py-1.5 rounded-lg text-xs font-semibold text-grey-400 bg-grey-100">More Soon...</span>
           </div>
         </div>
 
@@ -161,33 +188,50 @@ export const FeaturedProducts = () => {
           <p className="body-md text-grey-600 mb-6">
             More partnerships coming soon. Join our newsletter to stay updated.
           </p>
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 items-center">
+          {/* Desktop partner badges with active state */}
+          <div className="hidden sm:flex flex-wrap justify-center gap-4 items-center">
             <span className="text-sm text-grey-500">Trusted Partners:</span>
-            <div 
-              className="bg-grey-100 px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold text-royal-purple cursor-pointer hover:bg-grey-200 transition-colors" 
+            <button 
+              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
+                currentSlide === 0 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
               onClick={() => scrollToSlide(0)}
             >
               ZYN
-            </div>
-            <div 
-              className="bg-grey-100 px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold text-royal-purple cursor-pointer hover:bg-grey-200 transition-colors" 
+            </button>
+            <button 
+              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
+                currentSlide === 1 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
               onClick={() => scrollToSlide(1)}
             >
               EU Natural
-            </div>
-            <div 
-              className="bg-grey-100 px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold text-royal-purple cursor-pointer hover:bg-grey-200 transition-colors" 
+            </button>
+            <button 
+              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
+                currentSlide === 2 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
               onClick={() => scrollToSlide(2)}
             >
               USN
-            </div>
-            <div 
-              className="bg-grey-100 px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold text-royal-purple cursor-pointer hover:bg-grey-200 transition-colors" 
+            </button>
+            <button 
+              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
+                currentSlide === 3 
+                  ? 'bg-royal-purple text-white' 
+                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+              }`}
               onClick={() => scrollToSlide(3)}
             >
               Naoki
-            </div>
-            <div className="bg-grey-100 px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold text-grey-400">More Soon...</div>
+            </button>
+            <span className="px-4 py-2 rounded-lg text-sm font-semibold text-grey-400 bg-grey-100">More Soon...</span>
           </div>
         </div>
       </div>
