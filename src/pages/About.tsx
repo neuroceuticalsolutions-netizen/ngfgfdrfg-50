@@ -7,7 +7,7 @@ const About = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-subtle">
+      <section className="pt-32 pb-20 bg-gradient-subtle py-[64px]">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="heading-xl text-royal-purple mb-6 animate-fade-in-up">
