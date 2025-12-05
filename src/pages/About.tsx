@@ -172,7 +172,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20">
+      <section className="py-[40px]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="heading-lg text-royal-purple mb-6">Our Values</h2>
