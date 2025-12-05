@@ -1,5 +1,5 @@
 import { HeroButton } from "@/components/ui/hero-button";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 export const Footer = () => {
   return <footer className="bg-grey-900 text-white py-16">
       <div className="container mx-auto px-6">
@@ -13,11 +13,11 @@ export const Footer = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
               
-              <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal">
-                Facebook
+              <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal p-2">
+                <Facebook size={20} />
               </HeroButton>
-              <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal">
-                Instagram
+              <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal p-2">
+                <Instagram size={20} />
               </HeroButton>
             </div>
           </div>
