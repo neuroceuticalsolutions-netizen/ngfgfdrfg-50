@@ -140,46 +140,19 @@ export const FeaturedProducts = () => {
           {/* Mobile partner badges navigation */}
           <div className="flex sm:hidden flex-wrap justify-center gap-2 mt-6">
             <span className="text-sm text-grey-500 w-full text-center mb-2">Trusted Partners:</span>
-            <button 
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
-                currentSlide === 0 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(0)}
-            >
-              ZYN
-            </button>
-            <button 
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
-                currentSlide === 1 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(1)}
-            >
-              EU Natural
-            </button>
-            <button 
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
-                currentSlide === 2 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(2)}
-            >
-              USN
-            </button>
-            <button 
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
-                currentSlide === 3 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(3)}
-            >
-              Naoki
-            </button>
+            {products.map((product, index) => (
+              <button 
+                key={product.slug}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+                  currentSlide === index 
+                    ? 'bg-royal-purple text-white' 
+                    : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+                }`}
+                onClick={() => scrollToSlide(index)}
+              >
+                {product.brand}
+              </button>
+            ))}
             <span className="px-3 py-1.5 rounded-lg text-xs font-semibold text-grey-400 bg-grey-100">More Soon...</span>
           </div>
         </div>
@@ -191,46 +164,19 @@ export const FeaturedProducts = () => {
           {/* Desktop partner badges with active state */}
           <div className="hidden sm:flex flex-wrap justify-center gap-4 items-center">
             <span className="text-sm text-grey-500">Trusted Partners:</span>
-            <button 
-              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
-                currentSlide === 0 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(0)}
-            >
-              ZYN
-            </button>
-            <button 
-              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
-                currentSlide === 1 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(1)}
-            >
-              EU Natural
-            </button>
-            <button 
-              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
-                currentSlide === 2 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(2)}
-            >
-              USN
-            </button>
-            <button 
-              className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
-                currentSlide === 3 
-                  ? 'bg-royal-purple text-white' 
-                  : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
-              }`}
-              onClick={() => scrollToSlide(3)}
-            >
-              Naoki
-            </button>
+            {products.map((product, index) => (
+              <button 
+                key={product.slug}
+                className={`px-4 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors ${
+                  currentSlide === index 
+                    ? 'bg-royal-purple text-white' 
+                    : 'bg-grey-100 text-royal-purple hover:bg-grey-200'
+                }`}
+                onClick={() => scrollToSlide(index)}
+              >
+                {product.brand}
+              </button>
+            ))}
             <span className="px-4 py-2 rounded-lg text-sm font-semibold text-grey-400 bg-grey-100">More Soon...</span>
           </div>
         </div>
