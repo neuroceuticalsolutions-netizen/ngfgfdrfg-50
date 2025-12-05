@@ -145,7 +145,7 @@ const About = () => {
       </section>
 
       {/* Founder Section */}
-      <section className="py-20 bg-subtle-gradient">
+      <section className="bg-subtle-gradient py-[40px]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="heading-lg text-royal-purple mb-6">Meet the Founder</h2>
