@@ -11,7 +11,7 @@ export const Footer = () => {
               South Africa's trusted partner for science-backed neuroceutical solutions. 
               We connect you with premium cognitive enhancement products from leading international brands.
             </p>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+            <div className="flex flex-row gap-2">
               
               <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal p-2">
                 <Facebook size={20} />
