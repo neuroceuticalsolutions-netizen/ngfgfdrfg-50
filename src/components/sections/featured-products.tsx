@@ -54,11 +54,11 @@ export const FeaturedProducts = () => {
         </div>
 
         <div className="relative mb-12">
-          <Carousel className="w-full max-w-6xl mx-auto group" setApi={setApi}>
+          <Carousel className="w-full max-w-7xl mx-auto group" setApi={setApi}>
             <CarouselContent className="p-4">
               {products.map((product, index) => (
                 <CarouselItem key={index}>
-                  <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[400px] sm:min-h-[300px] transition-shadow duration-200 hover:shadow-large">
+                  <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[400px] sm:min-h-[350px] lg:min-h-[400px] transition-shadow duration-200 hover:shadow-large">
                     {/* Mobile background image */}
                     <div 
                       className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20 sm:hidden"
@@ -73,18 +73,18 @@ export const FeaturedProducts = () => {
                     
                     <div className="flex flex-col sm:flex-row h-full">
                       {/* Left side - Product Info */}
-                      <div className="w-full sm:w-1/2 p-4 sm:p-8 flex flex-col justify-center relative z-10">
-                        <h3 className="text-xl sm:text-3xl font-bold text-white sm:text-primary mb-2 text-center">{product.name}</h3>
+                      <div className="w-full sm:w-1/2 lg:w-[55%] p-4 sm:p-8 lg:p-12 flex flex-col justify-center relative z-10">
+                        <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white sm:text-primary mb-2 lg:mb-3 text-center">{product.name}</h3>
                         <p className="text-white/90 sm:text-accent font-semibold mb-6 text-center">Partner: {product.brand}</p>
                         
                         <p className="text-white/80 sm:text-muted-foreground text-sm sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-xl">
                           {product.shortDescription}
                         </p>
 
-                        <ul className="space-y-2 sm:space-y-4 mb-6 sm:mb-10">
+                        <ul className="space-y-2 sm:space-y-3 lg:space-y-4 mb-6 sm:mb-8 lg:mb-10">
                           {product.benefits.map((benefit, i) => (
-                            <li key={i} className="flex items-center text-white sm:text-foreground text-sm sm:text-lg">
-                              <span className="w-4 h-4 sm:w-6 sm:h-6 bg-white/80 sm:bg-accent rounded-full mr-2 sm:mr-4 flex-shrink-0 flex items-center justify-center">
+                            <li key={i} className="flex items-center text-white sm:text-foreground text-sm sm:text-base lg:text-lg">
+                              <span className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-white/80 sm:bg-accent rounded-full mr-2 sm:mr-3 lg:mr-4 flex-shrink-0 flex items-center justify-center">
                                 <span className="text-black sm:text-accent-foreground font-bold text-xs sm:text-sm">✓</span>
                               </span>
                               {benefit}
@@ -102,7 +102,7 @@ export const FeaturedProducts = () => {
                       
                       {/* Right side - Logo with gradient and diagonal edge */}
                       <div 
-                        className="hidden sm:flex sm:w-1/2 items-center justify-center relative min-h-[200px] sm:min-h-auto"
+                        className="hidden sm:flex sm:w-1/2 lg:w-[45%] items-center justify-center relative min-h-[200px] sm:min-h-auto"
                         style={{
                           backgroundColor: product.backgroundColor,
                           clipPath: window.innerWidth >= 640 ? 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%)' : 'none',
@@ -112,7 +112,7 @@ export const FeaturedProducts = () => {
                         <img 
                           src={product.logo} 
                           alt={`${product.brand} logo`} 
-                          className="w-24 h-24 sm:w-40 sm:h-40 object-contain transition-transform duration-200 hover:scale-105" 
+                          className="w-24 h-24 sm:w-32 sm:h-32 lg:w-48 lg:h-48 object-contain transition-transform duration-200 hover:scale-105"
                           style={{
                             transform: 'translate3d(0, 0, 0)',
                             filter: 'drop-shadow(0 4px 12px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))'
