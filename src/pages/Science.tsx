@@ -7,32 +7,29 @@ const Science = () => {
   const researchAreas = [
     {
       title: "Cognitive Enhancement",
-      studies: "12+ Studies",
       description: "Research on nootropics and their effects on memory, focus, and mental clarity",
       keyFindings: [
-        "L-theanine + caffeine improves attention by 40%",
-        "Lion's Mane mushroom enhances neuroplasticity",
-        "Bacopa Monnieri improves memory recall by 25%"
+        "L-theanine and caffeine may support attention and focus",
+        "Lion's Mane mushroom is studied for neuroplasticity support",
+        "Bacopa Monnieri is traditionally used to support memory function"
       ]
     },
     {
       title: "Stress Adaptation",
-      studies: "8+ Studies", 
       description: "Clinical trials on adaptogens and their role in stress management and resilience",
       keyFindings: [
-        "Ashwagandha reduces cortisol levels by 30%",
-        "Rhodiola improves stress tolerance",
-        "Ginseng enhances physical and mental endurance"
+        "Ashwagandha is an adaptogen studied for stress management",
+        "Rhodiola may help support stress tolerance",
+        "Ginseng is traditionally used for physical and mental endurance"
       ]
     },
     {
       title: "Neuroprotection",
-      studies: "15+ Studies",
       description: "Long-term studies on compounds that support brain health and cognitive longevity",
       keyFindings: [
-        "Omega-3 fatty acids protect against cognitive decline",
-        "Curcumin reduces neuroinflammation",
-        "Green tea catechins support brain health"
+        "Omega-3 fatty acids are studied for cognitive health support",
+        "Curcumin is researched for its anti-inflammatory properties",
+        "Green tea catechins may support overall brain health"
       ]
     }
   ]
@@ -76,9 +73,9 @@ const Science = () => {
               Explore the research that validates our approach to cognitive optimization.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Badge variant="secondary">35+ Clinical Studies</Badge>
-              <Badge variant="secondary">Peer-Reviewed Research</Badge>
-              <Badge variant="secondary">Evidence-Based</Badge>
+              <Badge variant="secondary">Quality Focused</Badge>
+              <Badge variant="secondary">Peer-Reviewed Sources</Badge>
+              <Badge variant="secondary">Third-Party Tested</Badge>
             </div>
           </div>
         </div>
@@ -98,9 +95,8 @@ const Science = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {researchAreas.map((area, index) => (
               <div key={index} className="bg-white rounded-2xl p-8 shadow-medium hover:shadow-large transition-shadow duration-300">
-                <div className="flex items-center justify-between mb-6">
+                <div className="mb-6">
                   <h3 className="heading-sm text-grey-900">{area.title}</h3>
-                  <Badge variant="outline">{area.studies}</Badge>
                 </div>
                 
                 <p className="body-md text-grey-600 mb-6">{area.description}</p>
@@ -194,23 +190,32 @@ const Science = () => {
               </div>
               
               <div className="bg-royal-purple text-white rounded-2xl p-8">
-                <h3 className="heading-sm mb-6">Research Statistics</h3>
+                <h3 className="heading-sm mb-6">Our Commitment</h3>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center">
-                    <div className="text-3xl font-bold mb-2">35+</div>
-                    <div className="text-sm opacity-80">Studies Reviewed</div>
+                    <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <div className="text-sm opacity-90">Peer-Reviewed Sources</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold mb-2">15k+</div>
-                    <div className="text-sm opacity-80">Study Participants</div>
+                    <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <div className="text-sm opacity-90">Quality Verified</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold mb-2">98%</div>
-                    <div className="text-sm opacity-80">Safety Rate</div>
+                    <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <div className="text-sm opacity-90">Safety Focused</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold mb-2">85%</div>
-                    <div className="text-sm opacity-80">Efficacy Rate</div>
+                    <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    <div className="text-sm opacity-90">Transparent Process</div>
                   </div>
                 </div>
               </div>
