@@ -224,6 +224,18 @@ const Science = () => {
         </div>
       </section>
 
+      {/* Disclaimer */}
+      <section className="py-12 bg-grey-100 border-t border-grey-200">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="body-sm text-grey-500">
+              <strong>Disclaimer:</strong> The information provided on this page is for educational and informational purposes only and is not intended as medical advice. 
+              It should not be used to diagnose, treat, cure, or prevent any disease. Always consult with a qualified healthcare professional before starting any new supplement regimen.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
