@@ -42,7 +42,7 @@ const GetStarted = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Contact us via email or direct call to start the conversation about distributing your sample products.
+                  Contact us via email or direct call to start the conversation about distributing your free product samples.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -70,7 +70,7 @@ const GetStarted = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  We'll communicate our decision and work with you to determine the best approach for distributing your product samples.
+                  We'll communicate our decision and work with you to determine the best approach for distributing your free product samples.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -85,7 +85,7 @@ const GetStarted = () => {
             Partner Requirements
           </h2>
           <p className="body-lg text-grey-600 text-center max-w-2xl mx-auto mb-12">
-            To ensure we maintain the highest standards for our distribution network, we look for partners who meet the following criteria.
+            To ensure we maintain the highest standards for our free sample distribution network, we look for partners who meet the following criteria.
           </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -117,7 +117,7 @@ const GetStarted = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Ability to fulfill minimum order quantities for distribution partnerships and maintain consistent supply chain.
+                  Ability to provide sufficient sample quantities for free distribution partnerships and maintain consistent supply.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -167,7 +167,7 @@ const GetStarted = () => {
                 What You'll Get
               </h2>
               <div className="space-y-4">
-                {["Access to a distribution network", "Comprehensive product evaluation and feedback", "Market insights and consumer analytics", "Increased brand visibility in South Africa"].map((benefit, index) => <div key={index} className="flex items-center gap-3">
+                {["Access to a free sample distribution network", "Comprehensive product evaluation and feedback", "Market insights and consumer analytics", "Increased brand visibility in South Africa"].map((benefit, index) => <div key={index} className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-fresh-teal flex-shrink-0" />
                     <span className="text-grey-700">{benefit}</span>
                   </div>)}
@@ -178,7 +178,7 @@ const GetStarted = () => {
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-royal-purple mb-2">Ready to Partner?</CardTitle>
                 <CardDescription>
-                  Connect with our distribution team to discuss getting your products into the South African market.
+                  Connect with our team to discuss getting your free product samples into the South African market.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -191,7 +191,7 @@ const GetStarted = () => {
                   </Link>
                 </HeroButton>
                 <p className="text-sm text-grey-500 text-center">
-                  Premium distribution • Market access • Partnership opportunities
+                  Free sample distribution • Market access • Partnership opportunities
                 </p>
               </CardContent>
             </Card>
