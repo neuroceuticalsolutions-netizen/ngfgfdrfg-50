@@ -16,11 +16,11 @@ const GetStarted = () => {
             <span className="text-white font-semibold text-sm">FOR BRANDS & DISTRIBUTORS</span>
           </div>
           <h1 className="heading-xl text-white mb-6">
-            Partner With Us for Distribution
+            Partner With Us for Sample Distribution
           </h1>
           <p className="body-lg text-white/90 max-w-2xl mx-auto mb-8">
-            Get your premium neuroceutical products distributed in South Africa's growing cognitive enhancement market. 
-            We connect innovative brands with consumers through our trusted distribution network.
+            Get your premium neuroceutical product samples distributed in South Africa's growing cognitive enhancement market. 
+            We connect innovative brands with consumers through free sample distribution via our trusted network.
           </p>
         </div>
       </section>
