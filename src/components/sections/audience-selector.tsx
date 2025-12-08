@@ -2,10 +2,8 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShoppingBag, Handshake } from "lucide-react";
 import { HeroButton } from "@/components/ui/hero-button";
-
 export const AudienceSelector = () => {
-  return (
-    <section className="py-20 px-4 bg-background">
+  return <section className="py-20 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">How Can We Help You?</h2>
@@ -53,7 +51,7 @@ export const AudienceSelector = () => {
             </CardHeader>
             <CardContent className="text-center pb-8">
               <ul className="text-sm text-muted-foreground mb-6 space-y-2">
-                <li>✓ Rigorous evaluation process</li>
+                <li>✓ Thorough evaluation process</li>
                 <li>✓ Full support & guidance</li>
                 <li>✓ Expand your product line</li>
               </ul>
@@ -66,6 +64,5 @@ export const AudienceSelector = () => {
           </Card>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
