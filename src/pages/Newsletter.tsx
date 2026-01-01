@@ -2,6 +2,12 @@ import { Navigation } from "@/components/sections/navigation"
 import { Footer } from "@/components/sections/footer"
 import { Newsletter as NewsletterSection } from "@/components/sections/newsletter"
 import { Badge } from "@/components/ui/badge"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const Newsletter = () => {
   const benefits = [
@@ -158,40 +164,48 @@ const Newsletter = () => {
               <h2 className="heading-lg text-royal-purple mb-6">Frequently Asked Questions</h2>
             </div>
 
-            <div className="space-y-8">
-              <div className="bg-white rounded-2xl p-8 shadow-medium">
-                <h3 className="heading-sm text-grey-900 mb-4">How often will I receive newsletters?</h3>
-                <p className="body-md text-grey-600">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="bg-white rounded-2xl border border-grey-200 px-8">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-6 hover:no-underline">
+                  How often will I receive newsletters?
+                </AccordionTrigger>
+                <AccordionContent className="text-grey-600 pb-6">
                   We send out our newsletter weekly, typically on Wednesdays. Each edition is carefully 
                   curated to provide you with the most relevant and actionable cognitive enhancement insights.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-white rounded-2xl p-8 shadow-medium">
-                <h3 className="heading-sm text-grey-900 mb-4">Can I unsubscribe at any time?</h3>
-                <p className="body-md text-grey-600">
+              <AccordionItem value="item-2" className="bg-white rounded-2xl border border-grey-200 px-8">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-6 hover:no-underline">
+                  Can I unsubscribe at any time?
+                </AccordionTrigger>
+                <AccordionContent className="text-grey-600 pb-6">
                   Absolutely! We believe in providing value, not inbox clutter. You can unsubscribe 
                   with one click at the bottom of any newsletter, and we'll respect your decision immediately.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-white rounded-2xl p-8 shadow-medium">
-                <h3 className="heading-sm text-grey-900 mb-4">Do you share subscriber information?</h3>
-                <p className="body-md text-grey-600">
+              <AccordionItem value="item-3" className="bg-white rounded-2xl border border-grey-200 px-8">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-6 hover:no-underline">
+                  Do you share subscriber information?
+                </AccordionTrigger>
+                <AccordionContent className="text-grey-600 pb-6">
                   Never. Your privacy is paramount to us. We don't share, sell, or rent your email 
                   address to anyone. Your information is used solely to deliver our newsletter content.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-white rounded-2xl p-8 shadow-medium">
-                <h3 className="heading-sm text-grey-900 mb-4">What makes your newsletter different?</h3>
-                <p className="body-md text-grey-600">
+              <AccordionItem value="item-4" className="bg-white rounded-2xl border border-grey-200 px-8">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-6 hover:no-underline">
+                  What makes your newsletter different?
+                </AccordionTrigger>
+                <AccordionContent className="text-grey-600 pb-6">
                   Our newsletter focuses specifically on evidence-based cognitive enhancement. 
                   Every tip, product recommendation, and insight is backed by peer-reviewed research 
                   and curated by experts in neuroscience and cognitive psychology.
-                </p>
-              </div>
-            </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
