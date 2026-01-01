@@ -2,6 +2,7 @@ import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { HeroButton } from "@/components/ui/hero-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CheckCircle, Brain, Target, Zap, Calendar, Mail, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PartnerContactForm } from "@/components/sections/partner-contact-form";
@@ -209,51 +210,43 @@ const GetStarted = () => {
             Frequently Asked Questions
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="border-grey-200">
-              <CardHeader>
-                <CardTitle className="text-lg text-royal-purple">How long does the evaluation take?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-grey-600">
-                  Our product evaluation process typically takes 2-4 weeks, depending on documentation completeness and product complexity.
-                </CardDescription>
-              </CardContent>
-            </Card>
+          <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-3">
+            <AccordionItem value="item-1" className="border border-grey-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+                How long does the evaluation take?
+              </AccordionTrigger>
+              <AccordionContent className="text-grey-600 pb-5">
+                Our product evaluation process typically takes 2-4 weeks, depending on documentation completeness and product complexity.
+              </AccordionContent>
+            </AccordionItem>
 
-            <Card className="border-grey-200">
-              <CardHeader>
-                <CardTitle className="text-lg text-royal-purple">What are the costs involved?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-grey-600">
-                  We distribute your samples for free to consumers. Partnership terms and any associated costs are discussed during the evaluation process.
-                </CardDescription>
-              </CardContent>
-            </Card>
+            <AccordionItem value="item-2" className="border border-grey-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+                What are the costs involved?
+              </AccordionTrigger>
+              <AccordionContent className="text-grey-600 pb-5">
+                We distribute your samples for free to consumers. Partnership terms and any associated costs are discussed during the evaluation process.
+              </AccordionContent>
+            </AccordionItem>
 
-            <Card className="border-grey-200">
-               <CardHeader>
-                 <CardTitle className="text-lg text-royal-purple">What sample quantities are needed?</CardTitle>
-               </CardHeader>
-               <CardContent>
-                 <CardDescription className="text-grey-600">
-                   Minimum quantities vary by product type and distribution scope. We'll work with you to determine appropriate volumes during our initial discussions.
-                 </CardDescription>
-               </CardContent>
-            </Card>
+            <AccordionItem value="item-3" className="border border-grey-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+                What sample quantities are needed?
+              </AccordionTrigger>
+              <AccordionContent className="text-grey-600 pb-5">
+                Minimum quantities vary by product type and distribution scope. We'll work with you to determine appropriate volumes during our initial discussions.
+              </AccordionContent>
+            </AccordionItem>
 
-            <Card className="border-grey-200">
-               <CardHeader>
-                 <CardTitle className="text-lg text-royal-purple">How will my brand be represented?</CardTitle>
-               </CardHeader>
-               <CardContent>
-                 <CardDescription className="text-grey-600">
-                   Your brand maintains full visibility. We showcase partner products with proper branding and provide consumer feedback and market insights.
-                 </CardDescription>
-               </CardContent>
-            </Card>
-          </div>
+            <AccordionItem value="item-4" className="border border-grey-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+                How will my brand be represented?
+              </AccordionTrigger>
+              <AccordionContent className="text-grey-600 pb-5">
+                Your brand maintains full visibility. We showcase partner products with proper branding and provide consumer feedback and market insights.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
