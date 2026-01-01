@@ -212,44 +212,44 @@ const GetStarted = () => {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className="border-grey-200">
               <CardHeader>
-                <CardTitle className="text-lg text-royal-purple">Are these products safe?</CardTitle>
+                <CardTitle className="text-lg text-royal-purple">How long does the evaluation take?</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Yes, all our partner brands use scientifically researched ingredients with proven safety profiles and third-party testing.
+                  Our product evaluation process typically takes 2-4 weeks, depending on documentation completeness and product complexity.
                 </CardDescription>
               </CardContent>
             </Card>
 
             <Card className="border-grey-200">
               <CardHeader>
-                <CardTitle className="text-lg text-royal-purple">How long before I see results?</CardTitle>
+                <CardTitle className="text-lg text-royal-purple">What are the costs involved?</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-grey-600">
-                  Most users notice improvements within 1-2 weeks, with optimal benefits typically achieved after 4-6 weeks of consistent use.
+                  We distribute your samples for free to consumers. Partnership terms and any associated costs are discussed during the evaluation process.
                 </CardDescription>
               </CardContent>
             </Card>
 
             <Card className="border-grey-200">
                <CardHeader>
-                 <CardTitle className="text-lg text-royal-purple">How do I access these products?</CardTitle>
+                 <CardTitle className="text-lg text-royal-purple">What sample quantities are needed?</CardTitle>
                </CardHeader>
                <CardContent>
                  <CardDescription className="text-grey-600">
-                   Contact our team to discuss product availability, pricing, and access to our exclusive partner network. We'll connect you with the right solutions.
+                   Minimum quantities vary by product type and distribution scope. We'll work with you to determine appropriate volumes during our initial discussions.
                  </CardDescription>
                </CardContent>
             </Card>
 
             <Card className="border-grey-200">
                <CardHeader>
-                 <CardTitle className="text-lg text-royal-purple">What makes your sourcing special?</CardTitle>
+                 <CardTitle className="text-lg text-royal-purple">How will my brand be represented?</CardTitle>
                </CardHeader>
                <CardContent>
                  <CardDescription className="text-grey-600">
-                   We have exclusive partnerships with premium brands and can provide access to products not widely available in South Africa, with verified quality and authenticity.
+                   Your brand maintains full visibility. We showcase partner products with proper branding and provide consumer feedback and market insights.
                  </CardDescription>
                </CardContent>
             </Card>
