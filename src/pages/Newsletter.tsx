@@ -166,7 +166,7 @@ const Newsletter = () => {
 
             <Accordion type="single" collapsible className="space-y-3">
               <AccordionItem value="item-1" className="bg-white rounded-2xl border border-grey-200 px-6">
-                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                   How often will I receive newsletters?
                 </AccordionTrigger>
                 <AccordionContent className="text-grey-600 pb-5">
@@ -176,7 +176,7 @@ const Newsletter = () => {
               </AccordionItem>
 
               <AccordionItem value="item-2" className="bg-white rounded-2xl border border-grey-200 px-6">
-                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                   Can I unsubscribe at any time?
                 </AccordionTrigger>
                 <AccordionContent className="text-grey-600 pb-5">
@@ -186,7 +186,7 @@ const Newsletter = () => {
               </AccordionItem>
 
               <AccordionItem value="item-3" className="bg-white rounded-2xl border border-grey-200 px-6">
-                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                   Do you share subscriber information?
                 </AccordionTrigger>
                 <AccordionContent className="text-grey-600 pb-5">
@@ -196,7 +196,7 @@ const Newsletter = () => {
               </AccordionItem>
 
               <AccordionItem value="item-4" className="bg-white rounded-2xl border border-grey-200 px-6">
-                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline">
+                <AccordionTrigger className="text-left text-grey-900 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                   What makes your newsletter different?
                 </AccordionTrigger>
                 <AccordionContent className="text-grey-600 pb-5">
