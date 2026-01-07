@@ -212,7 +212,7 @@ const GetStarted = () => {
           
           <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-3">
             <AccordionItem value="item-1" className="border border-grey-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                 How long does the evaluation take?
               </AccordionTrigger>
               <AccordionContent className="text-grey-600 pb-5">
@@ -221,7 +221,7 @@ const GetStarted = () => {
             </AccordionItem>
 
             <AccordionItem value="item-2" className="border border-grey-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                 What are the costs involved?
               </AccordionTrigger>
               <AccordionContent className="text-grey-600 pb-5">
@@ -230,7 +230,7 @@ const GetStarted = () => {
             </AccordionItem>
 
             <AccordionItem value="item-3" className="border border-grey-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                 What sample quantities are needed?
               </AccordionTrigger>
               <AccordionContent className="text-grey-600 pb-5">
@@ -239,7 +239,7 @@ const GetStarted = () => {
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border border-grey-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline">
+              <AccordionTrigger className="text-left text-grey-800 font-medium py-5 hover:no-underline hover:text-royal-purple transition-colors">
                 How will my brand be represented?
               </AccordionTrigger>
               <AccordionContent className="text-grey-600 pb-5">
