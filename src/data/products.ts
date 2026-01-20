@@ -84,7 +84,7 @@ export const products: Product[] = [
       { src: "/lovable-uploads/58fac0ca-c5d1-46d8-9b9d-37226c16d6e4.png", alt: "Power Through Work, Study, & Life with Elite Focus" }
     ],
     backgroundColor: "#059669",
-    category: "cognitive",
+    category: "energy",
     inStock: true,
     rating: 4.8,
     reviewCount: 156,
