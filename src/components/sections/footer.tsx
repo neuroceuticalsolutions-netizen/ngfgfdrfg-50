@@ -1,5 +1,6 @@
 import { HeroButton } from "@/components/ui/hero-button";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 export const Footer = () => {
   return <footer className="bg-grey-900 text-white py-16">
       <div className="container mx-auto px-6">
@@ -57,18 +58,18 @@ export const Footer = () => {
             <div>
               <h4 className="heading-sm mb-4">For Consumers</h4>
               <ul className="space-y-2 text-xs sm:text-sm">
-                <li><a href="/products" className="text-grey-300 hover:text-fresh-teal">Products</a></li>
-                <li><a href="/science" className="text-grey-300 hover:text-fresh-teal">Science</a></li>
-                <li><a href="/about" className="text-grey-300 hover:text-fresh-teal">About Us</a></li>
-                <li><a href="/newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</a></li>
-                <li><a href="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</a></li>
+                <li><Link to="/products" className="text-grey-300 hover:text-fresh-teal">Products</Link></li>
+                <li><Link to="/science" className="text-grey-300 hover:text-fresh-teal">Science</Link></li>
+                <li><Link to="/about" className="text-grey-300 hover:text-fresh-teal">About Us</Link></li>
+                <li><Link to="/newsletter" className="text-grey-300 hover:text-fresh-teal">Newsletter</Link></li>
+                <li><Link to="/contact" className="text-grey-300 hover:text-fresh-teal">Contact</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="heading-sm mb-4">For Partners</h4>
               <ul className="space-y-2 text-xs sm:text-sm">
-                <li><a href="/get-started" className="text-grey-300 hover:text-fresh-teal">Distribution Opportunities</a></li>
-                <li><a href="/get-started#requirements" className="text-grey-300 hover:text-fresh-teal">Partner Requirements</a></li>
+                <li><Link to="/get-started" className="text-grey-300 hover:text-fresh-teal">Distribution Opportunities</Link></li>
+                <li><Link to="/get-started#requirements" className="text-grey-300 hover:text-fresh-teal">Partner Requirements</Link></li>
               </ul>
             </div>
           </div>
