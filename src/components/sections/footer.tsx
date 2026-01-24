@@ -81,9 +81,9 @@ export const Footer = () => {
             <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-xs sm:text-sm text-grey-400 text-center md:text-left">
               <p>© 2024 Neuroceutical Solution. All rights reserved.</p>
               <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-4">
-                <a href="/privacy" className="hover:text-fresh-teal">Privacy Policy</a>
-                <a href="/terms" className="hover:text-fresh-teal">Terms of Service</a>
-                <a href="/disclaimer" className="hover:text-fresh-teal">Disclaimer</a>
+                <Link to="/privacy" className="hover:text-fresh-teal">Privacy Policy</Link>
+                <Link to="/terms" className="hover:text-fresh-teal">Terms of Service</Link>
+                <Link to="/disclaimer" className="hover:text-fresh-teal">Disclaimer</Link>
               </div>
             </div>
             <div className="text-sm text-grey-400">

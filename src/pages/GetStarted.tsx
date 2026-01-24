@@ -80,7 +80,7 @@ const GetStarted = () => {
       </section>
 
       {/* Requirements Section */}
-      <section className="py-16 bg-grey-50">
+      <section id="requirements" className="py-16 bg-grey-50 scroll-mt-24">
         <div className="container mx-auto px-6">
           <h2 className="heading-lg text-center text-royal-purple mb-4">
             Partner Requirements

@@ -34,9 +34,9 @@ export const HeroSection = () => {
               size="lg"
               asChild
             >
-              <a href="/products">
+              <Link to="/products">
                 Explore Products
-              </a>
+              </Link>
             </HeroButton>
             <HeroButton 
               variant="outline" 
