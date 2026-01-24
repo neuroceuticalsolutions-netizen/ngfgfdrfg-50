@@ -1,4 +1,5 @@
 import { HeroButton } from "@/components/ui/hero-button"
+import { Link } from "react-router-dom"
 import heroImage from "@/assets/hero-banner.jpg"
 
 export const HeroSection = () => {
@@ -43,9 +44,9 @@ export const HeroSection = () => {
               className="border-white text-white hover:bg-white hover:text-royal-purple"
               asChild
             >
-              <a href="/get-started">
+              <Link to="/get-started">
                 Partner With Us
-              </a>
+              </Link>
             </HeroButton>
           </div>
         </div>
