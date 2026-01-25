@@ -10,7 +10,7 @@ interface SEOHeadProps {
 }
 
 const BASE_URL = "https://neuroceutical.lovable.app";
-const DEFAULT_IMAGE = `${BASE_URL}/lovable-uploads/927e818d-632e-49e4-bdad-c04fa319a4d1.png`;
+const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`;
 
 export const SEOHead = ({
   title,
@@ -36,6 +36,8 @@ export const SEOHead = ({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content="Neuroceutical Solutions" />
       <meta property="og:locale" content="en_ZA" />
 

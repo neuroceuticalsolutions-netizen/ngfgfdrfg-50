@@ -8,6 +8,7 @@ import { Testimonials } from "@/components/sections/testimonials"
 import { Newsletter } from "@/components/sections/newsletter"
 import { Footer } from "@/components/sections/footer"
 import { SEOHead } from "@/components/SEOHead"
+import { OrganizationSchema } from "@/components/StructuredData"
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
         description="Neuroceutical Solutions partners with leading brands to provide scientifically proven formulas for mental clarity, focus, and stress relief in South Africa."
         path="/"
       />
+      <OrganizationSchema />
       <Navigation />
       <HeroSection />
       <AudienceSelector />

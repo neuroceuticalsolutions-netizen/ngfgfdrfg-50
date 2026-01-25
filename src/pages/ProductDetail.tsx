@@ -7,6 +7,7 @@ import { getProductBySlug } from "@/data/products";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { SEOHead } from "@/components/SEOHead";
+import { ProductSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -28,6 +29,23 @@ const ProductDetail = () => {
         description={product.shortDescription}
         path={`/products/${slug}`}
         type="product"
+      />
+      <ProductSchema 
+        name={product.name}
+        description={product.shortDescription}
+        image={product.productImage}
+        brand={product.brand}
+        category={product.category}
+        rating={product.rating}
+        reviewCount={product.reviewCount}
+        slug={slug}
+      />
+      <BreadcrumbSchema 
+        items={[
+          { name: "Home", url: "https://neuroceutical.lovable.app/" },
+          { name: "Products", url: "https://neuroceutical.lovable.app/products" },
+          { name: product.name, url: `https://neuroceutical.lovable.app/products/${slug}` }
+        ]}
       />
       <Navigation />
       
