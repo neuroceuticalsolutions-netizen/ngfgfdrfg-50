@@ -2,10 +2,16 @@ import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { Link } from "react-router-dom";
 import { AlertTriangle } from "lucide-react";
+import { SEOHead } from "@/components/SEOHead";
 
 const Disclaimer = () => {
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Disclaimer"
+        description="Important information about Neuroceutical Solutions products, health disclaimers, and SAHPRA compliance notices."
+        path="/disclaimer"
+      />
       <Navigation />
       
       {/* Hero Section */}

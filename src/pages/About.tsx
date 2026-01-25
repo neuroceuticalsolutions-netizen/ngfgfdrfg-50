@@ -2,8 +2,15 @@ import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { HeroButton } from "@/components/ui/hero-button";
 import { Link } from "react-router-dom";
+import { SEOHead } from "@/components/SEOHead";
+
 const About = () => {
   return <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="About Us"
+        description="Learn about Neuroceutical Solutions - your trusted source for premium, science-backed neuroceutical products in South Africa."
+        path="/about"
+      />
       <Navigation />
       
       {/* Hero Section */}

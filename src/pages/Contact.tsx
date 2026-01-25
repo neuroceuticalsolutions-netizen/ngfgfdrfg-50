@@ -11,6 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Mail, Phone, MapPin, ChevronDown } from "lucide-react";
 import { products } from "@/data/products";
 import { cn } from "@/lib/utils";
+import { SEOHead } from "@/components/SEOHead";
 
 const Contact = () => {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
@@ -32,8 +33,12 @@ const Contact = () => {
     return `${selectedProducts.length} products selected`;
   };
   return <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Contact Us"
+        description="Have questions about our products? Want to learn more about cognitive enhancement? Get in touch with Neuroceutical Solutions today."
+        path="/contact"
+      />
       <Navigation />
-      
       {/* Hero Section */}
       <section className="pt-32 pb-20">
         <div className="container mx-auto px-6">

@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { SEOHead } from "@/components/SEOHead"
 
 const Newsletter = () => {
   const benefits = [
@@ -72,6 +73,11 @@ const Newsletter = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Get Free Samples & Early Product Access"
+        description="Subscribe to our newsletter for free sample campaigns, new nootropics launches, and exclusive product announcements in South Africa."
+        path="/newsletter"
+      />
       <Navigation />
       
       {/* Hero Section */}

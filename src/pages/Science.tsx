@@ -2,6 +2,7 @@ import { Navigation } from "@/components/sections/navigation"
 import { Footer } from "@/components/sections/footer"
 import { ScienceBenefits } from "@/components/sections/science-benefits"
 import { Badge } from "@/components/ui/badge"
+import { SEOHead } from "@/components/SEOHead"
 
 const Science = () => {
   const researchAreas = [
@@ -59,6 +60,11 @@ const Science = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="The Science Behind Cognitive Enhancement"
+        description="Explore the peer-reviewed research and clinical studies that validate our approach to cognitive optimization and brain health."
+        path="/science"
+      />
       <Navigation />
       
       {/* Hero Section */}

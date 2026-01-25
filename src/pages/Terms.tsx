@@ -1,10 +1,16 @@
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { Link } from "react-router-dom";
+import { SEOHead } from "@/components/SEOHead";
 
 const Terms = () => {
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Terms of Service"
+        description="Read the terms and conditions for using the Neuroceutical Solutions website and services."
+        path="/terms"
+      />
       <Navigation />
       
       {/* Hero Section */}
