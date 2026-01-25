@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { getProductBySlug } from "@/data/products";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { SEOHead } from "@/components/SEOHead";
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -22,6 +23,12 @@ const ProductDetail = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title={product.name}
+        description={product.shortDescription}
+        path={`/products/${slug}`}
+        type="product"
+      />
       <Navigation />
       
       {/* Breadcrumb */}

@@ -6,8 +6,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { CheckCircle, Brain, Target, Zap, Calendar, Mail, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PartnerContactForm } from "@/components/sections/partner-contact-form";
+import { SEOHead } from "@/components/SEOHead";
 const GetStarted = () => {
   return <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Partner With Us for Sample Distribution"
+        description="Get your premium neuroceutical product samples distributed in South Africa's growing cognitive enhancement market through our trusted network."
+        path="/get-started"
+      />
       <Navigation />
       
       {/* Hero Section */}

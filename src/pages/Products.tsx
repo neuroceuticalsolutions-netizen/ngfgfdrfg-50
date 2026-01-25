@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
 import { useState } from "react"
+import { SEOHead } from "@/components/SEOHead"
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -43,6 +44,11 @@ const Products = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Premium Nootropics & Brain Enhancement Products"
+        description="Discover our carefully curated selection of science-backed nootropics and brain-enhancing supplements from trusted manufacturers in South Africa."
+        path="/products"
+      />
       <Navigation />
       
       {/* Hero Section */}

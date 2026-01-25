@@ -1,10 +1,16 @@
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { Link } from "react-router-dom";
+import { SEOHead } from "@/components/SEOHead";
 
 const Privacy = () => {
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead 
+        title="Privacy Policy"
+        description="Learn how Neuroceutical Solutions collects, uses, and protects your personal information in compliance with POPIA."
+        path="/privacy"
+      />
       <Navigation />
       
       {/* Hero Section */}
