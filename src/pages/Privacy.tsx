@@ -2,6 +2,9 @@ import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { Link } from "react-router-dom";
 import { SEOHead } from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+
+const BASE_URL = "https://neuroceutical.lovable.app";
 
 const Privacy = () => {
   return (
@@ -11,6 +14,10 @@ const Privacy = () => {
         description="Learn how Neuroceutical Solutions collects, uses, and protects your personal information in compliance with POPIA."
         path="/privacy"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Privacy Policy", url: `${BASE_URL}/privacy` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}

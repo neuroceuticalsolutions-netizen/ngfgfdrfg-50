@@ -7,7 +7,9 @@ import { CheckCircle, Brain, Target, Zap, Calendar, Mail, Search } from "lucide-
 import { Link } from "react-router-dom";
 import { PartnerContactForm } from "@/components/sections/partner-contact-form";
 import { SEOHead } from "@/components/SEOHead";
-import { FAQSchema } from "@/components/StructuredData";
+import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+const BASE_URL = "https://neuroceutical.lovable.app";
 
 const partnerFaqs = [
   {
@@ -36,6 +38,10 @@ const GetStarted = () => {
         path="/get-started"
       />
       <FAQSchema faqs={partnerFaqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Get Started", url: `${BASE_URL}/get-started` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}
