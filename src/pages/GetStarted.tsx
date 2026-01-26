@@ -7,6 +7,27 @@ import { CheckCircle, Brain, Target, Zap, Calendar, Mail, Search } from "lucide-
 import { Link } from "react-router-dom";
 import { PartnerContactForm } from "@/components/sections/partner-contact-form";
 import { SEOHead } from "@/components/SEOHead";
+import { FAQSchema } from "@/components/StructuredData";
+
+const partnerFaqs = [
+  {
+    question: "How long does the evaluation take?",
+    answer: "Our product evaluation process typically takes 2-4 weeks, depending on documentation completeness and product complexity."
+  },
+  {
+    question: "What are the costs involved?",
+    answer: "We distribute your samples for free to consumers. Partnership terms and any associated costs are discussed during the evaluation process."
+  },
+  {
+    question: "What sample quantities are needed?",
+    answer: "Minimum quantities vary by product type and distribution scope. We'll work with you to determine appropriate volumes during our initial discussions."
+  },
+  {
+    question: "How will my brand be represented?",
+    answer: "Your brand maintains full visibility. We showcase partner products with proper branding and provide consumer feedback and market insights."
+  }
+]
+
 const GetStarted = () => {
   return <main className="min-h-screen bg-background">
       <SEOHead 
@@ -14,6 +35,7 @@ const GetStarted = () => {
         description="Get your premium neuroceutical product samples distributed in South Africa's growing cognitive enhancement market through our trusted network."
         path="/get-started"
       />
+      <FAQSchema faqs={partnerFaqs} />
       <Navigation />
       
       {/* Hero Section */}
