@@ -9,6 +9,26 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { SEOHead } from "@/components/SEOHead"
+import { FAQSchema } from "@/components/StructuredData"
+
+const newsletterFaqs = [
+  {
+    question: "How often will I receive newsletters?",
+    answer: "We send out our newsletter weekly, typically on Wednesdays. Each edition is carefully curated to provide you with the most relevant and actionable cognitive enhancement insights."
+  },
+  {
+    question: "Can I unsubscribe at any time?",
+    answer: "Absolutely! We believe in providing value, not inbox clutter. You can unsubscribe with one click at the bottom of any newsletter, and we'll respect your decision immediately."
+  },
+  {
+    question: "Do you share subscriber information?",
+    answer: "Never. Your privacy is paramount to us. We don't share, sell, or rent your email address to anyone. Your information is used solely to deliver our newsletter content."
+  },
+  {
+    question: "What makes your newsletter different?",
+    answer: "Our newsletter focuses specifically on evidence-based cognitive enhancement. Every tip, product recommendation, and insight is backed by peer-reviewed research and curated by experts in neuroscience and cognitive psychology."
+  }
+]
 
 const Newsletter = () => {
   const benefits = [
@@ -78,6 +98,7 @@ const Newsletter = () => {
         description="Subscribe to our newsletter for free sample campaigns, new nootropics launches, and exclusive product announcements in South Africa."
         path="/newsletter"
       />
+      <FAQSchema faqs={newsletterFaqs} />
       <Navigation />
       
       {/* Hero Section */}
