@@ -12,6 +12,9 @@ import { Mail, Phone, MapPin, ChevronDown } from "lucide-react";
 import { products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import { SEOHead } from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+
+const BASE_URL = "https://neuroceutical.lovable.app";
 
 const Contact = () => {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
@@ -38,6 +41,10 @@ const Contact = () => {
         description="Have questions about our products? Want to learn more about cognitive enhancement? Get in touch with Neuroceutical Solutions today."
         path="/contact"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Contact", url: `${BASE_URL}/contact` }
+      ]} />
       <Navigation />
       {/* Hero Section */}
       <section className="pt-32 pb-20">

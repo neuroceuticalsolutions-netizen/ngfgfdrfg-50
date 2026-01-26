@@ -2,6 +2,9 @@ import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { Link } from "react-router-dom";
 import { SEOHead } from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+
+const BASE_URL = "https://neuroceutical.lovable.app";
 
 const Terms = () => {
   return (
@@ -11,6 +14,10 @@ const Terms = () => {
         description="Read the terms and conditions for using the Neuroceutical Solutions website and services."
         path="/terms"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Terms of Service", url: `${BASE_URL}/terms` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}

@@ -6,6 +6,9 @@ import { Link } from "react-router-dom"
 import { products } from "@/data/products"
 import { useState } from "react"
 import { SEOHead } from "@/components/SEOHead"
+import { BreadcrumbSchema } from "@/components/StructuredData"
+
+const BASE_URL = "https://neuroceutical.lovable.app"
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -49,6 +52,10 @@ const Products = () => {
         description="Discover our carefully curated selection of science-backed nootropics and brain-enhancing supplements from trusted manufacturers in South Africa."
         path="/products"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Products", url: `${BASE_URL}/products` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}

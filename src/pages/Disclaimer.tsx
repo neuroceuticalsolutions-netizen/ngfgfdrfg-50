@@ -3,6 +3,9 @@ import { Footer } from "@/components/sections/footer";
 import { Link } from "react-router-dom";
 import { AlertTriangle } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+
+const BASE_URL = "https://neuroceutical.lovable.app";
 
 const Disclaimer = () => {
   return (
@@ -12,6 +15,10 @@ const Disclaimer = () => {
         description="Important information about Neuroceutical Solutions products, health disclaimers, and SAHPRA compliance notices."
         path="/disclaimer"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Disclaimer", url: `${BASE_URL}/disclaimer` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}

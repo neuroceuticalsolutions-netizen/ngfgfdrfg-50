@@ -3,6 +3,9 @@ import { Footer } from "@/components/sections/footer"
 import { ScienceBenefits } from "@/components/sections/science-benefits"
 import { Badge } from "@/components/ui/badge"
 import { SEOHead } from "@/components/SEOHead"
+import { BreadcrumbSchema } from "@/components/StructuredData"
+
+const BASE_URL = "https://neuroceutical.lovable.app"
 
 const Science = () => {
   const researchAreas = [
@@ -65,6 +68,10 @@ const Science = () => {
         description="Explore the peer-reviewed research and clinical studies that validate our approach to cognitive optimization and brain health."
         path="/science"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Science", url: `${BASE_URL}/science` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}

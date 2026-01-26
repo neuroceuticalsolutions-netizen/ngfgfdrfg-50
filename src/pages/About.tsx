@@ -3,6 +3,9 @@ import { Footer } from "@/components/sections/footer";
 import { HeroButton } from "@/components/ui/hero-button";
 import { Link } from "react-router-dom";
 import { SEOHead } from "@/components/SEOHead";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+
+const BASE_URL = "https://neuroceutical.lovable.app";
 
 const About = () => {
   return <main className="min-h-screen bg-background">
@@ -11,6 +14,10 @@ const About = () => {
         description="Learn about Neuroceutical Solutions - your trusted source for premium, science-backed neuroceutical products in South Africa."
         path="/about"
       />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "About", url: `${BASE_URL}/about` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}

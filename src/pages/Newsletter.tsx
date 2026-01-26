@@ -9,7 +9,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { SEOHead } from "@/components/SEOHead"
-import { FAQSchema } from "@/components/StructuredData"
+import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData"
+
+const BASE_URL = "https://neuroceutical.lovable.app"
 
 const newsletterFaqs = [
   {
@@ -99,6 +101,10 @@ const Newsletter = () => {
         path="/newsletter"
       />
       <FAQSchema faqs={newsletterFaqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: BASE_URL },
+        { name: "Newsletter", url: `${BASE_URL}/newsletter` }
+      ]} />
       <Navigation />
       
       {/* Hero Section */}
