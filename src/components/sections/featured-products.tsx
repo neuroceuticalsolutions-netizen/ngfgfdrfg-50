@@ -124,8 +124,8 @@ export const FeaturedProducts = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-70 hover:opacity-100 transition-opacity duration-300" />
-            <CarouselNext className="hidden sm:flex right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white border-border shadow-medium opacity-70 hover:opacity-100 transition-opacity duration-300" />
+            <CarouselPrevious className="hidden sm:flex -left-2 lg:-left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 lg:w-14 lg:h-14 bg-royal-purple/20 hover:bg-royal-purple/40 border-0 text-royal-purple hover:text-white backdrop-blur-sm shadow-lg transition-all duration-300" />
+            <CarouselNext className="hidden sm:flex -right-2 lg:-right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 lg:w-14 lg:h-14 bg-royal-purple/20 hover:bg-royal-purple/40 border-0 text-royal-purple hover:text-white backdrop-blur-sm shadow-lg transition-all duration-300" />
             
             {/* Swipe indicator for mobile */}
             {showIndicator && !hasInteracted && (
