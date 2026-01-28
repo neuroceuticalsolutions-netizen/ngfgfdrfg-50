@@ -41,10 +41,10 @@ export const FeaturedProducts = () => {
   }, [api])
 
   return (
-    <section id="featured-products" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="heading-lg text-royal-purple mb-6 animate-fade-in-up">
+    <section id="featured-products" className="py-12 sm:py-20 bg-white">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-16">
+          <h2 className="heading-lg text-royal-purple mb-3 sm:mb-6 animate-fade-in-up">
             Featured Products & Partners
           </h2>
           <p className="body-md sm:body-lg text-grey-600 max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>
@@ -53,12 +53,12 @@ export const FeaturedProducts = () => {
           </p>
         </div>
 
-        <div className="relative mb-12">
+        <div className="relative mb-6 sm:mb-12">
           <Carousel className="w-full max-w-7xl mx-auto group" setApi={setApi}>
-            <CarouselContent className="p-4">
+            <CarouselContent className="p-2 sm:p-4">
               {products.map((product, index) => (
                 <CarouselItem key={index}>
-                  <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[400px] sm:min-h-[350px] lg:min-h-[400px] transition-shadow duration-200 hover:shadow-large">
+                  <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[320px] sm:min-h-[350px] lg:min-h-[400px] transition-shadow duration-200 hover:shadow-large">
                     {/* Mobile background image */}
                     <div 
                       className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20 sm:hidden"
