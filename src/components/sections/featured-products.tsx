@@ -61,15 +61,12 @@ export const FeaturedProducts = () => {
                   <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[320px] sm:min-h-[350px] lg:min-h-[400px] transition-shadow duration-200 hover:shadow-large">
                     {/* Mobile background image */}
                     <div 
-                      className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20 sm:hidden"
+                      className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-15 sm:hidden"
                       style={{
                         backgroundImage: `url(${product.logo})`,
-                        backgroundColor: product.backgroundColor,
-                        backgroundBlendMode: 'overlay'
+                        backgroundColor: product.backgroundColor
                       }}
                     />
-                    {/* Mobile overlay for better text readability */}
-                    <div className="absolute inset-0 bg-black/20 sm:hidden" />
                     
                     <div className="flex flex-col sm:flex-row h-full">
                       {/* Left side - Product Info */}
