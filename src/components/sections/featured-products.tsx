@@ -59,14 +59,6 @@ export const FeaturedProducts = () => {
               {products.map((product, index) => (
                 <CarouselItem key={index}>
                   <div className="bg-white rounded-xl overflow-hidden shadow-medium relative min-h-[320px] sm:min-h-[350px] lg:min-h-[400px] transition-shadow duration-200 hover:shadow-large">
-                    {/* Mobile background image */}
-                    <div 
-                      className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-15 sm:hidden"
-                      style={{
-                        backgroundImage: `url(${product.logo})`,
-                        backgroundColor: product.backgroundColor
-                      }}
-                    />
                     
                     <div className="flex flex-col sm:flex-row h-full">
                       {/* Left side - Product Info */}
