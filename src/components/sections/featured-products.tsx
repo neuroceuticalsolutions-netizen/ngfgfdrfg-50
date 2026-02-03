@@ -63,18 +63,18 @@ export const FeaturedProducts = () => {
                     <div className="flex flex-col sm:flex-row h-full">
                       {/* Left side - Product Info */}
                       <div className="w-full sm:w-1/2 lg:w-[55%] p-4 sm:p-8 lg:p-12 flex flex-col justify-center relative z-10">
-                        <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white sm:text-primary mb-2 lg:mb-3 text-center">{product.name}</h3>
-                        <p className="text-white/90 sm:text-accent font-semibold mb-6 text-center">Partner: {product.brand}</p>
+                        <h3 className="text-xl sm:text-3xl lg:text-4xl font-bold text-primary mb-2 lg:mb-3 text-center sm:text-left">{product.name}</h3>
+                        <p className="text-accent font-semibold mb-4 sm:mb-6 text-center sm:text-left">Partner: {product.brand}</p>
                         
-                        <p className="text-white/80 sm:text-muted-foreground text-sm sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-xl">
+                        <p className="text-muted-foreground text-sm sm:text-lg mb-4 sm:mb-8 leading-relaxed max-w-xl">
                           {product.shortDescription}
                         </p>
 
-                        <ul className="space-y-2 sm:space-y-3 lg:space-y-4 mb-6 sm:mb-8 lg:mb-10">
+                        <ul className="space-y-2 sm:space-y-3 lg:space-y-4 mb-4 sm:mb-8 lg:mb-10">
                           {product.benefits.map((benefit, i) => (
-                            <li key={i} className="flex items-center text-white sm:text-foreground text-sm sm:text-base lg:text-lg">
-                              <span className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-white/80 sm:bg-accent rounded-full mr-2 sm:mr-3 lg:mr-4 flex-shrink-0 flex items-center justify-center">
-                                <span className="text-black sm:text-accent-foreground font-bold text-xs sm:text-sm">✓</span>
+                            <li key={i} className="flex items-center text-foreground text-sm sm:text-base lg:text-lg">
+                              <span className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-accent rounded-full mr-2 sm:mr-3 lg:mr-4 flex-shrink-0 flex items-center justify-center">
+                                <span className="text-accent-foreground font-bold text-xs sm:text-sm">✓</span>
                               </span>
                               {benefit}
                             </li>
@@ -83,7 +83,7 @@ export const FeaturedProducts = () => {
 
                         <Link 
                           to={`/products/${product.slug}`}
-                          className="self-center px-4 sm:px-8 py-2 sm:py-3 text-white sm:text-primary font-semibold text-sm sm:text-lg bg-white/20 sm:bg-transparent hover:bg-white/30 sm:hover:bg-secondary transition-colors rounded-lg border border-white/40 sm:border-transparent"
+                          className="self-center sm:self-start px-4 sm:px-8 py-2 sm:py-3 text-primary font-semibold text-sm sm:text-lg bg-secondary hover:bg-secondary/80 transition-colors rounded-lg"
                         >
                           Learn More
                         </Link>
