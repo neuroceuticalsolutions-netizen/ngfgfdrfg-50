@@ -17,9 +17,11 @@ export const Footer = () => {
               <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal p-2">
                 <Facebook size={20} />
               </HeroButton>
-              <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal p-2">
-                <Instagram size={20} />
-              </HeroButton>
+              <a href="https://www.instagram.com/neuroceutical_za/" target="_blank" rel="noopener noreferrer">
+                <HeroButton variant="ghost" size="sm" className="text-grey-300 hover:text-fresh-teal p-2">
+                  <Instagram size={20} />
+                </HeroButton>
+              </a>
             </div>
           </div>
 
