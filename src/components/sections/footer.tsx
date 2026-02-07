@@ -35,7 +35,7 @@ export const Footer = () => {
                 <Mail className="text-fresh-teal mr-2" size={16} />
                 <div>
                   <p className="text-grey-300">Email</p>
-                  <a href="mailto:info@neuroceuticalsolutions.co.za" className="text-white hover:text-fresh-teal">
+                  <a className="text-white hover:text-fresh-teal" href="mailto:info@neuroceutical.co.za">
                     info@neuroceuticalsolutions.co.za
                   </a>
                 </div>
