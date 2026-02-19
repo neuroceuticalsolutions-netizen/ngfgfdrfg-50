@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/accordion"
 import { SEOHead } from "@/components/SEOHead"
 import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData"
+import { articles } from "@/data/articles"
+import { Link } from "react-router-dom"
 
 const BASE_URL = "https://neuroceutical.lovable.app"
 
@@ -72,26 +74,7 @@ const Newsletter = () => {
     }
   ]
 
-  const recentNewsletters = [
-    {
-      title: "The Science of Neuroplasticity: How Your Brain Adapts",
-      date: "December 2024",
-      excerpt: "Discover how specific compounds can enhance your brain's ability to form new neural connections and adapt to challenges.",
-      readTime: "5 min read"
-    },
-    {
-      title: "Caffeine + L-theanine: The Perfect Cognitive Combination",
-      date: "November 2024", 
-      excerpt: "Breaking down the research behind this popular nootropic stack and how to optimize dosing for maximum benefit.",
-      readTime: "4 min read"
-    },
-    {
-      title: "Managing Stress for Better Cognitive Performance",
-      date: "October 2024",
-      excerpt: "Evidence-based strategies for reducing cortisol and improving mental resilience through natural adaptogens.",
-      readTime: "6 min read"
-    }
-  ]
+  const recentNewsletters = articles;
 
   return (
     <main className="min-h-screen bg-background">
@@ -180,9 +163,9 @@ const Newsletter = () => {
                 <h3 className="heading-sm text-grey-900 mb-3 line-clamp-2">{newsletter.title}</h3>
                 <p className="body-md text-grey-600 mb-4 line-clamp-3">{newsletter.excerpt}</p>
                 
-                <button className="text-royal-purple font-medium hover:text-royal-purple/80 transition-colors">
-                  Read Sample →
-                </button>
+                <Link to={`/articles/${newsletter.slug}`} className="text-royal-purple font-medium hover:text-royal-purple/80 transition-colors">
+                  Read Article →
+                </Link>
               </div>
             ))}
           </div>
