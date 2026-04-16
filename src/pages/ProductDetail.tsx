@@ -104,13 +104,17 @@ const ProductDetail = () => {
               
               <h1 className="heading-xl text-royal-purple mb-4 break-words">{product.name}</h1>
               
-              <div className="flex items-center gap-2 mb-6">
-                <div className="flex text-yellow-400">
-                  {"★".repeat(Math.floor(product.rating))}
-                  {product.rating % 1 !== 0 && "☆"}
+              {product.reviewCount > 0 && (
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="flex text-yellow-400">
+                    {"★".repeat(Math.floor(product.rating))}
+                    {product.rating % 1 !== 0 && "☆"}
+                  </div>
+                  <span className="text-sm text-grey-500">
+                    ({product.reviewCount >= 5000 ? "5,000+" : product.reviewCount} reviews)
+                  </span>
                 </div>
-                <span className="text-sm text-grey-500">({product.reviewCount} reviews)</span>
-              </div>
+              )}
               
               <p className="body-lg text-grey-600 mb-8">{product.fullDescription}</p>
               
