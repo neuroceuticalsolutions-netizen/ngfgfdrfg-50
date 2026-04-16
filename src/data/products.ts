@@ -58,7 +58,7 @@ export const products: Product[] = [
     category: "performance",
     inStock: true,
     rating: 4.6,
-    reviewCount: 234,
+    reviewCount: 0,
     newsUrl: "https://za.zyn.com/news-blog"
   },
   {
@@ -86,8 +86,8 @@ export const products: Product[] = [
     backgroundColor: "#059669",
     category: "energy",
     inStock: true,
-    rating: 4.8,
-    reviewCount: 156,
+    rating: 4.5,
+    reviewCount: 734,
     newsUrl: "https://store.eunatural.com/products/caffeine-l-theanine?srsltid=AfmBOor7d8VWggOnWz8pMzvyeW5wgIw7Wty8CCfnRbOXcyJrqgtRuPAH"
   },
   {
@@ -115,8 +115,8 @@ export const products: Product[] = [
     backgroundColor: "#1e40af",
     category: "performance",
     inStock: true,
-    rating: 4.7,
-    reviewCount: 189,
+    rating: 4.9,
+    reviewCount: 110,
     newsUrl: "https://za.usn.global/blogs/news/tagged/creatine"
   },
   {
@@ -145,8 +145,8 @@ export const products: Product[] = [
     backgroundColor: "#065f46",
     category: "cognitive",
     inStock: true,
-    rating: 4.9,
-    reviewCount: 267,
+    rating: 4.6,
+    reviewCount: 5000,
     newsUrl: "https://naokimatcha.com/pages/our-matcha"
   }
 ];
