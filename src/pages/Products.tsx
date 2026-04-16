@@ -152,6 +152,21 @@ const Products = () => {
                   <div className="p-8">
                     <div className="mb-4">
                       <h3 className="heading-sm text-grey-900">{product.name}</h3>
+                      {product.reviewCount > 0 && (
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex text-yellow-400 text-sm">
+                            {"★".repeat(Math.floor(product.rating))}
+                            {product.rating % 1 !== 0 && "☆"}
+                          </div>
+                          {product.reviewUrl ? (
+                            <a href={product.reviewUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-grey-500 hover:text-royal-purple underline underline-offset-2 transition-colors">
+                              ({product.reviewCount >= 5000 ? "5,000+" : product.reviewCount} reviews)
+                            </a>
+                          ) : (
+                            <span className="text-xs text-grey-500">({product.reviewCount} reviews)</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                     
                     <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
@@ -218,6 +233,21 @@ const Products = () => {
                   <div className="p-8">
                     <div className="mb-4">
                       <h3 className="heading-sm text-grey-900">{product.name}</h3>
+                      {product.reviewCount > 0 && (
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex text-yellow-400 text-sm">
+                            {"★".repeat(Math.floor(product.rating))}
+                            {product.rating % 1 !== 0 && "☆"}
+                          </div>
+                          {product.reviewUrl ? (
+                            <a href={product.reviewUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-grey-500 hover:text-royal-purple underline underline-offset-2 transition-colors">
+                              ({product.reviewCount >= 5000 ? "5,000+" : product.reviewCount} reviews)
+                            </a>
+                          ) : (
+                            <span className="text-xs text-grey-500">({product.reviewCount} reviews)</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                     
                     <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
