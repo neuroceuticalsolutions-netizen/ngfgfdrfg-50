@@ -20,6 +20,7 @@ export interface Product {
   rating: number;
   reviewCount: number;
   newsUrl: string;
+  reviewUrl?: string;
 }
 
 import euNaturalIcon from "@/assets/partners/eu-natural-capsule-icon.png"
@@ -88,7 +89,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.5,
     reviewCount: 734,
-    newsUrl: "https://store.eunatural.com/products/caffeine-l-theanine?srsltid=AfmBOor7d8VWggOnWz8pMzvyeW5wgIw7Wty8CCfnRbOXcyJrqgtRuPAH"
+    newsUrl: "https://store.eunatural.com/products/caffeine-l-theanine?srsltid=AfmBOor7d8VWggOnWz8pMzvyeW5wgIw7Wty8CCfnRbOXcyJrqgtRuPAH",
+    reviewUrl: "https://store.eunatural.com/products/caffeine-l-theanine#reviews"
   },
   {
     id: "creatine-monohydrate",
@@ -117,7 +119,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.9,
     reviewCount: 110,
-    newsUrl: "https://za.usn.global/blogs/news/tagged/creatine"
+    newsUrl: "https://za.usn.global/blogs/news/tagged/creatine",
+    reviewUrl: "https://za.usn.global/collections/creatine/products/3-in-1-creatine-monohydrate-aminos#reviews"
   },
   {
     id: "matcha-tea-premium",
@@ -147,7 +150,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.6,
     reviewCount: 5000,
-    newsUrl: "https://naokimatcha.com/pages/our-matcha"
+    newsUrl: "https://naokimatcha.com/pages/our-matcha",
+    reviewUrl: "https://naokimatcha.com/collections/all"
   }
 ];
 

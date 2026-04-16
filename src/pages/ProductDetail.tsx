@@ -110,9 +110,20 @@ const ProductDetail = () => {
                     {"★".repeat(Math.floor(product.rating))}
                     {product.rating % 1 !== 0 && "☆"}
                   </div>
-                  <span className="text-sm text-grey-500">
-                    ({product.reviewCount >= 5000 ? "5,000+" : product.reviewCount} reviews)
-                  </span>
+                  {product.reviewUrl ? (
+                    <a 
+                      href={product.reviewUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-sm text-grey-500 hover:text-royal-purple underline underline-offset-2 transition-colors"
+                    >
+                      ({product.reviewCount >= 5000 ? "5,000+" : product.reviewCount} reviews)
+                    </a>
+                  ) : (
+                    <span className="text-sm text-grey-500">
+                      ({product.reviewCount >= 5000 ? "5,000+" : product.reviewCount} reviews)
+                    </span>
+                  )}
                 </div>
               )}
               
