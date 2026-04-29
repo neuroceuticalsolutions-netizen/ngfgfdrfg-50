@@ -241,16 +241,18 @@ const Products = () => {
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="outline" className="bg-white/90">
-                        {product.brand}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  <div className="p-8">
-                    <div className="mb-4">
-                      <h3 className="heading-sm text-grey-900">{product.name}</h3>
+                     <div className="absolute top-4 left-4">
+                       <Badge variant="outline" className="bg-white/90">
+                         <Highlight text={product.brand} query={query} />
+                       </Badge>
+                     </div>
+                   </div>
+                   
+                   <div className="p-8">
+                     <div className="mb-4">
+                       <h3 className="heading-sm text-grey-900">
+                         <Highlight text={product.name} query={query} />
+                       </h3>
                       {product.reviewCount > 0 && (
                         <div className="flex items-center gap-2 mt-2">
                           <div className="flex text-yellow-400 text-sm">
@@ -268,12 +270,14 @@ const Products = () => {
                       )}
                     </div>
                     
-                    <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
+                    <p className="body-md text-grey-600 mb-6">
+                      <Highlight text={product.shortDescription} query={query} />
+                    </p>
                     
                     <div className="flex flex-wrap gap-2 mb-6">
                       {product.benefits.map((benefit, benefitIndex) => (
                         <Badge key={benefitIndex} variant="secondary" className="text-xs">
-                          {benefit}
+                          <Highlight text={benefit} query={query} />
                         </Badge>
                       ))}
                     </div>
@@ -324,14 +328,16 @@ const Products = () => {
                     />
                     <div className="absolute top-4 left-4">
                       <Badge variant="outline" className="bg-white/90">
-                        {product.brand}
+                        <Highlight text={product.brand} query={query} />
                       </Badge>
                     </div>
                   </div>
                   
                   <div className="p-8">
                     <div className="mb-4">
-                      <h3 className="heading-sm text-grey-900">{product.name}</h3>
+                      <h3 className="heading-sm text-grey-900">
+                        <Highlight text={product.name} query={query} />
+                      </h3>
                       {product.reviewCount > 0 && (
                         <div className="flex items-center gap-2 mt-2">
                           <div className="flex text-yellow-400 text-sm">
@@ -349,12 +355,14 @@ const Products = () => {
                       )}
                     </div>
                     
-                    <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
+                    <p className="body-md text-grey-600 mb-6">
+                      <Highlight text={product.shortDescription} query={query} />
+                    </p>
                     
                     <div className="flex flex-wrap gap-2 mb-6">
                       {product.benefits.map((benefit, benefitIndex) => (
                         <Badge key={benefitIndex} variant="secondary" className="text-xs">
-                          {benefit}
+                          <Highlight text={benefit} query={query} />
                         </Badge>
                       ))}
                     </div>
