@@ -10,9 +10,10 @@ const Privacy = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Privacy Policy"
-        description="Learn how Neuroceutical Solutions collects, uses, and protects your personal information in compliance with POPIA."
+        title="Privacy Policy | POPIA Compliance | Neuroceutical SA"
+        description="How Neuroceutical Solutions collects, uses and protects your personal data in full compliance with South Africa's POPIA regulations."
         path="/privacy"
+        keywords="POPIA privacy policy south africa, neuroceutical privacy, data protection SA, nootropics website privacy"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
