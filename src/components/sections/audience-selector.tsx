@@ -31,7 +31,14 @@ export const AudienceSelector = () => {
                 <li>✓ Find where to purchase</li>
               </ul>
               <Link to="/products">
-                <HeroButton variant="hero" size="lg" className="w-full">
+                <HeroButton
+                  variant="hero"
+                  size="lg"
+                  className="w-full"
+                  data-analytics-cta="audience_selector_explore_products"
+                  data-analytics-location="home_audience_selector"
+                  data-analytics-audience="b2c"
+                >
                   Explore Products
                 </HeroButton>
               </Link>
@@ -56,7 +63,14 @@ export const AudienceSelector = () => {
                 <li>✓ Expand your product line</li>
               </ul>
               <Link to="/get-started">
-                <HeroButton variant="outline" size="lg" className="w-full">
+                <HeroButton
+                  variant="outline"
+                  size="lg"
+                  className="w-full"
+                  data-analytics-cta="audience_selector_partner_with_us"
+                  data-analytics-location="home_audience_selector"
+                  data-analytics-audience="b2b"
+                >
                   Partner With Us
                 </HeroButton>
               </Link>
