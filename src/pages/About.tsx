@@ -10,9 +10,10 @@ const BASE_URL = "https://neuroceutical.lovable.app";
 const About = () => {
   return <main className="min-h-screen bg-background">
       <SEOHead 
-        title="About Us"
-        description="Learn about Neuroceutical Solutions - your trusted source for premium, science-backed neuroceutical products in South Africa."
+        title="About Neuroceutical Solutions | Nootropics SA"
+        description="Meet South Africa's trusted distributor of premium, science-backed nootropics and cognitive enhancement products. Local expertise, global brands."
         path="/about"
+        keywords="neuroceutical solutions south africa, about nootropics distributor SA, south african cognitive enhancement company, brain supplement distributor johannesburg, trusted nootropics brand SA"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },

@@ -48,9 +48,10 @@ const Products = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Premium Nootropics & Brain Enhancement Products"
-        description="Discover our carefully curated selection of science-backed nootropics and brain-enhancing supplements from trusted manufacturers in South Africa."
+        title="Buy Nootropics South Africa | Brain Supplements SA"
+        description="Shop premium nootropics in South Africa: ZYN pouches, matcha, L-theanine, EU Natural. Curated brain supplements for focus, energy & mental performance."
         path="/products"
+        keywords="buy nootropics south africa, nootropics for sale SA, ZYN pouches south africa, EU Natural south africa, matcha tea south africa, L-theanine caffeine SA, focus supplements, energy supplements south africa, brain enhancement products SA"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },

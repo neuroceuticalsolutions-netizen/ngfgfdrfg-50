@@ -64,9 +64,10 @@ const Science = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title="The Science Behind Cognitive Enhancement"
-        description="Explore the peer-reviewed research and clinical studies that validate our approach to cognitive optimization and brain health."
+        title="Nootropics Science & Research | Neuroceutical SA"
+        description="Explore peer-reviewed research behind nootropics and cognitive enhancement. Evidence-based brain health insights for South African consumers."
         path="/science"
+        keywords="nootropics research, cognitive enhancement science, brain health research south africa, clinical studies nootropics, neuroceutical science, evidence-based supplements SA, focus and memory research"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },

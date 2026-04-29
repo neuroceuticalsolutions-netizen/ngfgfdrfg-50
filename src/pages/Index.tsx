@@ -14,9 +14,10 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Science-Backed Cognitive Enhancement"
-        description="Neuroceutical Solutions partners with leading brands to provide scientifically proven formulas for mental clarity, focus, and stress relief in South Africa."
+        title="Nootropics South Africa | Brain Supplements SA"
+        description="Premium nootropics in South Africa. Science-backed brain supplements for focus, memory & mental clarity. Trusted SA distributor of cognitive enhancers."
         path="/"
+        keywords="nootropics south africa, brain supplements south africa, cognitive enhancement SA, focus supplements johannesburg, memory supplements cape town, mental clarity, neuroceuticals SA, smart drugs south africa, ZYN nicotine pouches SA, EU Natural south africa"
       />
       <OrganizationSchema />
       <Navigation />

@@ -79,9 +79,10 @@ const Newsletter = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Get Free Samples & Early Product Access"
-        description="Subscribe to our newsletter for free sample campaigns, new nootropics launches, and exclusive product announcements in South Africa."
+        title="Free Nootropic Samples SA | Newsletter Sign-Up"
+        description="Get free nootropic samples in South Africa. Subscribe for early access to new brain supplements, focus aids and cognitive enhancement launches."
         path="/newsletter"
+        keywords="free nootropic samples south africa, free brain supplement samples SA, nootropics newsletter, cognitive enhancement updates south africa, ZYN samples SA, supplement launches south africa"
       />
       <FAQSchema faqs={newsletterFaqs} />
       <BreadcrumbSchema items={[

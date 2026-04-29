@@ -10,9 +10,10 @@ const Terms = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Terms of Service"
-        description="Read the terms and conditions for using the Neuroceutical Solutions website and services."
+        title="Terms of Service | Neuroceutical Solutions SA"
+        description="Terms and conditions for using Neuroceutical Solutions, South Africa's trusted nootropics and cognitive enhancement distributor website."
         path="/terms"
+        keywords="neuroceutical terms south africa, nootropics website terms, distributor terms of service SA"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
