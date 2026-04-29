@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Send } from "lucide-react";
+import { trackPartnerSubmit, trackEvent } from "@/lib/analytics";
 
 const partnerFormSchema = z.object({
   companyName: z.string()
@@ -67,6 +68,11 @@ export const PartnerContactForm = () => {
   const onSubmit = async (data: PartnerFormData) => {
     setIsSubmitting(true);
     console.log("Partner form submission:", { ...data, email: "[REDACTED]" });
+    trackEvent("partner_form_submit_attempt", {
+      form: "partner_application",
+      audience: "b2b",
+      productCategory: data.productCategory,
+    });
 
     try {
       // TODO: Implement backend submission (Resend email or database storage)
@@ -77,10 +83,15 @@ export const PartnerContactForm = () => {
         title: "Application Submitted!",
         description: "We've received your partnership inquiry and will get back to you within 2-3 business days.",
       });
+      trackPartnerSubmit({ productCategory: data.productCategory });
       
       reset();
     } catch (error) {
       console.error("Form submission error:", error);
+      trackEvent("partner_form_submit_error", {
+        form: "partner_application",
+        audience: "b2b",
+      });
       toast({
         title: "Submission Failed",
         description: "There was an error submitting your application. Please try again or contact us directly.",
