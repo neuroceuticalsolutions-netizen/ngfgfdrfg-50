@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { CookieConsent } from "@/components/CookieConsent";
+import { OrganizationSchema, WebSiteSchema } from "@/components/StructuredData";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Products from "./pages/Products";
@@ -30,6 +31,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <OrganizationSchema />
+        <WebSiteSchema />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
