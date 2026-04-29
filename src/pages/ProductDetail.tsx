@@ -25,10 +25,11 @@ const ProductDetail = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title={product.name}
-        description={product.shortDescription}
+        title={`${product.name} South Africa | Buy ${product.brand} SA`}
+        description={`${product.shortDescription} Available in South Africa via Neuroceutical Solutions.`}
         path={`/products/${slug}`}
         type="product"
+        keywords={`${product.name} south africa, ${product.brand} south africa, buy ${product.name} SA, ${product.category} supplement south africa, nootropics SA, ${product.benefits.join(", ")}`}
       />
       <ProductSchema 
         name={product.name}
