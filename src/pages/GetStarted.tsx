@@ -9,6 +9,7 @@ import { PartnerContactForm } from "@/components/sections/partner-contact-form";
 import { SEOHead } from "@/components/SEOHead";
 import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { products } from "@/data/products";
+import { PageDisclaimer } from "@/components/PageDisclaimer";
 
 const BASE_URL = "https://neuroceutical.lovable.app";
 
@@ -446,6 +447,7 @@ const GetStarted = () => {
         </div>
       </section>
 
+      <PageDisclaimer variant="partners" />
       <Footer />
     </main>;
 };
