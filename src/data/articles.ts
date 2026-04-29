@@ -1,3 +1,9 @@
+export type ArticleCategory =
+  | "stress-relief"
+  | "mental-fatigue"
+  | "cognitive-performance"
+  | "nootropic-science";
+
 export interface Article {
   slug: string;
   title: string;
@@ -5,6 +11,8 @@ export interface Article {
   readTime: string;
   excerpt: string;
   content: string;
+  category?: ArticleCategory;
+  keywords?: string;
 }
 
 export const articles: Article[] = [
@@ -14,6 +22,8 @@ export const articles: Article[] = [
     date: "December 2024",
     readTime: "5 min read",
     excerpt: "Discover how specific compounds can enhance your brain's ability to form new neural connections and adapt to challenges.",
+    category: "nootropic-science",
+    keywords: "neuroplasticity, brain adaptation, nootropics south africa, cognitive enhancement SA",
     content: `
 ## What Is Neuroplasticity?
 
