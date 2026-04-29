@@ -33,9 +33,10 @@ const partnerFaqs = [
 const GetStarted = () => {
   return <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Partner With Us for Sample Distribution"
-        description="Get your premium neuroceutical product samples distributed in South Africa's growing cognitive enhancement market through our trusted network."
+        title="Partner With Us | Nootropics Distribution SA"
+        description="Distribute your nootropic and cognitive enhancement samples across South Africa. Partner with Neuroceutical Solutions to reach SA's growing market."
         path="/get-started"
+        keywords="nootropics distribution south africa, brand partnerships SA, free sample distribution south africa, neuroceutical distributor partner, launch supplements in south africa, nootropics market entry SA, B2B supplement distribution johannesburg"
       />
       <FAQSchema faqs={partnerFaqs} />
       <BreadcrumbSchema items={[
