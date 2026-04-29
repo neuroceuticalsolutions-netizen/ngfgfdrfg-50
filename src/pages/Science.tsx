@@ -3,9 +3,24 @@ import { Footer } from "@/components/sections/footer"
 import { ScienceBenefits } from "@/components/sections/science-benefits"
 import { Badge } from "@/components/ui/badge"
 import { SEOHead } from "@/components/SEOHead"
-import { BreadcrumbSchema } from "@/components/StructuredData"
+import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData"
 
 const BASE_URL = "https://neuroceutical.lovable.app"
+
+const scienceFaqs = [
+  {
+    question: "Are nootropics backed by science?",
+    answer: "Several nootropic ingredients — such as L-theanine, caffeine, and certain botanicals — have been studied in peer-reviewed research for their potential cognitive effects. Individual results may vary."
+  },
+  {
+    question: "Do nootropics have side effects?",
+    answer: "Like any supplement, nootropics may cause side effects in some individuals. Always read the product label and consult a healthcare professional, especially if you take medication or have a medical condition."
+  },
+  {
+    question: "How long do nootropics take to work?",
+    answer: "Effects vary by ingredient and individual. Some compounds (e.g. caffeine + L-theanine) may have noticeable short-term effects, while others may require consistent use over weeks."
+  }
+];
 
 const Science = () => {
   const researchAreas = [
@@ -69,6 +84,7 @@ const Science = () => {
         path="/science"
         keywords="nootropics research, cognitive enhancement science, brain health research south africa, clinical studies nootropics, neuroceutical science, evidence-based supplements SA, focus and memory research"
       />
+      <FAQSchema faqs={scienceFaqs} />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
         { name: "Science", url: `${BASE_URL}/science` }

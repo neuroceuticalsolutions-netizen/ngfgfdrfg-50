@@ -6,9 +6,24 @@ import { Link } from "react-router-dom"
 import { products } from "@/data/products"
 import { useState } from "react"
 import { SEOHead } from "@/components/SEOHead"
-import { BreadcrumbSchema } from "@/components/StructuredData"
+import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData"
 
 const BASE_URL = "https://neuroceutical.lovable.app"
+
+const productsFaqs = [
+  {
+    question: "What nootropics do you stock in South Africa?",
+    answer: "We curate science-backed nootropics and cognitive enhancement products from trusted brands, including ZYN nicotine pouches, EU Natural supplements, premium matcha, and L-theanine + caffeine formulas."
+  },
+  {
+    question: "Are these supplements third-party tested?",
+    answer: "Every brand we partner with must meet our distribution standards, including third-party verification of quality and ingredient integrity."
+  },
+  {
+    question: "How do I choose the right nootropic for me?",
+    answer: "Browse by category — Nootropics, Energy Optimization, or Performance Enhancement — and review each product's benefits. Consult a healthcare professional before starting any supplement."
+  }
+];
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -53,6 +68,7 @@ const Products = () => {
         path="/products"
         keywords="buy nootropics south africa, nootropics for sale SA, ZYN pouches south africa, EU Natural south africa, matcha tea south africa, L-theanine caffeine SA, focus supplements, energy supplements south africa, brain enhancement products SA"
       />
+      <FAQSchema faqs={productsFaqs} />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
         { name: "Products", url: `${BASE_URL}/products` }

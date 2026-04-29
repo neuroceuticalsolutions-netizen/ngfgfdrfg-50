@@ -12,9 +12,24 @@ import { Mail, Phone, MapPin, ChevronDown } from "lucide-react";
 import { products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import { SEOHead } from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 
 const BASE_URL = "https://neuroceutical.lovable.app";
+
+const contactFaqs = [
+  {
+    question: "How can I contact Neuroceutical Solutions?",
+    answer: "You can reach our South African team by email at info@neuroceuticalsolutions.co.za or by phone on +27 62 476 7535."
+  },
+  {
+    question: "How quickly do you respond to enquiries?",
+    answer: "We aim to respond to all customer and partner enquiries within one business day."
+  },
+  {
+    question: "Can I request product information for a specific brand?",
+    answer: "Yes — select the products you're interested in on the contact form and our team will share detailed information and availability."
+  }
+];
 
 const Contact = () => {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
@@ -42,6 +57,7 @@ const Contact = () => {
         path="/contact"
         keywords="contact nootropics south africa, neuroceutical solutions contact, brain supplement enquiries SA, nootropics support south africa, customer service johannesburg"
       />
+      <FAQSchema faqs={contactFaqs} />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
         { name: "Contact", url: `${BASE_URL}/contact` }

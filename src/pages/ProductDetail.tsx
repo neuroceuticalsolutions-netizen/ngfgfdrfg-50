@@ -7,7 +7,7 @@ import { getProductBySlug } from "@/data/products";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { SEOHead } from "@/components/SEOHead";
-import { ProductSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { ProductSchema, BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -21,6 +21,25 @@ const ProductDetail = () => {
   if (!product) {
     return <Navigate to="/products" replace />;
   }
+
+  const productFaqs = [
+    {
+      question: `What is ${product.name}?`,
+      answer: product.fullDescription || product.shortDescription
+    },
+    {
+      question: `How do I use ${product.name}?`,
+      answer: product.usage || "Follow the usage instructions on the product label, or consult a healthcare professional for guidance."
+    },
+    {
+      question: `Is ${product.name} available in South Africa?`,
+      answer: `Yes — ${product.name} by ${product.brand} is distributed in South Africa via Neuroceutical Solutions. Availability may vary; contact us for current stock and pricing.`
+    },
+    {
+      question: `What are the key benefits of ${product.name}?`,
+      answer: `${product.name} may support: ${product.benefits.join(", ")}. Individual results may vary.`
+    }
+  ];
 
   return (
     <main className="min-h-screen bg-background">
@@ -41,6 +60,7 @@ const ProductDetail = () => {
         reviewCount={product.reviewCount}
         slug={slug}
       />
+      <FAQSchema faqs={productFaqs} />
       <BreadcrumbSchema 
         items={[
           { name: "Home", url: "https://neuroceutical.lovable.app/" },

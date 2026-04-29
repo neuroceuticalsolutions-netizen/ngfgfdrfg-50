@@ -4,7 +4,7 @@ interface OrganizationSchemaProps {
   includeFull?: boolean;
 }
 
-export const OrganizationSchema = ({ includeFull = true }: OrganizationSchemaProps) => {
+export const OrganizationSchema = ({ includeFull = false }: OrganizationSchemaProps) => {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -50,6 +50,34 @@ export const OrganizationSchema = ({ includeFull = true }: OrganizationSchemaPro
           {JSON.stringify(websiteSchema)}
         </script>
       )}
+    </Helmet>
+  );
+};
+
+export const WebSiteSchema = () => {
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Neuroceutical Solutions",
+    "alternateName": "Neuroceutical SA",
+    "url": "https://neuroceutical.lovable.app",
+    "inLanguage": "en-ZA",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Neuroceutical Solutions"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://neuroceutical.lovable.app/products?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(websiteSchema)}
+      </script>
     </Helmet>
   );
 };
