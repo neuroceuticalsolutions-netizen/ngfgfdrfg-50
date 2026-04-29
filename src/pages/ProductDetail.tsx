@@ -48,6 +48,8 @@ const ProductDetail = () => {
         description={`${product.shortDescription} Available in South Africa via Neuroceutical Solutions.`}
         path={`/products/${slug}`}
         type="product"
+        image={product.productImage}
+        imageAlt={`${product.name} by ${product.brand} — available in South Africa`}
         keywords={`${product.name} south africa, ${product.brand} south africa, buy ${product.name} SA, ${product.category} supplement south africa, nootropics SA, ${product.benefits.join(", ")}`}
       />
       <ProductSchema 

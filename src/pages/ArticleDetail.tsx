@@ -102,6 +102,10 @@ const ArticleDetail = () => {
         title={article.title}
         description={article.excerpt}
         path={`/articles/${article.slug}`}
+        type="article"
+        publishedTime={article.date}
+        author="Neuroceutical Solutions"
+        imageAlt={article.title}
       />
       <BreadcrumbSchema
         items={[
