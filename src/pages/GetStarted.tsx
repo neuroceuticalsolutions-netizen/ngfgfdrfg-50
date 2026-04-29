@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { PartnerContactForm } from "@/components/sections/partner-contact-form";
 import { SEOHead } from "@/components/SEOHead";
 import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { products } from "@/data/products";
 
 const BASE_URL = "https://neuroceutical.lovable.app";
 
@@ -110,6 +111,153 @@ const GetStarted = () => {
                 </CardDescription>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* B2B Partner Showcase */}
+      <section id="partner-showcase" className="py-16 bg-white scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="inline-block px-4 py-1.5 bg-royal-purple/10 rounded-full mb-4">
+              <span className="text-royal-purple font-semibold text-xs tracking-wide">PARTNER SHOWCASE · FOR BRANDS & DISTRIBUTORS</span>
+            </div>
+            <h2 className="heading-lg text-royal-purple mb-4">
+              Brands We've Onboarded for Free Sample Distribution in South Africa
+            </h2>
+            <p className="body-lg text-grey-600">
+              A curated view of partner brands currently distributed through our South African
+              network. Each has completed our compliance review and met our distribution standards.
+              This showcase is for prospective brand partners — consumer-facing product details live
+              on our <Link to="/products" className="text-royal-purple underline underline-offset-2">products page</Link>.
+            </p>
+          </div>
+
+          {/* Brand cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {products.map((product) => (
+              <Card key={product.slug} className="border-grey-200 hover:shadow-lg transition-shadow flex flex-col">
+                <CardHeader>
+                  <div
+                    className="w-full h-28 rounded-lg flex items-center justify-center mb-4"
+                    style={{ backgroundColor: product.backgroundColor }}
+                  >
+                    <img
+                      src={product.logo}
+                      alt={`${product.brand} brand logo`}
+                      className="max-h-20 max-w-[70%] object-contain"
+                    />
+                  </div>
+                  <CardTitle className="text-lg text-royal-purple">{product.brand}</CardTitle>
+                  <CardDescription className="text-grey-700 font-medium">
+                    {product.name}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col">
+                  <p className="text-sm text-grey-600 mb-4 flex-1">
+                    Distributed via free sample campaigns. Onboarded after compliance review and
+                    documentation verification.
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-fresh-teal font-semibold">
+                    <CheckCircle className="w-4 h-4" />
+                    Standards verified
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Partner Benefits */}
+          <div className="max-w-5xl mx-auto mb-16">
+            <h3 className="heading-sm text-royal-purple text-center mb-8">
+              Why Brands Partner With Us
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: <Target className="w-6 h-6 text-royal-purple" />,
+                  title: "Targeted SA Market Entry",
+                  body: "Reach a curated South African audience interested in nootropics and cognitive enhancement, without managing local logistics yourself."
+                },
+                {
+                  icon: <Brain className="w-6 h-6 text-royal-purple" />,
+                  title: "Real Consumer Feedback",
+                  body: "Receive structured insights from sample recipients to inform product positioning, pricing and future formulation work."
+                },
+                {
+                  icon: <Zap className="w-6 h-6 text-royal-purple" />,
+                  title: "Free Sample Distribution",
+                  body: "We distribute your samples to consumers at no cost to them — a low-friction way to build awareness and trial in a new market."
+                },
+                {
+                  icon: <CheckCircle className="w-6 h-6 text-fresh-teal" />,
+                  title: "Compliance-Aligned Reach",
+                  body: "Distribution is structured in line with SAHPRA and POPIA-aligned practices, helping protect your brand reputation locally."
+                },
+                {
+                  icon: <Search className="w-6 h-6 text-royal-purple" />,
+                  title: "Brand Visibility, Preserved",
+                  body: "Your brand identity, packaging and messaging stay intact — we showcase partners alongside their own positioning, not under a private label."
+                },
+                {
+                  icon: <Calendar className="w-6 h-6 text-royal-purple" />,
+                  title: "Considered, Long-Term Partnerships",
+                  body: "We onboard a small number of brands at a time, prioritising fit and quality over volume — and supporting partners over the long term."
+                },
+              ].map((b, i) => (
+                <Card key={i} className="border-grey-200">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-royal-purple/10 rounded-xl flex items-center justify-center mb-3">
+                      {b.icon}
+                    </div>
+                    <CardTitle className="text-base text-royal-purple">{b.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-grey-600">{b.body}</CardDescription>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Showcase Requirements (compact, partner-focused) */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <h3 className="heading-sm text-royal-purple text-center mb-2">
+              What We Look For in a Showcase Partner
+            </h3>
+            <p className="body-md text-grey-600 text-center mb-8">
+              To be featured in our partner showcase and distributed through our South African
+              network, brands are evaluated against six core standards.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                "GMP, ISO or equivalent quality certifications",
+                "Complete formulation, ingredient and third-party testing documentation",
+                "Capacity to supply consistent sample volumes for distribution",
+                "Labelling and claims aligned with South African regulations (SAHPRA-aware)",
+                "Market-ready packaging and consumer-facing brand assets",
+                "Science-first values: evidence-informed, no overstated health claims",
+              ].map((req, i) => (
+                <div key={i} className="flex items-start gap-3 bg-grey-50 rounded-lg p-4">
+                  <CheckCircle className="w-5 h-5 text-fresh-teal flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-grey-700">{req}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-grey-500 text-center mt-6 italic">
+              Educational and partnership-focused content. We do not make therapeutic claims about
+              partner products. All consumer-facing health and product communications must comply
+              with SAHPRA guidelines and POPIA data-handling requirements.
+            </p>
+          </div>
+
+          {/* CTA strip */}
+          <div className="text-center">
+            <Link to="#requirements">
+              <HeroButton variant="hero" size="lg">
+                Review Full Partner Requirements
+              </HeroButton>
+            </Link>
           </div>
         </div>
       </section>
@@ -222,8 +370,8 @@ const GetStarted = () => {
                   
                 </HeroButton>
                 <HeroButton variant="outline" size="lg" className="w-full" asChild>
-                  <Link to="/#featured-products">
-                    View Our Partners
+                  <Link to="#partner-showcase">
+                    View Partner Showcase
                   </Link>
                 </HeroButton>
                 <p className="text-sm text-grey-500 text-center">
