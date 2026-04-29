@@ -42,7 +42,13 @@ export const Navigation = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Link to="/get-started">
-              <HeroButton variant="hero" size="sm">
+              <HeroButton
+                variant="hero"
+                size="sm"
+                data-analytics-cta="nav_partner_with_us"
+                data-analytics-location="navigation_desktop"
+                data-analytics-audience="b2b"
+              >
                 Partner With Us
               </HeroButton>
             </Link>
@@ -103,7 +109,14 @@ export const Navigation = () => {
                 Newsletter
               </Link>
               <Link to="/get-started" onClick={() => setIsMobileMenuOpen(false)}>
-                <HeroButton variant="hero" size="sm" className="w-full mt-2">
+                <HeroButton
+                  variant="hero"
+                  size="sm"
+                  className="w-full mt-2"
+                  data-analytics-cta="nav_partner_with_us"
+                  data-analytics-location="navigation_mobile"
+                  data-analytics-audience="b2b"
+                >
                   Partner With Us
                 </HeroButton>
               </Link>
