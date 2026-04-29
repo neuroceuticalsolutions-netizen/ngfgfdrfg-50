@@ -7,6 +7,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { CookieConsent } from "@/components/CookieConsent";
 import { OrganizationSchema, WebSiteSchema } from "@/components/StructuredData";
+import { useEffect } from "react";
+import { installCtaClickTracker } from "@/lib/analytics";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Products from "./pages/Products";
@@ -24,7 +26,12 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    installCtaClickTracker();
+  }, []);
+
+  return (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -56,6 +63,7 @@ const App = () => (
     </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>
-);
+  );
+};
 
 export default App;
