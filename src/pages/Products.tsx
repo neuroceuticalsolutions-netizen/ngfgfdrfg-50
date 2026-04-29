@@ -13,6 +13,34 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData"
 
 const BASE_URL = "https://neuroceutical.lovable.app"
 
+// Highlight occurrences of `query` inside `text` with a <mark> element.
+// Case-insensitive, accent-insensitive on the query, safe against regex meta-chars.
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const Highlight = ({ text, query }: { text: string; query: string }) => {
+  const q = query.trim();
+  if (!q) return <>{text}</>;
+  const re = new RegExp(`(${escapeRegExp(q)})`, "ig");
+  const parts = text.split(re);
+  const qLower = q.toLowerCase();
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.toLowerCase() === qLower ? (
+          <mark
+            key={i}
+            className="bg-yellow-200 text-grey-900 rounded px-0.5"
+          >
+            {part}
+          </mark>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
+  );
+};
+
 const productsFaqs = [
   {
     question: "What nootropics do you stock in South Africa?",
@@ -195,8 +223,39 @@ const Products = () => {
       </section>
 
       {/* Filtered Products Display */}
-      {selectedCategory === 'all' ? (
-        productCategories.map((category, categoryIndex) => (
+      {query.trim() && (
+        <section className="pt-6">
+          <div className="container mx-auto px-6">
+            <p className="text-center body-sm text-grey-600">
+              {filteredProducts.length === 0
+                ? <>No products match <strong className="text-royal-purple">"{query}"</strong>.</>
+                : <>Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'result' : 'results'} for <strong className="text-royal-purple">"{query}"</strong>.</>}
+            </p>
+          </div>
+        </section>
+      )}
+      {filteredProducts.length === 0 && query.trim() ? (
+        <section className="py-16">
+          <div className="container mx-auto px-6 text-center max-w-xl">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-grey-100 flex items-center justify-center">
+              <Search className="w-7 h-7 text-grey-500" aria-hidden="true" />
+            </div>
+            <h2 className="heading-sm text-royal-purple mb-3">No matches found</h2>
+            <p className="body-md text-grey-600 mb-6">
+              Try a different keyword — for example a brand (ZYN, USN, EU Natural), a benefit (focus, energy) or a category (nootropics).
+            </p>
+            <button
+              onClick={() => setQuery('')}
+              className="px-6 py-2 rounded-full bg-royal-purple text-white hover:opacity-90 transition"
+            >
+              Clear search
+            </button>
+          </div>
+        </section>
+      ) : selectedCategory === 'all' ? (
+        productCategories
+          .filter(category => category.products.length > 0)
+          .map((category, categoryIndex) => (
         <section key={categoryIndex} className={`pt-10 pb-20 ${categoryIndex % 2 === 1 ? 'bg-subtle-gradient' : ''}`}>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
@@ -213,16 +272,18 @@ const Products = () => {
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="outline" className="bg-white/90">
-                        {product.brand}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  <div className="p-8">
-                    <div className="mb-4">
-                      <h3 className="heading-sm text-grey-900">{product.name}</h3>
+                     <div className="absolute top-4 left-4">
+                       <Badge variant="outline" className="bg-white/90">
+                         <Highlight text={product.brand} query={query} />
+                       </Badge>
+                     </div>
+                   </div>
+                   
+                   <div className="p-8">
+                     <div className="mb-4">
+                       <h3 className="heading-sm text-grey-900">
+                         <Highlight text={product.name} query={query} />
+                       </h3>
                       {product.reviewCount > 0 && (
                         <div className="flex items-center gap-2 mt-2">
                           <div className="flex text-yellow-400 text-sm">
@@ -240,12 +301,14 @@ const Products = () => {
                       )}
                     </div>
                     
-                    <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
+                    <p className="body-md text-grey-600 mb-6">
+                      <Highlight text={product.shortDescription} query={query} />
+                    </p>
                     
                     <div className="flex flex-wrap gap-2 mb-6">
                       {product.benefits.map((benefit, benefitIndex) => (
                         <Badge key={benefitIndex} variant="secondary" className="text-xs">
-                          {benefit}
+                          <Highlight text={benefit} query={query} />
                         </Badge>
                       ))}
                     </div>
@@ -296,14 +359,16 @@ const Products = () => {
                     />
                     <div className="absolute top-4 left-4">
                       <Badge variant="outline" className="bg-white/90">
-                        {product.brand}
+                        <Highlight text={product.brand} query={query} />
                       </Badge>
                     </div>
                   </div>
                   
                   <div className="p-8">
                     <div className="mb-4">
-                      <h3 className="heading-sm text-grey-900">{product.name}</h3>
+                      <h3 className="heading-sm text-grey-900">
+                        <Highlight text={product.name} query={query} />
+                      </h3>
                       {product.reviewCount > 0 && (
                         <div className="flex items-center gap-2 mt-2">
                           <div className="flex text-yellow-400 text-sm">
@@ -321,12 +386,14 @@ const Products = () => {
                       )}
                     </div>
                     
-                    <p className="body-md text-grey-600 mb-6">{product.shortDescription}</p>
+                    <p className="body-md text-grey-600 mb-6">
+                      <Highlight text={product.shortDescription} query={query} />
+                    </p>
                     
                     <div className="flex flex-wrap gap-2 mb-6">
                       {product.benefits.map((benefit, benefitIndex) => (
                         <Badge key={benefitIndex} variant="secondary" className="text-xs">
-                          {benefit}
+                          <Highlight text={benefit} query={query} />
                         </Badge>
                       ))}
                     </div>
