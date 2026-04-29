@@ -155,6 +155,8 @@ For those interested in a natural source of this combination, matcha green tea â
     date: "October 2024",
     readTime: "6 min read",
     excerpt: "Evidence-based strategies for reducing cortisol and improving mental resilience through natural adaptogens.",
+    category: "stress-relief",
+    keywords: "stress relief south africa, cortisol management SA, adaptogens south africa, ashwagandha SA",
     content: `
 ## The Stress-Cognition Connection
 
