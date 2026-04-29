@@ -253,7 +253,9 @@ const Products = () => {
           </div>
         </section>
       ) : selectedCategory === 'all' ? (
-        productCategories.map((category, categoryIndex) => (
+        productCategories
+          .filter(category => category.products.length > 0)
+          .map((category, categoryIndex) => (
         <section key={categoryIndex} className={`pt-10 pb-20 ${categoryIndex % 2 === 1 ? 'bg-subtle-gradient' : ''}`}>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
