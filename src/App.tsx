@@ -23,6 +23,8 @@ import Terms from "./pages/Terms";
 import Disclaimer from "./pages/Disclaimer";
 import ArticleDetail from "./pages/ArticleDetail";
 import PartnerApply from "./pages/PartnerApply";
+import AdminLogin from "./pages/AdminLogin";
+import AdminApplications from "./pages/AdminApplications";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -57,6 +59,8 @@ const App = () => {
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/articles/:slug" element={<ArticleDetail />} />
           <Route path="/partners/apply" element={<PartnerApply />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/applications" element={<AdminApplications />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
