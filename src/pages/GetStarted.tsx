@@ -59,6 +59,19 @@ const GetStarted = () => {
             Get your premium neuroceutical product samples distributed in South Africa's growing cognitive enhancement market. 
             We connect innovative brands with consumers through free sample distribution via our trusted network.
           </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/partners/apply">
+              <HeroButton
+                variant="hero"
+                size="lg"
+                data-analytics-cta="getstarted_apply_now"
+                data-analytics-location="getstarted_hero"
+                data-analytics-audience="b2b"
+              >
+                Start your application
+              </HeroButton>
+            </Link>
+          </div>
         </div>
       </section>
 
