@@ -223,7 +223,36 @@ const Products = () => {
       </section>
 
       {/* Filtered Products Display */}
-      {selectedCategory === 'all' ? (
+      {query.trim() && (
+        <section className="pt-6">
+          <div className="container mx-auto px-6">
+            <p className="text-center body-sm text-grey-600">
+              {filteredProducts.length === 0
+                ? <>No products match <strong className="text-royal-purple">"{query}"</strong>.</>
+                : <>Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'result' : 'results'} for <strong className="text-royal-purple">"{query}"</strong>.</>}
+            </p>
+          </div>
+        </section>
+      )}
+      {filteredProducts.length === 0 && query.trim() ? (
+        <section className="py-16">
+          <div className="container mx-auto px-6 text-center max-w-xl">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-grey-100 flex items-center justify-center">
+              <Search className="w-7 h-7 text-grey-500" aria-hidden="true" />
+            </div>
+            <h2 className="heading-sm text-royal-purple mb-3">No matches found</h2>
+            <p className="body-md text-grey-600 mb-6">
+              Try a different keyword — for example a brand (ZYN, USN, EU Natural), a benefit (focus, energy) or a category (nootropics).
+            </p>
+            <button
+              onClick={() => setQuery('')}
+              className="px-6 py-2 rounded-full bg-royal-purple text-white hover:opacity-90 transition"
+            >
+              Clear search
+            </button>
+          </div>
+        </section>
+      ) : selectedCategory === 'all' ? (
         productCategories.map((category, categoryIndex) => (
         <section key={categoryIndex} className={`pt-10 pb-20 ${categoryIndex % 2 === 1 ? 'bg-subtle-gradient' : ''}`}>
           <div className="container mx-auto px-6">
