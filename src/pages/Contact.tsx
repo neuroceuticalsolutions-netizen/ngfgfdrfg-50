@@ -37,9 +37,10 @@ const Contact = () => {
   };
   return <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Contact Us"
-        description="Have questions about our products? Want to learn more about cognitive enhancement? Get in touch with Neuroceutical Solutions today."
+        title="Contact Neuroceutical Solutions | Nootropics SA"
+        description="Contact South Africa's nootropics distributor. Questions on brain supplements, focus or energy products? Speak to our SA team today."
         path="/contact"
+        keywords="contact nootropics south africa, neuroceutical solutions contact, brain supplement enquiries SA, nootropics support south africa, customer service johannesburg"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
