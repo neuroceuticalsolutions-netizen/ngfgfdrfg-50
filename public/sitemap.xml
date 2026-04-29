@@ -137,4 +137,36 @@
     <xhtml:link rel="alternate" hreflang="en-ZA" href="https://neuroceutical.lovable.app/articles/managing-stress-cognitive-performance" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://neuroceutical.lovable.app/articles/managing-stress-cognitive-performance" />
   </url>
+  <url>
+    <loc>https://neuroceutical.lovable.app/guides</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ZA" href="https://neuroceutical.lovable.app/guides" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neuroceutical.lovable.app/guides" />
+  </url>
+  <url>
+    <loc>https://neuroceutical.lovable.app/articles/stress-relief-south-africa-natural-strategies</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-ZA" href="https://neuroceutical.lovable.app/articles/stress-relief-south-africa-natural-strategies" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neuroceutical.lovable.app/articles/stress-relief-south-africa-natural-strategies" />
+  </url>
+  <url>
+    <loc>https://neuroceutical.lovable.app/articles/mental-fatigue-south-africa-beating-brain-fog</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-ZA" href="https://neuroceutical.lovable.app/articles/mental-fatigue-south-africa-beating-brain-fog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neuroceutical.lovable.app/articles/mental-fatigue-south-africa-beating-brain-fog" />
+  </url>
+  <url>
+    <loc>https://neuroceutical.lovable.app/articles/cognitive-performance-south-africa-evidence-based-guide</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-ZA" href="https://neuroceutical.lovable.app/articles/cognitive-performance-south-africa-evidence-based-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neuroceutical.lovable.app/articles/cognitive-performance-south-africa-evidence-based-guide" />
+  </url>
 </urlset>
