@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { HeroButton } from "@/components/ui/hero-button"
 import { Input } from "@/components/ui/input"
+import { trackNewsletterSignup } from "@/lib/analytics"
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("")
@@ -10,6 +11,7 @@ export const Newsletter = () => {
     e.preventDefault()
     // Here you would integrate with your newsletter service
     console.log("Newsletter signup:", email)
+    trackNewsletterSignup({ location: "homepage_newsletter_section" })
     setIsSubscribed(true)
     setEmail("")
   }
