@@ -335,7 +335,7 @@ Supplements don't replace sleep, exercise or therapy — they layer on top. A re
 You can't always control the stressors — but you can train your body and brain to recover faster. Combining evidence-informed routines with carefully chosen nootropic and adaptogenic support can meaningfully improve how you feel, think and perform under South African conditions.
 
 _This article is for educational purposes and does not constitute medical advice. Consult a healthcare professional before starting any supplement._
-    \`
+    `
   },
   {
     slug: "mental-fatigue-south-africa-beating-brain-fog",
@@ -414,7 +414,7 @@ Persistent mental fatigue lasting weeks — especially with low mood, unexplaine
 Brain fog in South Africa is rarely about willpower — it's about physiology. Address the foundations, fill the nutritional gaps, and use targeted nootropics where appropriate. The clarity you're missing is usually closer than it feels.
 
 _This article is for educational purposes only and does not constitute medical advice._
-    \`
+    `
   },
   {
     slug: "cognitive-performance-south-africa-evidence-based-guide",
@@ -488,7 +488,7 @@ Sleep is fragmented and this is a real handicap. Prioritise short naps, light ex
 Optimising cognitive performance in South Africa isn't about chasing miracle pills — it's about stacking small, evidence-informed advantages: better sleep, smarter nutrition, deliberate training, and carefully chosen supplementation. Done consistently, the compounding effect on focus, memory and resilience is real.
 
 _Educational content only. Always consult a healthcare professional before starting new supplements._
-    \`
+    `
   }
 ];
 
