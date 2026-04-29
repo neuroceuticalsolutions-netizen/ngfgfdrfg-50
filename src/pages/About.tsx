@@ -3,9 +3,24 @@ import { Footer } from "@/components/sections/footer";
 import { HeroButton } from "@/components/ui/hero-button";
 import { Link } from "react-router-dom";
 import { SEOHead } from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 
 const BASE_URL = "https://neuroceutical.lovable.app";
+
+const aboutFaqs = [
+  {
+    question: "Who is Neuroceutical Solutions?",
+    answer: "Neuroceutical Solutions is a South African distributor of premium, science-backed nootropic and cognitive enhancement products, partnering with trusted global brands."
+  },
+  {
+    question: "Where are you based?",
+    answer: "Neuroceutical Solutions is based in Pietermaritzburg, KwaZulu-Natal, and operates across South Africa."
+  },
+  {
+    question: "How do you choose the brands you distribute?",
+    answer: "Every brand is evaluated against our distribution standards covering ingredient quality, third-party testing, regulatory compliance, transparency, and customer trust."
+  }
+];
 
 const About = () => {
   return <main className="min-h-screen bg-background">
@@ -15,6 +30,7 @@ const About = () => {
         path="/about"
         keywords="neuroceutical solutions south africa, about nootropics distributor SA, south african cognitive enhancement company, brain supplement distributor johannesburg, trusted nootropics brand SA"
       />
+      <FAQSchema faqs={aboutFaqs} />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
         { name: "About", url: `${BASE_URL}/about` }
