@@ -80,6 +80,8 @@ The science is clear: cognitive enhancement isn't about taking a magic pill — 
     date: "November 2024",
     readTime: "4 min read",
     excerpt: "Breaking down the research behind this popular nootropic stack and how to optimize dosing for maximum benefit.",
+    category: "cognitive-performance",
+    keywords: "caffeine l-theanine south africa, nootropic stack SA, focus supplements johannesburg",
     content: `
 ## The Most Popular Nootropic Stack
 
