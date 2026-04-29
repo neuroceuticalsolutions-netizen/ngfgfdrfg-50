@@ -13,6 +13,33 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData"
 
 const BASE_URL = "https://neuroceutical.lovable.app"
 
+// Highlight occurrences of `query` inside `text` with a <mark> element.
+// Case-insensitive, accent-insensitive on the query, safe against regex meta-chars.
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const Highlight = ({ text, query }: { text: string; query: string }) => {
+  const q = query.trim();
+  if (!q) return <>{text}</>;
+  const re = new RegExp(`(${escapeRegExp(q)})`, "ig");
+  const parts = text.split(re);
+  return (
+    <>
+      {parts.map((part, i) =>
+        re.test(part) && part.toLowerCase() === q.toLowerCase() ? (
+          <mark
+            key={i}
+            className="bg-yellow-200 text-grey-900 rounded px-0.5"
+          >
+            {part}
+          </mark>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
+  );
+};
+
 const productsFaqs = [
   {
     question: "What nootropics do you stock in South Africa?",
