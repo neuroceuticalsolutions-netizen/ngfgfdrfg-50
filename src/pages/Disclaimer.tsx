@@ -11,9 +11,10 @@ const Disclaimer = () => {
   return (
     <main className="min-h-screen bg-background">
       <SEOHead 
-        title="Disclaimer"
-        description="Important information about Neuroceutical Solutions products, health disclaimers, and SAHPRA compliance notices."
+        title="Disclaimer & SAHPRA Notice | Neuroceutical SA"
+        description="Health disclaimers and SAHPRA compliance notices for Neuroceutical Solutions nootropic and cognitive enhancement products in South Africa."
         path="/disclaimer"
+        keywords="SAHPRA disclaimer south africa, nootropics health disclaimer SA, supplement compliance south africa, neuroceutical disclaimer"
       />
       <BreadcrumbSchema items={[
         { name: "Home", url: BASE_URL },
