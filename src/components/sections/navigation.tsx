@@ -31,6 +31,9 @@ export const Navigation = () => {
             <Link to="/science" className="text-grey-700 hover:text-royal-purple transition-colors font-medium">
               Science
             </Link>
+            <Link to="/guides" className="text-grey-700 hover:text-royal-purple transition-colors font-medium">
+              Guides
+            </Link>
             <Link to="/newsletter" className="text-grey-700 hover:text-royal-purple transition-colors font-medium">
               Newsletter
             </Link>
@@ -84,6 +87,13 @@ export const Navigation = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Science
+              </Link>
+              <Link
+                to="/guides"
+                className="text-grey-700 hover:text-royal-purple transition-colors font-medium px-2 py-1"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Guides
               </Link>
               <Link 
                 to="/newsletter" 
