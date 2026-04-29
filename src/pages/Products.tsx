@@ -4,7 +4,10 @@ import { HeroButton } from "@/components/ui/hero-button"
 import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
+import { Input } from "@/components/ui/input"
+import { Search } from "lucide-react"
 import { SEOHead } from "@/components/SEOHead"
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData"
 
@@ -27,14 +30,41 @@ const productsFaqs = [
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQuery = searchParams.get('q') ?? '';
+  const [query, setQuery] = useState<string>(initialQuery);
+
+  // Keep URL in sync with the search input (so the ?q= param matches the SearchAction schema)
+  useEffect(() => {
+    const next = new URLSearchParams(searchParams);
+    if (query) {
+      next.set('q', query);
+    } else {
+      next.delete('q');
+    }
+    setSearchParams(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
+  const matchesQuery = (p: typeof products[number]) => {
+    if (!query.trim()) return true;
+    const q = query.trim().toLowerCase();
+    return (
+      p.name.toLowerCase().includes(q) ||
+      p.brand.toLowerCase().includes(q) ||
+      p.shortDescription.toLowerCase().includes(q) ||
+      p.benefits.some(b => b.toLowerCase().includes(q)) ||
+      p.category.toLowerCase().includes(q)
+    );
+  };
   
-  const cognitiveProducts = products.filter(p => p.category === 'cognitive');
-  const energyProducts = products.filter(p => p.category === 'energy');
-  const performanceProducts = products.filter(p => p.category === 'performance');
+  const cognitiveProducts = products.filter(p => p.category === 'cognitive' && matchesQuery(p));
+  const energyProducts = products.filter(p => p.category === 'energy' && matchesQuery(p));
+  const performanceProducts = products.filter(p => p.category === 'performance' && matchesQuery(p));
   
   const getFilteredProducts = () => {
-    if (selectedCategory === 'all') return products;
-    return products.filter(p => p.category === selectedCategory);
+    const base = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
+    return base.filter(matchesQuery);
   };
   
   const filteredProducts = getFilteredProducts();
@@ -92,6 +122,30 @@ const Products = () => {
               <Badge variant="secondary">Premium Quality</Badge>
               <Badge variant="secondary">Trusted Brands</Badge>
             </div>
+
+            {/* Search input — query param is `q`, mirrored in URL for the WebSite SearchAction schema */}
+            <form
+              role="search"
+              onSubmit={(e) => e.preventDefault()}
+              className="max-w-xl mx-auto mb-2 animate-fade-in-up"
+              style={{ animationDelay: '0.3s' }}
+            >
+              <label htmlFor="product-search" className="sr-only">Search nootropics and supplements</label>
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-grey-500" aria-hidden="true" />
+                <Input
+                  id="product-search"
+                  name="q"
+                  type="search"
+                  inputMode="search"
+                  placeholder="Search products, brands or benefits…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="pl-11 h-12 rounded-full bg-white border-grey-300"
+                  aria-label="Search nootropics and supplements"
+                />
+              </div>
+            </form>
             
             {/* Category Filter */}
             <div className="flex flex-wrap justify-center gap-3 mt-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
