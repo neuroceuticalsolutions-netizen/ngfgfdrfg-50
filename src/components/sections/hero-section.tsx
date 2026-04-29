@@ -34,7 +34,12 @@ export const HeroSection = () => {
               size="lg"
               asChild
             >
-              <Link to="/products">
+              <Link
+                to="/products"
+                data-analytics-cta="hero_explore_products"
+                data-analytics-location="home_hero"
+                data-analytics-audience="b2c"
+              >
                 Explore Products
               </Link>
             </HeroButton>
@@ -44,7 +49,12 @@ export const HeroSection = () => {
               className="border-white text-white hover:bg-white hover:text-royal-purple"
               asChild
             >
-              <Link to="/get-started">
+              <Link
+                to="/get-started"
+                data-analytics-cta="hero_partner_with_us"
+                data-analytics-location="home_hero"
+                data-analytics-audience="b2b"
+              >
                 Partner With Us
               </Link>
             </HeroButton>
