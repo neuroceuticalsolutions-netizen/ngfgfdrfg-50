@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { SEOHead } from "@/components/SEOHead"
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData"
+import { PageDisclaimer } from "@/components/PageDisclaimer"
 
 const BASE_URL = "https://neuroceutical.lovable.app"
 
@@ -473,6 +474,7 @@ const Products = () => {
         </div>
       </section>
 
+      <PageDisclaimer variant="products" />
       <Footer />
     </main>
   );

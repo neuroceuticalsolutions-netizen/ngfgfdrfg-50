@@ -12,6 +12,7 @@ import { SEOHead } from "@/components/SEOHead"
 import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData"
 import { articles } from "@/data/articles"
 import { Link } from "react-router-dom"
+import { PageDisclaimer } from "@/components/PageDisclaimer"
 
 const BASE_URL = "https://neuroceutical.lovable.app"
 
@@ -227,6 +228,7 @@ const Newsletter = () => {
         </div>
       </section>
 
+      <PageDisclaimer variant="newsletter" />
       <Footer />
     </main>
   );
