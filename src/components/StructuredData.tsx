@@ -55,22 +55,47 @@ export const OrganizationSchema = ({ includeFull = false }: OrganizationSchemaPr
 };
 
 export const WebSiteSchema = () => {
+  const SITE_URL = "https://neuroceutical.lovable.app";
+
+  // SearchAction matches the real on-site search:
+  //   - UI lives on /products (Products page search input)
+  //   - The input is named `q` and is mirrored to the URL as ?q=...
+  //   - Google's Sitelinks Search Box requires an EntryPoint target + query-input mapping.
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     "name": "Neuroceutical Solutions",
-    "alternateName": "Neuroceutical SA",
-    "url": "https://neuroceutical.lovable.app",
+    "alternateName": ["Neuroceutical SA", "Neuroceutical Solutions South Africa"],
+    "url": SITE_URL,
+    "description":
+      "South African distributor of premium, science-backed nootropics and cognitive enhancement products.",
     "inLanguage": "en-ZA",
-    "publisher": {
+    "copyrightHolder": {
       "@type": "Organization",
       "name": "Neuroceutical Solutions"
     },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://neuroceutical.lovable.app/products?search={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "publisher": {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      "name": "Neuroceutical Solutions",
+      "url": SITE_URL,
+      "logo": `${SITE_URL}/lovable-uploads/927e818d-632e-49e4-bdad-c04fa319a4d1.png`,
+      "sameAs": [
+        "https://www.instagram.com/neuroceutical_za/",
+        "https://web.facebook.com/profile.php?id=61587372911811"
+      ]
+    },
+    "potentialAction": [
+      {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${SITE_URL}/products?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    ]
   };
 
   return (
