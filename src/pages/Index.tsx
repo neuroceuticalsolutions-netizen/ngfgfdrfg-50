@@ -9,6 +9,7 @@ import { Newsletter } from "@/components/sections/newsletter"
 import { Footer } from "@/components/sections/footer"
 import { SEOHead } from "@/components/SEOHead"
 import { FAQSchema } from "@/components/StructuredData"
+import { PageDisclaimer } from "@/components/PageDisclaimer"
 
 const homeFaqs = [
   {
@@ -43,6 +44,7 @@ const Index = () => {
       <ScienceBenefits />
       <Testimonials />
       <Newsletter />
+      <PageDisclaimer variant="home" />
       <Footer />
     </main>
   );
