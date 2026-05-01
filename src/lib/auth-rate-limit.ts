@@ -23,7 +23,7 @@ const STORAGE_PREFIX = "lovable.rate.";
 
 /** Default cooldowns (seconds). Tuned to match Supabase Auth's own
  *  defaults so the UX matches what the server will accept anyway. */
-export const COOLDOWNS = {
+export const COOLDOWNS: Record<string, number> = {
   signup: 60,
   signin: 5, // light debounce only — wrong-password retry is allowed
   recovery: 60,
@@ -31,9 +31,16 @@ export const COOLDOWNS = {
   resendVerification: 60,
   partnerApply: 30,
   partnerStatusEmail: 10,
-} as const;
+};
 
-export type RateLimitAction = keyof typeof COOLDOWNS;
+export type RateLimitAction =
+  | "signup"
+  | "signin"
+  | "recovery"
+  | "magicLink"
+  | "resendVerification"
+  | "partnerApply"
+  | "partnerStatusEmail";
 
 /** Stable key for an action + optional target (e.g. email). Targets are
  *  lowercased so "Foo@x" and "foo@x" share a cooldown. */
