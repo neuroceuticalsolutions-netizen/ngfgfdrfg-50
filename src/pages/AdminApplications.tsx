@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, LogOut, Mail, RefreshCw } from "lucide-react";
+import { Loader2, LogOut, Mail, RefreshCw, MessageSquare } from "lucide-react";
 
 type AppRow = {
   id: string;
@@ -151,6 +151,11 @@ const AdminApplications = () => {
             <p className="text-grey-600 text-sm mt-1">{rows.length} application{rows.length === 1 ? "" : "s"}</p>
           </div>
           <div className="flex gap-2">
+            <Button asChild variant="outline" size="sm">
+              <Link to="/admin/sms-consent">
+                <MessageSquare className="mr-2 h-4 w-4" /> SMS consent
+              </Link>
+            </Button>
             <Button variant="outline" size="sm" onClick={load}>
               <RefreshCw className="mr-2 h-4 w-4" /> Refresh
             </Button>
