@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/sections/navigation";
@@ -49,8 +50,10 @@ const PartnerSmsVerify = () => {
         title="Confirm SMS number — Partner application"
         description="Confirm your SMS number for free sample distribution updates."
         path="/partners/sms-verify"
-        noindex
       />
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <main className="container mx-auto px-6 pt-32 pb-20 max-w-xl">
         <Card className="border-grey-200 shadow-lg">
           <CardHeader className="text-center">
