@@ -167,6 +167,21 @@ export const BrandLayout = ({
           Statements have not been evaluated by SAHPRA.
         </Text>
         <Text style={styles.footerSmall}>
+          <strong>Email consent:</strong> You're receiving this transactional
+          email because you created an account or requested an action on
+          neuroceutical.co.za, in line with our{' '}
+          <a href="https://neuroceutical.co.za/privacy" style={styles.link}>
+            Privacy Policy
+          </a>{' '}
+          and POPIA. To manage your email preferences or opt out of
+          non-essential messages, visit{' '}
+          <a href="https://neuroceutical.co.za/unsubscribe" style={styles.link}>
+            neuroceutical.co.za/unsubscribe
+          </a>
+          . Note: essential security and account emails (sign-in, password
+          reset, email verification) will still be sent.
+        </Text>
+        <Text style={styles.footerSmall}>
           © Neuroceutical Solutions · South Africa ·{' '}
           <a href="https://neuroceutical.co.za/privacy" style={styles.link}>
             Privacy
