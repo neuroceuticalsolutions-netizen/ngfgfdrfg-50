@@ -11,7 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, ShieldCheck, Mail, KeyRound, Sparkles, UserPlus, Repeat, ShieldAlert } from "lucide-react";
+import { Loader2, ShieldCheck, Mail, KeyRound, Sparkles, UserPlus, Repeat, ShieldAlert, CheckCircle2, XCircle } from "lucide-react";
+
+const SUPPORT_EMAIL = "support@neuroceutical.co.za";
+const ROOT_DOMAIN = "neuroceutical.co.za";
+const UNSUBSCRIBE_URL = `https://${ROOT_DOMAIN}/unsubscribe`;
 
 /* ------------------------------------------------------------------ */
 /* Visual replicas of the auth React Email templates living in        */
@@ -132,7 +136,47 @@ function Shell({ children }: { children: React.ReactNode }) {
         You received this email because of an action on your Neuroceutical
         Solutions account. If this wasn't you, you can safely ignore it.
       </p>
-      <p style={S.footerSmall}>© Neuroceutical Solutions · South Africa</p>
+      <p style={S.footer}>
+        Need help? Contact our support team at{" "}
+        <a href={`mailto:${SUPPORT_EMAIL}`} style={S.link}>
+          {SUPPORT_EMAIL}
+        </a>{" "}
+        or visit{" "}
+        <a href={`https://${ROOT_DOMAIN}`} style={S.link}>
+          {ROOT_DOMAIN}
+        </a>
+        .
+      </p>
+      <p style={S.footerSmall}>
+        <strong>Disclaimer:</strong> Neuroceutical Solutions products are
+        dietary supplements intended to support cognitive performance and
+        general wellbeing. They are not intended to diagnose, treat, cure,
+        or prevent any disease. Always consult a qualified healthcare
+        professional before starting any supplement, especially if you are
+        pregnant, nursing, taking medication, or have a medical condition.
+        Statements have not been evaluated by SAHPRA.
+      </p>
+      <p style={S.footerSmall}>
+        <strong>Email consent:</strong> You're receiving this transactional
+        email because you created an account or requested an action on{" "}
+        {ROOT_DOMAIN}, in line with our{" "}
+        <a href={`https://${ROOT_DOMAIN}/privacy`} style={S.link}>
+          Privacy Policy
+        </a>{" "}
+        and POPIA. To manage your email preferences or opt out of
+        non-essential messages, visit{" "}
+        <a href={UNSUBSCRIBE_URL} style={S.link}>
+          {ROOT_DOMAIN}/unsubscribe
+        </a>
+        . Note: essential security and account emails (sign-in, password
+        reset, email verification) will still be sent.
+      </p>
+      <p style={S.footerSmall}>
+        © Neuroceutical Solutions · South Africa ·{" "}
+        <a href={`https://${ROOT_DOMAIN}/privacy`} style={S.link}>Privacy</a> ·{" "}
+        <a href={`https://${ROOT_DOMAIN}/terms`} style={S.link}>Terms</a> ·{" "}
+        <a href={`https://${ROOT_DOMAIN}/disclaimer`} style={S.link}>Disclaimer</a>
+      </p>
       <div style={{ height: 24 }} />
     </div>
   );
@@ -342,6 +386,7 @@ export default function AdminAuthEmailPreview() {
   const [authorized, setAuthorized] = useState(false);
   const [active, setActive] = useState<TemplateKey>("signup");
   const [data, setData] = useState<SampleData>(DEFAULT_DATA);
+  const [previewHtml, setPreviewHtml] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -369,6 +414,56 @@ export default function AdminAuthEmailPreview() {
     () => TEMPLATES.find((t) => t.key === active)!,
     [active]
   );
+
+  // After each render, capture the preview pane's HTML so we can run
+  // footer compliance checks against the actual rendered output.
+  useEffect(() => {
+    const node = document.getElementById(`auth-email-preview-${active}`);
+    setPreviewHtml(node?.innerHTML ?? "");
+  }, [active, data]);
+
+  const checks = useMemo(() => {
+    const h = previewHtml.toLowerCase();
+    return [
+      {
+        label: "Support contact: support@neuroceutical.co.za",
+        ok: h.includes("support@neuroceutical.co.za"),
+      },
+      {
+        label: "Mailto link to support address",
+        ok: h.includes('mailto:support@neuroceutical.co.za'),
+      },
+      {
+        label: "SAHPRA disclaimer present",
+        ok: h.includes("sahpra"),
+      },
+      {
+        label: "Not intended to diagnose/treat/cure/prevent",
+        ok: h.includes("diagnose") && h.includes("treat") && h.includes("prevent"),
+      },
+      {
+        label: "Email consent / POPIA reference",
+        ok: h.includes("popia") && h.includes("consent"),
+      },
+      {
+        label: "Unsubscribe link to /unsubscribe",
+        ok: h.includes("/unsubscribe"),
+      },
+      {
+        label: "Privacy / Terms / Disclaimer legal links",
+        ok:
+          h.includes("/privacy") &&
+          h.includes("/terms") &&
+          h.includes("/disclaimer"),
+      },
+      {
+        label: "Brand attribution: Neuroceutical Solutions · South Africa",
+        ok: h.includes("neuroceutical solutions") && h.includes("south africa"),
+      },
+    ];
+  }, [previewHtml]);
+
+  const allOk = checks.every((c) => c.ok);
 
   if (loading) {
     return (
@@ -478,12 +573,56 @@ export default function AdminAuthEmailPreview() {
                       </div>
                     </CardHeader>
                     <CardContent className="bg-muted/30 rounded-b-lg py-8">
-                      <t.Component d={data} />
+                      <div id={`auth-email-preview-${t.key}`}>
+                        <t.Component d={data} />
+                      </div>
                     </CardContent>
                   </Card>
                 </TabsContent>
               ))}
             </Tabs>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between gap-3 flex-wrap">
+                  <div>
+                    <CardTitle className="text-base">Footer compliance check</CardTitle>
+                    <CardDescription>
+                      Scans the currently shown <code className="text-xs">{current.key}</code>{" "}
+                      preview for required footer elements.
+                    </CardDescription>
+                  </div>
+                  <Badge
+                    variant={allOk ? "default" : "destructive"}
+                    className={allOk ? "bg-fresh-teal text-white" : ""}
+                  >
+                    {allOk ? "All checks passed" : "Issues found"}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  {checks.map((c) => (
+                    <li key={c.label} className="flex items-start gap-2">
+                      {c.ok ? (
+                        <CheckCircle2 className="h-4 w-4 text-fresh-teal-dark mt-0.5 shrink-0" />
+                      ) : (
+                        <XCircle className="h-4 w-4 text-destructive mt-0.5 shrink-0" />
+                      )}
+                      <span className={c.ok ? "text-foreground" : "text-destructive font-medium"}>
+                        {c.label}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs text-muted-foreground mt-4">
+                  This preview mirrors{" "}
+                  <code>supabase/functions/_shared/email-templates/_brand.tsx</code>.
+                  If checks fail, update the shared brand layout and redeploy{" "}
+                  <code>auth-email-hook</code>.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
