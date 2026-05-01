@@ -25,6 +25,7 @@ import ArticleDetail from "./pages/ArticleDetail";
 import PartnerApply from "./pages/PartnerApply";
 import AdminLogin from "./pages/AdminLogin";
 import AdminApplications from "./pages/AdminApplications";
+import Unsubscribe from "./pages/Unsubscribe";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
