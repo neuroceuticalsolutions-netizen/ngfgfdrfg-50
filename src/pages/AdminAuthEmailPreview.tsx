@@ -464,6 +464,12 @@ export default function AdminAuthEmailPreview() {
         ok: h.includes("/unsubscribe"),
       },
       {
+        label: "SMS consent reference + preferences link",
+        ok:
+          h.includes("sms") &&
+          h.includes("/account/sms-preferences"),
+      },
+      {
         label: "Privacy / Terms / Disclaimer legal links",
         ok:
           h.includes("/privacy") &&
