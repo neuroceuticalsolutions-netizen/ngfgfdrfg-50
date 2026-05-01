@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { SEOHead } from "@/components/SEOHead";
+import { Helmet } from "react-helmet-async";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
@@ -68,9 +69,14 @@ export default function Unsubscribe() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Email preferences | Neuroceutical Solutions"
+        title="Email preferences"
         description="Manage your Neuroceutical Solutions email preferences."
+        path="/unsubscribe"
       />
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow, noarchive" />
+        <meta name="googlebot" content="noindex, nofollow" />
+      </Helmet>
       <Navigation />
       <main className="flex-1 container max-w-xl py-16 md:py-24">
         <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-medium">
