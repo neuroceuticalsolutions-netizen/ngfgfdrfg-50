@@ -437,6 +437,34 @@ const PartnerApply = () => {
                     <p className="text-xs text-grey-500">
                       We do not sell or share your data. You can request access or deletion at any time.
                     </p>
+
+                    <div className="pt-3 border-t border-grey-200 space-y-2">
+                      <p className="text-sm font-semibold text-royal-purple">
+                        Optional: SMS notifications
+                      </p>
+                      <CheckboxField
+                        name="smsOptIn"
+                        label="I consent to receive transactional SMS (e.g. application status updates, verification codes) from Neuroceutical Solutions at the phone number provided in step 1."
+                        checked={watch("smsOptIn") === true}
+                        onChange={(v) =>
+                          setValue("smsOptIn", v, { shouldValidate: true })
+                        }
+                        error={(errors as any).smsOptIn?.message}
+                      />
+                      <p className="text-xs text-grey-500">
+                        Optional and off by default. Transactional only — no
+                        marketing. Standard carrier rates may apply. You can
+                        withdraw consent at any time by replying STOP or
+                        emailing{" "}
+                        <a
+                          href="mailto:support@neuroceutical.co.za"
+                          className="underline"
+                        >
+                          support@neuroceutical.co.za
+                        </a>
+                        .
+                      </p>
+                    </div>
                   </div>
                 </>
               )}
