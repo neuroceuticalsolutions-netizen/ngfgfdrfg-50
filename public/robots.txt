@@ -40,6 +40,8 @@ Disallow: /api/
 Disallow: /unsubscribe
 Disallow: /admin
 Disallow: /admin/
+Disallow: /account
+Disallow: /account/
 Disallow: /*?*utm_
 Disallow: /*?*fbclid
 Disallow: /*?*gclid
