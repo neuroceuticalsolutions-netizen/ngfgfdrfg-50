@@ -291,6 +291,17 @@ const PartnerApply = () => {
                 <li><strong>Internal review</strong> — our team verifies product, compliance, and fit (typically 2–3 business days). You'll receive a status update when review begins.</li>
                 <li><strong>Decision</strong> — we email you with next steps for sample distribution onboarding.</li>
               </ol>
+              {smsVerificationQueued && (
+                <div className="rounded-lg border border-fresh-teal/30 bg-fresh-teal/5 p-4 text-sm">
+                  <p className="font-semibold text-royal-purple mb-1">Confirm your SMS number</p>
+                  <p className="text-grey-700">
+                    You opted in to SMS updates. We've sent a separate email
+                    with a one-click confirmation link — please click it to
+                    activate SMS notifications. Until you confirm, no SMS
+                    will be sent (POPIA-compliant double opt-in).
+                  </p>
+                </div>
+              )}
               <p className="text-sm text-grey-500">
                 Distribution standards apply: GMP/ISO manufacturing, SAHPRA-aware labelling, and third-party testing where applicable.
               </p>
