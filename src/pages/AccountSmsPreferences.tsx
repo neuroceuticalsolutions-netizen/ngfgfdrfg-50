@@ -140,6 +140,17 @@ export default function AccountSmsPreferences() {
     })();
   }, [navigate]);
 
+  // Live-validate the phone field whenever it (or the opt-in toggle) changes,
+  // but only show the error once the user has interacted with the field
+  // OR when they've opted in (so the requirement is visible).
+  useEffect(() => {
+    if (!optIn && phone.trim() === "") {
+      setPhoneError(null);
+      return;
+    }
+    setPhoneError(validateE164(phone));
+  }, [phone, optIn]);
+
   const save = async (override?: { sms_opt_in?: boolean }) => {
     if (!userId) return;
     setError(null);
@@ -149,9 +160,17 @@ export default function AccountSmsPreferences() {
       phone_e164: phone,
     });
     if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Invalid input");
+      const issue = parsed.error.issues[0];
+      const msg = issue?.message ?? "Invalid input";
+      if (issue?.path?.[0] === "phone_e164") {
+        setPhoneError(msg);
+        setPhoneTouched(true);
+      } else {
+        setError(msg);
+      }
       return;
     }
+    setPhoneError(null);
     setSaving(true);
     const now = new Date().toISOString();
     const wasOptedIn = pref?.sms_opt_in === true;
@@ -268,21 +287,46 @@ export default function AccountSmsPreferences() {
           </CardHeader>
           <CardContent className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="phone">Mobile number</Label>
+              <Label htmlFor="phone">
+                Mobile number{" "}
+                {optIn && <span className="text-destructive" aria-hidden>*</span>}
+              </Label>
               <Input
                 id="phone"
                 type="tel"
                 inputMode="tel"
+                autoComplete="tel"
                 placeholder="+27821234567"
                 value={phone}
                 maxLength={20}
                 onChange={(e) => setPhone(e.target.value)}
-                aria-describedby="phone-help"
+                onBlur={() => setPhoneTouched(true)}
+                aria-describedby={
+                  phoneTouched && phoneError ? "phone-error" : "phone-help"
+                }
+                aria-invalid={Boolean(phoneTouched && phoneError)}
+                className={
+                  phoneTouched && phoneError
+                    ? "border-destructive focus-visible:ring-destructive"
+                    : undefined
+                }
               />
-              <p id="phone-help" className="text-xs text-muted-foreground">
-                International format with country code, e.g. +27 for South
-                Africa.
-              </p>
+              {phoneTouched && phoneError ? (
+                <p
+                  id="phone-error"
+                  role="alert"
+                  className="text-xs text-destructive flex items-start gap-1"
+                >
+                  <XCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                  <span>{phoneError}</span>
+                </p>
+              ) : (
+                <p id="phone-help" className="text-xs text-muted-foreground">
+                  International format (E.164): start with “+” and your country
+                  code, digits only — e.g. <code>+27821234567</code> for South
+                  Africa.
+                </p>
+              )}
             </div>
 
             <div className="flex items-start gap-3 rounded-md border p-3 bg-muted/30">
@@ -329,7 +373,12 @@ export default function AccountSmsPreferences() {
             )}
 
             <div className="flex flex-wrap gap-2 pt-1">
-              <Button onClick={() => save()} disabled={saving || withdrawing}>
+              <Button
+                onClick={() => save()}
+                disabled={
+                  saving || withdrawing || (optIn && Boolean(phoneError))
+                }
+              >
                 {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
                 Save preferences
               </Button>
