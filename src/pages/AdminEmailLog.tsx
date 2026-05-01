@@ -221,7 +221,6 @@ const AdminEmailLog = () => {
       <SEOHead
         title="Email Delivery Log – Admin"
         description="Monitor sent auth and transactional emails and their delivery statuses."
-        noindex
       />
       <Navigation />
       <main className="flex-1 container mx-auto px-4 py-10 max-w-7xl">
