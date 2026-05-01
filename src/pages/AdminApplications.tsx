@@ -156,6 +156,11 @@ const AdminApplications = () => {
                 <MessageSquare className="mr-2 h-4 w-4" /> SMS consent
               </Link>
             </Button>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/admin/email-log">
+                <Mail className="mr-2 h-4 w-4" /> Email log
+              </Link>
+            </Button>
             <Button variant="outline" size="sm" onClick={load}>
               <RefreshCw className="mr-2 h-4 w-4" /> Refresh
             </Button>
