@@ -7,6 +7,7 @@ import {
   Head,
   Heading,
   Html,
+  Link,
   Preview,
   Section,
   Text,
@@ -14,6 +15,7 @@ import {
 import type { TemplateEntry } from './registry.ts'
 
 const SITE_NAME = 'Neuroceutical Solutions'
+const PRIVACY_URL = 'https://neuroceutical.lovable.app/privacy'
 
 interface Props {
   name?: string
@@ -75,6 +77,19 @@ const PartnerSmsVerifyEmail = ({ name, phoneMasked, verifyUrl }: Props) => (
           number under POPIA on the basis of your consent, solely to send
           you the transactional SMS described above. See our Privacy Policy
           for retention and your rights of access, correction, and deletion.
+        </Text>
+        <Text style={footerLinks}>
+          <Link href={PRIVACY_URL} style={footerLink}>
+            Privacy &amp; POPIA Policy
+          </Link>
+          {'  ·  '}
+          <Link href={`${PRIVACY_URL}#sms-consent`} style={footerLink}>
+            SMS consent details
+          </Link>
+          {'  ·  '}
+          <Link href="mailto:privacy@neuroceutical.co.za" style={footerLink}>
+            privacy@neuroceutical.co.za
+          </Link>
         </Text>
         <Text style={footer}>— The {SITE_NAME} Partnerships Team</Text>
       </Container>
@@ -169,3 +184,13 @@ const meta = {
   lineHeight: '1.5',
 }
 const footer = { fontSize: '12px', color: '#999999', margin: '24px 0 0' }
+const footerLinks = {
+  fontSize: '12px',
+  color: 'hsl(210, 11%, 46%)',
+  margin: '16px 0 0',
+  lineHeight: '1.6',
+}
+const footerLink = {
+  color: 'hsl(271, 50%, 35%)',
+  textDecoration: 'underline',
+}
