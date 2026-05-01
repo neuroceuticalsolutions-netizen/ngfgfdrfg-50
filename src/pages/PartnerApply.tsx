@@ -25,6 +25,21 @@ import { SEOHead } from "@/components/SEOHead";
 import { supabase } from "@/integrations/supabase/client";
 import { trackEvent, trackPartnerSubmit } from "@/lib/analytics";
 
+function generateSmsToken(): string {
+  // 32 bytes -> 64-char hex token; cryptographically secure in browsers.
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function maskPhone(phone: string): string {
+  const trimmed = phone.trim();
+  if (trimmed.length <= 4) return trimmed;
+  const last4 = trimmed.slice(-4);
+  const prefix = trimmed.startsWith("+") ? trimmed.slice(0, 4) : trimmed.slice(0, 3);
+  return `${prefix} ••• ••• ${last4}`;
+}
+
 const stepSchemas = [
   // Step 1 — Brand & contact
   z.object({
@@ -96,6 +111,7 @@ const PartnerApply = () => {
   const [step, setStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedId, setSubmittedId] = useState<string | null>(null);
+  const [smsVerificationQueued, setSmsVerificationQueued] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(fullSchema),
@@ -188,8 +204,45 @@ const PartnerApply = () => {
         })
         .catch(() => { /* ignore — email infra may not be set up yet */ });
 
+      // If SMS opt-in, generate a verification token, persist it, then queue
+      // the email-confirmed SMS verification email. Failure is non-fatal —
+      // we still treat the application as submitted.
+      let queuedSmsVerify = false;
+      if (data.smsOptIn && data.phone) {
+        const token = generateSmsToken();
+        const { error: tokenErr } = await supabase
+          .from("partner_applications")
+          .update({
+            sms_verification_token: token,
+            sms_verification_sent_at: new Date().toISOString(),
+          })
+          .eq("id", inserted.id);
+        if (!tokenErr) {
+          const verifyUrl = `${window.location.origin}/partners/sms-verify?token=${encodeURIComponent(token)}`;
+          const phoneMasked = maskPhone(data.phone);
+          supabase.functions
+            .invoke("send-transactional-email", {
+              body: {
+                templateName: "partner-sms-verify",
+                recipientEmail: data.email,
+                idempotencyKey: `partner-sms-verify-${inserted.id}`,
+                templateData: {
+                  name: data.contactName,
+                  phoneMasked,
+                  verifyUrl,
+                },
+              },
+            })
+            .catch(() => { /* email infra may not be set up */ });
+          queuedSmsVerify = true;
+        } else {
+          console.warn("Could not store SMS verification token", tokenErr);
+        }
+      }
+
       trackPartnerSubmit({ productCategory: data.productCategory });
       setSubmittedId(inserted.id);
+      setSmsVerificationQueued(queuedSmsVerify);
       toast({
         title: "Application submitted",
         description: "Check your inbox for a confirmation email.",
@@ -238,6 +291,17 @@ const PartnerApply = () => {
                 <li><strong>Internal review</strong> — our team verifies product, compliance, and fit (typically 2–3 business days). You'll receive a status update when review begins.</li>
                 <li><strong>Decision</strong> — we email you with next steps for sample distribution onboarding.</li>
               </ol>
+              {smsVerificationQueued && (
+                <div className="rounded-lg border border-fresh-teal/30 bg-fresh-teal/5 p-4 text-sm">
+                  <p className="font-semibold text-royal-purple mb-1">Confirm your SMS number</p>
+                  <p className="text-grey-700">
+                    You opted in to SMS updates. We've sent a separate email
+                    with a one-click confirmation link — please click it to
+                    activate SMS notifications. Until you confirm, no SMS
+                    will be sent (POPIA-compliant double opt-in).
+                  </p>
+                </div>
+              )}
               <p className="text-sm text-grey-500">
                 Distribution standards apply: GMP/ISO manufacturing, SAHPRA-aware labelling, and third-party testing where applicable.
               </p>
@@ -463,6 +527,12 @@ const PartnerApply = () => {
                           support@neuroceutical.co.za
                         </a>
                         .
+                      </p>
+                      <p className="text-xs text-grey-500">
+                        <strong className="text-grey-700">Two-step confirmation:</strong>{" "}
+                        After you submit, we'll email you a one-click link to
+                        confirm your number. SMS is only enabled once you click
+                        that link (POPIA-compliant double opt-in).
                       </p>
                     </div>
                   </div>
