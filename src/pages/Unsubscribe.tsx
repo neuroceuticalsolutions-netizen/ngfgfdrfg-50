@@ -69,7 +69,7 @@ export default function Unsubscribe() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Email preferences | Neuroceutical Solutions"
+        title="Email preferences"
         description="Manage your Neuroceutical Solutions email preferences."
         path="/unsubscribe"
       />
