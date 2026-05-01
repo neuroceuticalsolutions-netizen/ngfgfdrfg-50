@@ -59,16 +59,29 @@ const stepSchemas = [
     popiaConsent: z.boolean().refine((v) => v === true, {
       message: "POPIA consent is required to submit",
     }),
+    smsOptIn: z.boolean().optional().default(false),
   }),
 ] as const;
 
-const fullSchema = stepSchemas[0].merge(stepSchemas[1]).merge(stepSchemas[2]);
+const fullSchema = stepSchemas[0]
+  .merge(stepSchemas[1])
+  .merge(stepSchemas[2])
+  .superRefine((val, ctx) => {
+    if (val.smsOptIn && (!val.phone || val.phone.trim().length < 6)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["smsOptIn"],
+        message:
+          "Add a phone number in step 1 to opt in to SMS, or uncheck this option.",
+      });
+    }
+  });
 type FormData = z.infer<typeof fullSchema>;
 
 const STEP_FIELDS: Array<Array<keyof FormData>> = [
   ["companyName", "brandName", "websiteUrl", "country", "contactName", "contactRole", "email", "phone"],
   ["productCategory", "productDescription", "ingredientsSummary", "manufacturingCertifications", "thirdPartyTested", "sahpraAware"],
-  ["sampleUnitsAvailable", "targetAudience", "distributionGoals", "preferredStartDate", "popiaConsent"],
+  ["sampleUnitsAvailable", "targetAudience", "distributionGoals", "preferredStartDate", "popiaConsent", "smsOptIn"],
 ];
 
 const STEPS = [
@@ -107,6 +120,7 @@ const PartnerApply = () => {
       distributionGoals: "",
       preferredStartDate: "",
       popiaConsent: false,
+      smsOptIn: false,
     },
   });
 
@@ -146,6 +160,9 @@ const PartnerApply = () => {
         target_audience: data.targetAudience || null,
         distribution_goals: data.distributionGoals,
         preferred_start_date: data.preferredStartDate || null,
+        sms_opt_in: data.smsOptIn === true,
+        sms_consent_at: data.smsOptIn === true ? new Date().toISOString() : null,
+        sms_consent_source: data.smsOptIn === true ? "partner_application" : null,
       };
 
       const { data: inserted, error } = await supabase
@@ -420,6 +437,34 @@ const PartnerApply = () => {
                     <p className="text-xs text-grey-500">
                       We do not sell or share your data. You can request access or deletion at any time.
                     </p>
+
+                    <div className="pt-3 border-t border-grey-200 space-y-2">
+                      <p className="text-sm font-semibold text-royal-purple">
+                        Optional: SMS notifications
+                      </p>
+                      <CheckboxField
+                        name="smsOptIn"
+                        label="I consent to receive transactional SMS (e.g. application status updates, verification codes) from Neuroceutical Solutions at the phone number provided in step 1."
+                        checked={watch("smsOptIn") === true}
+                        onChange={(v) =>
+                          setValue("smsOptIn", v, { shouldValidate: true })
+                        }
+                        error={(errors as any).smsOptIn?.message}
+                      />
+                      <p className="text-xs text-grey-500">
+                        Optional and off by default. Transactional only — no
+                        marketing. Standard carrier rates may apply. You can
+                        withdraw consent at any time by replying STOP or
+                        emailing{" "}
+                        <a
+                          href="mailto:support@neuroceutical.co.za"
+                          className="underline"
+                        >
+                          support@neuroceutical.co.za
+                        </a>
+                        .
+                      </p>
+                    </div>
                   </div>
                 </>
               )}

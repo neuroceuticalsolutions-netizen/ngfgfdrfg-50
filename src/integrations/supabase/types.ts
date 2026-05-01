@@ -160,6 +160,9 @@ export type Database = {
           product_description: string
           sahpra_aware: boolean
           sample_units_available: number | null
+          sms_consent_at: string | null
+          sms_consent_source: string | null
+          sms_opt_in: boolean
           status: Database["public"]["Enums"]["application_status"]
           target_audience: string | null
           third_party_tested: boolean
@@ -186,6 +189,9 @@ export type Database = {
           product_description: string
           sahpra_aware?: boolean
           sample_units_available?: number | null
+          sms_consent_at?: string | null
+          sms_consent_source?: string | null
+          sms_opt_in?: boolean
           status?: Database["public"]["Enums"]["application_status"]
           target_audience?: string | null
           third_party_tested?: boolean
@@ -212,6 +218,9 @@ export type Database = {
           product_description?: string
           sahpra_aware?: boolean
           sample_units_available?: number | null
+          sms_consent_at?: string | null
+          sms_consent_source?: string | null
+          sms_opt_in?: boolean
           status?: Database["public"]["Enums"]["application_status"]
           target_audience?: string | null
           third_party_tested?: boolean
