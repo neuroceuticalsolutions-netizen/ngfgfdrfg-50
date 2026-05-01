@@ -1,73 +1,30 @@
 /// <reference types="npm:@types/react@18.3.1" />
-
 import * as React from 'npm:react@18.3.1'
-
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Preview,
-  Text,
-} from 'npm:@react-email/components@0.0.22'
+import { Button, Heading, Section, Text } from 'npm:@react-email/components@0.0.22'
+import { BrandLayout, styles } from './_brand.tsx'
 
 interface RecoveryEmailProps {
   siteName: string
   confirmationUrl: string
 }
 
-export const RecoveryEmail = ({
-  siteName,
-  confirmationUrl,
-}: RecoveryEmailProps) => (
-  <Html lang="en" dir="ltr">
-    <Head />
-    <Preview>Reset your password for {siteName}</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Heading style={h1}>Reset your password</Heading>
-        <Text style={text}>
-          We received a request to reset your password for {siteName}. Click
-          the button below to choose a new password.
-        </Text>
-        <Button style={button} href={confirmationUrl}>
-          Reset Password
-        </Button>
-        <Text style={footer}>
-          If you didn't request a password reset, you can safely ignore this
-          email. Your password will not be changed.
-        </Text>
-      </Container>
-    </Body>
-  </Html>
+export const RecoveryEmail = ({ siteName, confirmationUrl }: RecoveryEmailProps) => (
+  <BrandLayout preview={`Reset your ${siteName} password`}>
+    <Heading style={styles.h1}>Reset your password</Heading>
+    <Text style={styles.text}>
+      We received a request to reset the password on your {siteName} account.
+      Choose a new password using the button below.
+    </Text>
+    <Section style={styles.buttonWrap}>
+      <Button style={styles.button} href={confirmationUrl}>
+        Choose a new password
+      </Button>
+    </Section>
+    <Text style={styles.text}>
+      If you didn't request this, no action is needed — your password stays
+      the same.
+    </Text>
+  </BrandLayout>
 )
 
 export default RecoveryEmail
-
-const main = { backgroundColor: '#ffffff', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif' }
-const container = { padding: '20px 25px' }
-const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: 'hsl(210, 22%, 8%)',
-  margin: '0 0 20px',
-}
-const text = {
-  fontSize: '14px',
-  color: 'hsl(210, 11%, 46%)',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
-}
-const button = {
-  backgroundColor: 'hsl(271, 50%, 35%)',
-  color: '#ffffff',
-  fontSize: '14px',
-  fontWeight: 600,
-  borderRadius: '12px',
-  display: 'inline-block',
-  padding: '12px 20px',
-  textDecoration: 'none',
-}
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }

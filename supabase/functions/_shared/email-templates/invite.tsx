@@ -1,18 +1,7 @@
 /// <reference types="npm:@types/react@18.3.1" />
-
 import * as React from 'npm:react@18.3.1'
-
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Link,
-  Preview,
-  Text,
-} from 'npm:@react-email/components@0.0.22'
+import { Button, Heading, Link, Section, Text } from 'npm:@react-email/components@0.0.22'
+import { BrandLayout, styles } from './_brand.tsx'
 
 interface InviteEmailProps {
   siteName: string
@@ -20,62 +9,25 @@ interface InviteEmailProps {
   confirmationUrl: string
 }
 
-export const InviteEmail = ({
-  siteName,
-  siteUrl,
-  confirmationUrl,
-}: InviteEmailProps) => (
-  <Html lang="en" dir="ltr">
-    <Head />
-    <Preview>You've been invited to join {siteName}</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Heading style={h1}>You've been invited</Heading>
-        <Text style={text}>
-          You've been invited to join{' '}
-          <Link href={siteUrl} style={link}>
-            <strong>{siteName}</strong>
-          </Link>
-          . Click the button below to accept the invitation and create your
-          account.
-        </Text>
-        <Button style={button} href={confirmationUrl}>
-          Accept Invitation
-        </Button>
-        <Text style={footer}>
-          If you weren't expecting this invitation, you can safely ignore this
-          email.
-        </Text>
-      </Container>
-    </Body>
-  </Html>
+export const InviteEmail = ({ siteName, siteUrl, confirmationUrl }: InviteEmailProps) => (
+  <BrandLayout preview={`You've been invited to join ${siteName}`}>
+    <Heading style={styles.h1}>You're invited</Heading>
+    <Text style={styles.text}>
+      You've been invited to join{' '}
+      <Link href={siteUrl} style={styles.link}>
+        <strong>{siteName}</strong>
+      </Link>
+      . Accept your invitation to set up your account and get started.
+    </Text>
+    <Section style={styles.buttonWrap}>
+      <Button style={styles.button} href={confirmationUrl}>
+        Accept invitation
+      </Button>
+    </Section>
+    <Text style={styles.text}>
+      Wasn't expecting this? You can safely ignore this email.
+    </Text>
+  </BrandLayout>
 )
 
 export default InviteEmail
-
-const main = { backgroundColor: '#ffffff', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif' }
-const container = { padding: '20px 25px' }
-const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: 'hsl(210, 22%, 8%)',
-  margin: '0 0 20px',
-}
-const text = {
-  fontSize: '14px',
-  color: 'hsl(210, 11%, 46%)',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
-}
-const link = { color: 'inherit', textDecoration: 'underline' }
-const button = {
-  backgroundColor: 'hsl(271, 50%, 35%)',
-  color: '#ffffff',
-  fontSize: '14px',
-  fontWeight: 600,
-  borderRadius: '12px',
-  display: 'inline-block',
-  padding: '12px 20px',
-  textDecoration: 'none',
-}
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
