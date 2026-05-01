@@ -34,27 +34,54 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-// E.164: leading +, 7–15 digits total, first digit 1–9
+// E.164: leading +, 7–15 digits total, first digit 1–9 (ITU-T E.164)
+const E164_REGEX = /^\+[1-9][0-9]{6,14}$/;
 const phoneSchema = z
   .string()
   .trim()
-  .regex(/^\+[1-9][0-9]{6,14}$/, {
+  .regex(E164_REGEX, {
     message: "Use international format, e.g. +27821234567",
   });
+
+/**
+ * Detailed, user-friendly E.164 validation. Returns null when valid,
+ * otherwise a short message explaining what's wrong.
+ */
+function validateE164(raw: string): string | null {
+  const v = raw.trim();
+  if (v.length === 0) return "Enter a mobile number to opt in to SMS.";
+  if (!v.startsWith("+"))
+    return "Start with “+” and your country code, e.g. +27 for South Africa.";
+  // Beyond the leading +, only digits are allowed
+  const rest = v.slice(1);
+  if (!/^[0-9]+$/.test(rest))
+    return "Use digits only after the “+” — no spaces, dashes or brackets.";
+  if (rest.length === 0 || rest[0] === "0")
+    return "The country code can't start with 0 (e.g. use +27, not +027).";
+  if (rest.length < 7)
+    return "That number looks too short. Include the full country code and number.";
+  if (rest.length > 15)
+    return "That number is too long. International numbers are at most 15 digits.";
+  if (!E164_REGEX.test(v))
+    return "Use international format, e.g. +27821234567.";
+  return null;
+}
 
 const formSchema = z
   .object({
     sms_opt_in: z.boolean(),
-    phone_e164: z.string().trim().max(20),
+    phone_e164: z.string().trim().max(20, {
+      message: "Phone number is too long (max 20 characters).",
+    }),
   })
   .superRefine((val, ctx) => {
     if (val.sms_opt_in) {
-      const r = phoneSchema.safeParse(val.phone_e164);
-      if (!r.success) {
+      const msg = validateE164(val.phone_e164);
+      if (msg) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["phone_e164"],
-          message: r.error.issues[0]?.message ?? "Invalid phone number",
+          message: msg,
         });
       }
     }
@@ -82,6 +109,8 @@ export default function AccountSmsPreferences() {
   const [optIn, setOptIn] = useState(false);
   const [phone, setPhone] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [phoneTouched, setPhoneTouched] = useState(false);
   const [withdrawOpen, setWithdrawOpen] = useState(false);
   const [withdrawing, setWithdrawing] = useState(false);
 
