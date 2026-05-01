@@ -528,6 +528,12 @@ const PartnerApply = () => {
                         </a>
                         .
                       </p>
+                      <p className="text-xs text-grey-500">
+                        <strong className="text-grey-700">Two-step confirmation:</strong>{" "}
+                        After you submit, we'll email you a one-click link to
+                        confirm your number. SMS is only enabled once you click
+                        that link (POPIA-compliant double opt-in).
+                      </p>
                     </div>
                   </div>
                 </>
