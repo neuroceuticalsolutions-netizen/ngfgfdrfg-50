@@ -146,8 +146,39 @@ export const BrandLayout = ({
           You received this email because of an action on your Neuroceutical
           Solutions account. If this wasn't you, you can safely ignore it.
         </Text>
+        <Text style={styles.footer}>
+          Need help? Contact our support team at{' '}
+          <a href="mailto:support@neuroceutical.co.za" style={styles.link}>
+            support@neuroceutical.co.za
+          </a>{' '}
+          or visit{' '}
+          <a href="https://neuroceutical.co.za" style={styles.link}>
+            neuroceutical.co.za
+          </a>
+          .
+        </Text>
         <Text style={styles.footerSmall}>
-          © Neuroceutical Solutions · South Africa
+          <strong>Disclaimer:</strong> Neuroceutical Solutions products are
+          dietary supplements intended to support cognitive performance and
+          general wellbeing. They are not intended to diagnose, treat, cure,
+          or prevent any disease. Always consult a qualified healthcare
+          professional before starting any supplement, especially if you are
+          pregnant, nursing, taking medication, or have a medical condition.
+          Statements have not been evaluated by SAHPRA.
+        </Text>
+        <Text style={styles.footerSmall}>
+          © Neuroceutical Solutions · South Africa ·{' '}
+          <a href="https://neuroceutical.co.za/privacy" style={styles.link}>
+            Privacy
+          </a>{' '}
+          ·{' '}
+          <a href="https://neuroceutical.co.za/terms" style={styles.link}>
+            Terms
+          </a>{' '}
+          ·{' '}
+          <a href="https://neuroceutical.co.za/disclaimer" style={styles.link}>
+            Disclaimer
+          </a>
         </Text>
       </Container>
     </Body>
