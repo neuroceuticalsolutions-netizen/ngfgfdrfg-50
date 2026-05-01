@@ -96,6 +96,7 @@ const PartnerApply = () => {
   const [step, setStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedId, setSubmittedId] = useState<string | null>(null);
+  const [smsVerificationQueued, setSmsVerificationQueued] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(fullSchema),
@@ -188,8 +189,45 @@ const PartnerApply = () => {
         })
         .catch(() => { /* ignore — email infra may not be set up yet */ });
 
+      // If SMS opt-in, generate a verification token, persist it, then queue
+      // the email-confirmed SMS verification email. Failure is non-fatal —
+      // we still treat the application as submitted.
+      let queuedSmsVerify = false;
+      if (data.smsOptIn && data.phone) {
+        const token = generateSmsToken();
+        const { error: tokenErr } = await supabase
+          .from("partner_applications")
+          .update({
+            sms_verification_token: token,
+            sms_verification_sent_at: new Date().toISOString(),
+          })
+          .eq("id", inserted.id);
+        if (!tokenErr) {
+          const verifyUrl = `${window.location.origin}/partners/sms-verify?token=${encodeURIComponent(token)}`;
+          const phoneMasked = maskPhone(data.phone);
+          supabase.functions
+            .invoke("send-transactional-email", {
+              body: {
+                templateName: "partner-sms-verify",
+                recipientEmail: data.email,
+                idempotencyKey: `partner-sms-verify-${inserted.id}`,
+                templateData: {
+                  name: data.contactName,
+                  phoneMasked,
+                  verifyUrl,
+                },
+              },
+            })
+            .catch(() => { /* email infra may not be set up */ });
+          queuedSmsVerify = true;
+        } else {
+          console.warn("Could not store SMS verification token", tokenErr);
+        }
+      }
+
       trackPartnerSubmit({ productCategory: data.productCategory });
       setSubmittedId(inserted.id);
+      setSmsVerificationQueued(queuedSmsVerify);
       toast({
         title: "Application submitted",
         description: "Check your inbox for a confirmation email.",
