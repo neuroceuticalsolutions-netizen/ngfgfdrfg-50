@@ -26,6 +26,7 @@ import PartnerApply from "./pages/PartnerApply";
 import AdminLogin from "./pages/AdminLogin";
 import AdminApplications from "./pages/AdminApplications";
 import Unsubscribe from "./pages/Unsubscribe";
+import AdminEmailPreview from "./pages/AdminEmailPreview";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -62,6 +63,7 @@ const App = () => {
           <Route path="/partners/apply" element={<PartnerApply />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/applications" element={<AdminApplications />} />
+          <Route path="/admin/email-preview" element={<AdminEmailPreview />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
