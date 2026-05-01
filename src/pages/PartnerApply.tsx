@@ -25,6 +25,21 @@ import { SEOHead } from "@/components/SEOHead";
 import { supabase } from "@/integrations/supabase/client";
 import { trackEvent, trackPartnerSubmit } from "@/lib/analytics";
 
+function generateSmsToken(): string {
+  // 32 bytes -> 64-char hex token; cryptographically secure in browsers.
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function maskPhone(phone: string): string {
+  const trimmed = phone.trim();
+  if (trimmed.length <= 4) return trimmed;
+  const last4 = trimmed.slice(-4);
+  const prefix = trimmed.startsWith("+") ? trimmed.slice(0, 4) : trimmed.slice(0, 3);
+  return `${prefix} ••• ••• ${last4}`;
+}
+
 const stepSchemas = [
   // Step 1 — Brand & contact
   z.object({
