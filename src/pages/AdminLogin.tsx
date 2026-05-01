@@ -113,7 +113,6 @@ const AdminLogin = () => {
                     <Label htmlFor={`${mode}-pw`}>Password</Label>
                     <Input id={`${mode}-pw`} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </div>
-                  <Button onClick={() => handle(mode)} disabled={loading || !email || !password} className="w-full">
                   <CooldownButton
                     mode={mode}
                     loading={loading}
