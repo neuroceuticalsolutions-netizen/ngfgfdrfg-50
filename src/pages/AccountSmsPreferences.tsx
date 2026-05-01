@@ -165,8 +165,27 @@ export default function AccountSmsPreferences() {
       if (issue?.path?.[0] === "phone_e164") {
         setPhoneError(msg);
         setPhoneTouched(true);
+        const empty = phone.trim() === "";
+        toast({
+          variant: "destructive",
+          title: empty
+            ? "Mobile number required"
+            : "Check your mobile number",
+          description: empty
+            ? "Add your mobile number in international format (e.g. +27821234567) to opt in to SMS."
+            : msg,
+        });
+        // Move keyboard focus to the field for quick correction
+        requestAnimationFrame(() => {
+          document.getElementById("phone")?.focus();
+        });
       } else {
         setError(msg);
+        toast({
+          variant: "destructive",
+          title: "Couldn't save preferences",
+          description: msg,
+        });
       }
       return;
     }
