@@ -220,6 +220,42 @@ export type Database = {
         }
         Relationships: []
       }
+      sms_preferences: {
+        Row: {
+          consent_at: string | null
+          consent_source: string
+          created_at: string
+          id: string
+          opted_out_at: string | null
+          phone_e164: string | null
+          sms_opt_in: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          consent_at?: string | null
+          consent_source?: string
+          created_at?: string
+          id?: string
+          opted_out_at?: string | null
+          phone_e164?: string | null
+          sms_opt_in?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          consent_at?: string | null
+          consent_source?: string
+          created_at?: string
+          id?: string
+          opted_out_at?: string | null
+          phone_e164?: string | null
+          sms_opt_in?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
