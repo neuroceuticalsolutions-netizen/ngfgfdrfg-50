@@ -386,6 +386,7 @@ export default function AdminAuthEmailPreview() {
   const [authorized, setAuthorized] = useState(false);
   const [active, setActive] = useState<TemplateKey>("signup");
   const [data, setData] = useState<SampleData>(DEFAULT_DATA);
+  const [previewHtml, setPreviewHtml] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -413,6 +414,56 @@ export default function AdminAuthEmailPreview() {
     () => TEMPLATES.find((t) => t.key === active)!,
     [active]
   );
+
+  // After each render, capture the preview pane's HTML so we can run
+  // footer compliance checks against the actual rendered output.
+  useEffect(() => {
+    const node = document.getElementById(`auth-email-preview-${active}`);
+    setPreviewHtml(node?.innerHTML ?? "");
+  }, [active, data]);
+
+  const checks = useMemo(() => {
+    const h = previewHtml.toLowerCase();
+    return [
+      {
+        label: "Support contact: support@neuroceutical.co.za",
+        ok: h.includes("support@neuroceutical.co.za"),
+      },
+      {
+        label: "Mailto link to support address",
+        ok: h.includes('mailto:support@neuroceutical.co.za'),
+      },
+      {
+        label: "SAHPRA disclaimer present",
+        ok: h.includes("sahpra"),
+      },
+      {
+        label: "Not intended to diagnose/treat/cure/prevent",
+        ok: h.includes("diagnose") && h.includes("treat") && h.includes("prevent"),
+      },
+      {
+        label: "Email consent / POPIA reference",
+        ok: h.includes("popia") && h.includes("consent"),
+      },
+      {
+        label: "Unsubscribe link to /unsubscribe",
+        ok: h.includes("/unsubscribe"),
+      },
+      {
+        label: "Privacy / Terms / Disclaimer legal links",
+        ok:
+          h.includes("/privacy") &&
+          h.includes("/terms") &&
+          h.includes("/disclaimer"),
+      },
+      {
+        label: "Brand attribution: Neuroceutical Solutions · South Africa",
+        ok: h.includes("neuroceutical solutions") && h.includes("south africa"),
+      },
+    ];
+  }, [previewHtml]);
+
+  const allOk = checks.every((c) => c.ok);
 
   if (loading) {
     return (
@@ -522,12 +573,56 @@ export default function AdminAuthEmailPreview() {
                       </div>
                     </CardHeader>
                     <CardContent className="bg-muted/30 rounded-b-lg py-8">
-                      <t.Component d={data} />
+                      <div id={`auth-email-preview-${t.key}`}>
+                        <t.Component d={data} />
+                      </div>
                     </CardContent>
                   </Card>
                 </TabsContent>
               ))}
             </Tabs>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between gap-3 flex-wrap">
+                  <div>
+                    <CardTitle className="text-base">Footer compliance check</CardTitle>
+                    <CardDescription>
+                      Scans the currently shown <code className="text-xs">{current.key}</code>{" "}
+                      preview for required footer elements.
+                    </CardDescription>
+                  </div>
+                  <Badge
+                    variant={allOk ? "default" : "destructive"}
+                    className={allOk ? "bg-fresh-teal text-white" : ""}
+                  >
+                    {allOk ? "All checks passed" : "Issues found"}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  {checks.map((c) => (
+                    <li key={c.label} className="flex items-start gap-2">
+                      {c.ok ? (
+                        <CheckCircle2 className="h-4 w-4 text-fresh-teal-dark mt-0.5 shrink-0" />
+                      ) : (
+                        <XCircle className="h-4 w-4 text-destructive mt-0.5 shrink-0" />
+                      )}
+                      <span className={c.ok ? "text-foreground" : "text-destructive font-medium"}>
+                        {c.label}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs text-muted-foreground mt-4">
+                  This preview mirrors{" "}
+                  <code>supabase/functions/_shared/email-templates/_brand.tsx</code>.
+                  If checks fail, update the shared brand layout and redeploy{" "}
+                  <code>auth-email-hook</code>.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
