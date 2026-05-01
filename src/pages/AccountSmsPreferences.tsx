@@ -13,7 +13,25 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, MessageSquare, ShieldCheck, Info, CheckCircle2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+  Loader2,
+  MessageSquare,
+  ShieldCheck,
+  Info,
+  CheckCircle2,
+  BellOff,
+  XCircle,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // E.164: leading +, 7–15 digits total, first digit 1–9
@@ -64,6 +82,8 @@ export default function AccountSmsPreferences() {
   const [optIn, setOptIn] = useState(false);
   const [phone, setPhone] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [withdrawOpen, setWithdrawOpen] = useState(false);
+  const [withdrawing, setWithdrawing] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -91,11 +111,12 @@ export default function AccountSmsPreferences() {
     })();
   }, [navigate]);
 
-  const save = async () => {
+  const save = async (override?: { sms_opt_in?: boolean }) => {
     if (!userId) return;
     setError(null);
+    const nextOptIn = override?.sms_opt_in ?? optIn;
     const parsed = formSchema.safeParse({
-      sms_opt_in: optIn,
+      sms_opt_in: nextOptIn,
       phone_e164: phone,
     });
     if (!parsed.success) {
@@ -107,10 +128,10 @@ export default function AccountSmsPreferences() {
     const wasOptedIn = pref?.sms_opt_in === true;
     const payload = {
       user_id: userId,
-      phone_e164: optIn ? phone.trim() : pref?.phone_e164 ?? null,
-      sms_opt_in: optIn,
-      consent_at: optIn ? (pref?.consent_at ?? now) : pref?.consent_at ?? null,
-      opted_out_at: !optIn && wasOptedIn ? now : pref?.opted_out_at ?? null,
+      phone_e164: nextOptIn ? phone.trim() : pref?.phone_e164 ?? null,
+      sms_opt_in: nextOptIn,
+      consent_at: nextOptIn ? (pref?.consent_at ?? now) : pref?.consent_at ?? null,
+      opted_out_at: !nextOptIn && wasOptedIn ? now : pref?.opted_out_at ?? null,
       consent_source: "account_settings",
     };
     const { data, error: upErr } = await supabase
@@ -129,11 +150,37 @@ export default function AccountSmsPreferences() {
       setPhone(data.phone_e164 ?? "");
     }
     toast({
-      title: "Preferences saved",
-      description: optIn
+      title: nextOptIn ? "Preferences saved" : "SMS consent withdrawn",
+      description: nextOptIn
         ? "You'll receive transactional SMS from Neuroceutical Solutions."
-        : "SMS notifications are off. You can re-enable any time.",
+        : "We've stopped SMS effective immediately. You can re-enable anytime.",
     });
+  };
+
+  const confirmWithdraw = async () => {
+    if (!userId) return;
+    setWithdrawing(true);
+    // Optimistic UI: flip status badges immediately
+    const optimistic: Pref | null = pref
+      ? {
+          ...pref,
+          sms_opt_in: false,
+          opted_out_at: new Date().toISOString(),
+        }
+      : null;
+    const previous = pref;
+    setOptIn(false);
+    if (optimistic) setPref(optimistic);
+    try {
+      await save({ sms_opt_in: false });
+      setWithdrawOpen(false);
+    } catch (e) {
+      // Roll back if save throws (save also surfaces errors via setError)
+      if (previous) setPref(previous);
+      setOptIn(previous?.sms_opt_in ?? false);
+    } finally {
+      setWithdrawing(false);
+    }
   };
 
   if (loading) {
@@ -180,6 +227,8 @@ export default function AccountSmsPreferences() {
             under this consent. Standard carrier rates may apply.
           </AlertDescription>
         </Alert>
+
+        <StatusBanner pref={pref} />
 
         <Card>
           <CardHeader>
@@ -243,21 +292,26 @@ export default function AccountSmsPreferences() {
                 </Badge>
               </div>
             )}
+            {pref && !pref.sms_opt_in && pref.opted_out_at && (
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <XCircle className="h-4 w-4 text-destructive" />
+                Consent withdrawn {new Date(pref.opted_out_at).toLocaleString()}
+              </div>
+            )}
 
             <div className="flex flex-wrap gap-2 pt-1">
-              <Button onClick={save} disabled={saving}>
+              <Button onClick={() => save()} disabled={saving || withdrawing}>
                 {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
                 Save preferences
               </Button>
               {pref?.sms_opt_in && (
                 <Button
                   variant="outline"
-                  onClick={async () => {
-                    setOptIn(false);
-                    await save();
-                  }}
-                  disabled={saving}
+                  className="border-destructive/30 text-destructive hover:bg-destructive/5 hover:text-destructive"
+                  onClick={() => setWithdrawOpen(true)}
+                  disabled={saving || withdrawing}
                 >
+                  <BellOff className="h-4 w-4 mr-2" />
                   Withdraw SMS consent
                 </Button>
               )}
@@ -300,6 +354,83 @@ export default function AccountSmsPreferences() {
         </Card>
       </main>
       <Footer />
+
+      <AlertDialog open={withdrawOpen} onOpenChange={setWithdrawOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <BellOff className="h-5 w-5 text-destructive" />
+              Withdraw SMS consent?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="space-y-2">
+              <span className="block">
+                We'll stop sending you transactional SMS{" "}
+                <strong>immediately</strong>. You'll still receive essential
+                emails and can re-enable SMS at any time from this page.
+              </span>
+              <span className="block text-xs">
+                Your withdrawal timestamp will be recorded for POPIA
+                compliance. This does not affect the lawfulness of any
+                processing that happened before withdrawal.
+              </span>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={withdrawing}>
+              Keep SMS on
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={(e) => {
+                e.preventDefault();
+                confirmWithdraw();
+              }}
+              disabled={withdrawing}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {withdrawing && (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              )}
+              Yes, withdraw consent
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+}
+
+function StatusBanner({ pref }: { pref: Pref | null }) {
+  if (!pref) {
+    return (
+      <div className="flex items-center gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm">
+        <BellOff className="h-4 w-4 text-muted-foreground" />
+        <span className="text-muted-foreground">
+          SMS notifications are <strong>off</strong>. Set them up below.
+        </span>
+      </div>
+    );
+  }
+  if (pref.sms_opt_in) {
+    return (
+      <div className="flex items-center gap-2 rounded-md border border-fresh-teal-dark/30 bg-fresh-teal-dark/5 px-3 py-2 text-sm">
+        <CheckCircle2 className="h-4 w-4 text-fresh-teal-dark" />
+        <span>
+          SMS notifications are <strong>on</strong>
+          {pref.phone_e164 ? ` for ${pref.phone_e164}` : ""}.
+        </span>
+      </div>
+    );
+  }
+  return (
+    <div className="flex items-center gap-2 rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm">
+      <BellOff className="h-4 w-4 text-destructive" />
+      <span>
+        SMS notifications are <strong>off</strong>
+        {pref.opted_out_at
+          ? ` since ${new Date(pref.opted_out_at).toLocaleDateString()}`
+          : ""}
+        . You can re-enable them anytime below.
+      </span>
     </div>
   );
 }
