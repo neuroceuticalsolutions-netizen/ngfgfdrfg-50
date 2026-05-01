@@ -11,7 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, ShieldCheck, Mail, KeyRound, Sparkles, UserPlus, Repeat, ShieldAlert } from "lucide-react";
+import { Loader2, ShieldCheck, Mail, KeyRound, Sparkles, UserPlus, Repeat, ShieldAlert, CheckCircle2, XCircle } from "lucide-react";
+
+const SUPPORT_EMAIL = "support@neuroceutical.co.za";
+const ROOT_DOMAIN = "neuroceutical.co.za";
+const UNSUBSCRIBE_URL = `https://${ROOT_DOMAIN}/unsubscribe`;
 
 /* ------------------------------------------------------------------ */
 /* Visual replicas of the auth React Email templates living in        */
@@ -132,7 +136,47 @@ function Shell({ children }: { children: React.ReactNode }) {
         You received this email because of an action on your Neuroceutical
         Solutions account. If this wasn't you, you can safely ignore it.
       </p>
-      <p style={S.footerSmall}>© Neuroceutical Solutions · South Africa</p>
+      <p style={S.footer}>
+        Need help? Contact our support team at{" "}
+        <a href={`mailto:${SUPPORT_EMAIL}`} style={S.link}>
+          {SUPPORT_EMAIL}
+        </a>{" "}
+        or visit{" "}
+        <a href={`https://${ROOT_DOMAIN}`} style={S.link}>
+          {ROOT_DOMAIN}
+        </a>
+        .
+      </p>
+      <p style={S.footerSmall}>
+        <strong>Disclaimer:</strong> Neuroceutical Solutions products are
+        dietary supplements intended to support cognitive performance and
+        general wellbeing. They are not intended to diagnose, treat, cure,
+        or prevent any disease. Always consult a qualified healthcare
+        professional before starting any supplement, especially if you are
+        pregnant, nursing, taking medication, or have a medical condition.
+        Statements have not been evaluated by SAHPRA.
+      </p>
+      <p style={S.footerSmall}>
+        <strong>Email consent:</strong> You're receiving this transactional
+        email because you created an account or requested an action on{" "}
+        {ROOT_DOMAIN}, in line with our{" "}
+        <a href={`https://${ROOT_DOMAIN}/privacy`} style={S.link}>
+          Privacy Policy
+        </a>{" "}
+        and POPIA. To manage your email preferences or opt out of
+        non-essential messages, visit{" "}
+        <a href={UNSUBSCRIBE_URL} style={S.link}>
+          {ROOT_DOMAIN}/unsubscribe
+        </a>
+        . Note: essential security and account emails (sign-in, password
+        reset, email verification) will still be sent.
+      </p>
+      <p style={S.footerSmall}>
+        © Neuroceutical Solutions · South Africa ·{" "}
+        <a href={`https://${ROOT_DOMAIN}/privacy`} style={S.link}>Privacy</a> ·{" "}
+        <a href={`https://${ROOT_DOMAIN}/terms`} style={S.link}>Terms</a> ·{" "}
+        <a href={`https://${ROOT_DOMAIN}/disclaimer`} style={S.link}>Disclaimer</a>
+      </p>
       <div style={{ height: 24 }} />
     </div>
   );
