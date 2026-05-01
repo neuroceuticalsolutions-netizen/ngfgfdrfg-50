@@ -182,6 +182,20 @@ export const BrandLayout = ({
           reset, email verification) will still be sent.
         </Text>
         <Text style={styles.footerSmall}>
+          <strong>SMS notifications:</strong> SMS is{' '}
+          <em>off by default</em>. You will only receive transactional SMS
+          (e.g. verification codes, order updates) if you have explicitly
+          opted in and added a mobile number under{' '}
+          <a
+            href="https://neuroceutical.co.za/account/sms-preferences"
+            style={styles.link}
+          >
+            Account → SMS preferences
+          </a>
+          . You can withdraw SMS consent there at any time, or by replying
+          STOP to any SMS we send. Standard carrier rates may apply.
+        </Text>
+        <Text style={styles.footerSmall}>
           © Neuroceutical Solutions · South Africa ·{' '}
           <a href="https://neuroceutical.co.za/privacy" style={styles.link}>
             Privacy
