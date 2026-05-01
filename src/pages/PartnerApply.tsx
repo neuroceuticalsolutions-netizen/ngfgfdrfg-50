@@ -24,6 +24,11 @@ import { Footer } from "@/components/sections/footer";
 import { SEOHead } from "@/components/SEOHead";
 import { supabase } from "@/integrations/supabase/client";
 import { trackEvent, trackPartnerSubmit } from "@/lib/analytics";
+import {
+  useCooldown,
+  describeRateLimitError,
+  COOLDOWNS,
+} from "@/lib/auth-rate-limit";
 
 function generateSmsToken(): string {
   // 32 bytes -> 64-char hex token; cryptographically secure in browsers.
@@ -141,6 +146,10 @@ const PartnerApply = () => {
   });
 
   const { register, handleSubmit, setValue, watch, trigger, formState: { errors } } = form;
+  // Per-email cooldown so the same address can't spam application + SMS
+  // verification emails. Persists across reloads / duplicate tabs.
+  const watchedEmail = watch("email");
+  const applyCd = useCooldown("partnerApply", watchedEmail);
 
   const handleNext = async () => {
     const valid = await trigger(STEP_FIELDS[step] as any);
@@ -152,7 +161,18 @@ const PartnerApply = () => {
   const handleBack = () => setStep((s) => Math.max(s - 1, 0));
 
   const onSubmit = async (data: FormData) => {
+    if (applyCd.blocked) {
+      toast({
+        title: "Please wait a moment",
+        description: `You can submit again in ${applyCd.remaining}s. This protects your inbox from duplicate confirmation emails.`,
+        variant: "destructive",
+      });
+      return;
+    }
     setIsSubmitting(true);
+    // Arm the cooldown BEFORE the request so a refresh / second tab can't
+    // re-trigger the same emails.
+    applyCd.arm();
     trackEvent("partner_apply_submit_attempt", { productCategory: data.productCategory });
 
     try {
@@ -250,9 +270,18 @@ const PartnerApply = () => {
     } catch (err: any) {
       console.error("Partner application error:", err);
       trackEvent("partner_apply_submit_error", { message: err?.message ?? "unknown" });
+      const rl = describeRateLimitError(err);
+      if (rl.isRateLimit && rl.retryAfterSec) {
+        applyCd.arm(Math.max(rl.retryAfterSec, COOLDOWNS.partnerApply));
+      } else {
+        // Genuine validation/server error → let them retry immediately
+        applyCd.reset();
+      }
       toast({
-        title: "Submission failed",
-        description: err?.message ?? "Please try again, or email partners@neuroceutical.co.za.",
+        title: rl.isRateLimit ? "Too many attempts" : "Submission failed",
+        description: rl.isRateLimit
+          ? rl.message
+          : err?.message ?? "Please try again, or email partners@neuroceutical.co.za.",
         variant: "destructive",
       });
     } finally {
@@ -556,12 +585,18 @@ const PartnerApply = () => {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 ) : (
-                  <Button type="submit" disabled={isSubmitting} className="min-w-[200px]">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || applyCd.blocked}
+                    className="min-w-[200px]"
+                  >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Submitting…
                       </>
+                    ) : applyCd.blocked ? (
+                      <>Try again in {applyCd.remaining}s</>
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />
