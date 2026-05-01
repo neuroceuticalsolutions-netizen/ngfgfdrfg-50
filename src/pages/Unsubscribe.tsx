@@ -70,7 +70,6 @@ export default function Unsubscribe() {
       <SEOHead
         title="Email preferences | Neuroceutical Solutions"
         description="Manage your Neuroceutical Solutions email preferences."
-        noIndex
       />
       <Navigation />
       <main className="flex-1 container max-w-xl py-16 md:py-24">
