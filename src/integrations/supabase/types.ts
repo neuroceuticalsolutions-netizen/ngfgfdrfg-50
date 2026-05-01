@@ -163,6 +163,9 @@ export type Database = {
           sms_consent_at: string | null
           sms_consent_source: string | null
           sms_opt_in: boolean
+          sms_verification_sent_at: string | null
+          sms_verification_token: string | null
+          sms_verified_at: string | null
           status: Database["public"]["Enums"]["application_status"]
           target_audience: string | null
           third_party_tested: boolean
@@ -192,6 +195,9 @@ export type Database = {
           sms_consent_at?: string | null
           sms_consent_source?: string | null
           sms_opt_in?: boolean
+          sms_verification_sent_at?: string | null
+          sms_verification_token?: string | null
+          sms_verified_at?: string | null
           status?: Database["public"]["Enums"]["application_status"]
           target_audience?: string | null
           third_party_tested?: boolean
@@ -221,6 +227,9 @@ export type Database = {
           sms_consent_at?: string | null
           sms_consent_source?: string | null
           sms_opt_in?: boolean
+          sms_verification_sent_at?: string | null
+          sms_verification_token?: string | null
+          sms_verified_at?: string | null
           status?: Database["public"]["Enums"]["application_status"]
           target_audience?: string | null
           third_party_tested?: boolean
