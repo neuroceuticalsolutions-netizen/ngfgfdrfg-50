@@ -585,12 +585,18 @@ const PartnerApply = () => {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 ) : (
-                  <Button type="submit" disabled={isSubmitting} className="min-w-[200px]">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || applyCd.blocked}
+                    className="min-w-[200px]"
+                  >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Submitting…
                       </>
+                    ) : applyCd.blocked ? (
+                      <>Try again in {applyCd.remaining}s</>
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />
