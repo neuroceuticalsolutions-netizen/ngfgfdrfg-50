@@ -30,6 +30,7 @@ import AdminEmailPreview from "./pages/AdminEmailPreview";
 import AdminRobotsTxt from "./pages/AdminRobotsTxt";
 import AdminAuthEmailPreview from "./pages/AdminAuthEmailPreview";
 import AccountSmsPreferences from "./pages/AccountSmsPreferences";
+import PartnerSmsVerify from "./pages/PartnerSmsVerify";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/articles/:slug" element={<ArticleDetail />} />
           <Route path="/partners/apply" element={<PartnerApply />} />
+          <Route path="/partners/sms-verify" element={<PartnerSmsVerify />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/applications" element={<AdminApplications />} />
           <Route path="/admin/email-preview" element={<AdminEmailPreview />} />
