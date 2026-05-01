@@ -30,6 +30,7 @@ import AdminEmailPreview from "./pages/AdminEmailPreview";
 import AdminRobotsTxt from "./pages/AdminRobotsTxt";
 import AdminAuthEmailPreview from "./pages/AdminAuthEmailPreview";
 import AdminSmsConsent from "./pages/AdminSmsConsent";
+import AdminEmailLog from "./pages/AdminEmailLog";
 import AccountSmsPreferences from "./pages/AccountSmsPreferences";
 import PartnerSmsVerify from "./pages/PartnerSmsVerify";
 import NotFound from "./pages/NotFound";
@@ -73,6 +74,7 @@ const App = () => {
           <Route path="/admin/robots-txt" element={<AdminRobotsTxt />} />
           <Route path="/admin/auth-email-preview" element={<AdminAuthEmailPreview />} />
           <Route path="/admin/sms-consent" element={<AdminSmsConsent />} />
+          <Route path="/admin/email-log" element={<AdminEmailLog />} />
           <Route path="/account/sms-preferences" element={<AccountSmsPreferences />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
