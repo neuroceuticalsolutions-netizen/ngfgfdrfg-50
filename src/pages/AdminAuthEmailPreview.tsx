@@ -172,6 +172,20 @@ function Shell({ children }: { children: React.ReactNode }) {
         reset, email verification) will still be sent.
       </p>
       <p style={S.footerSmall}>
+        <strong>SMS notifications:</strong> SMS is <em>off by default</em>.
+        You will only receive transactional SMS (e.g. verification codes,
+        order updates) if you have explicitly opted in and added a mobile
+        number under{" "}
+        <a
+          href={`https://${ROOT_DOMAIN}/account/sms-preferences`}
+          style={S.link}
+        >
+          Account → SMS preferences
+        </a>
+        . You can withdraw SMS consent there at any time, or by replying
+        STOP to any SMS we send. Standard carrier rates may apply.
+      </p>
+      <p style={S.footerSmall}>
         © Neuroceutical Solutions · South Africa ·{" "}
         <a href={`https://${ROOT_DOMAIN}/privacy`} style={S.link}>Privacy</a> ·{" "}
         <a href={`https://${ROOT_DOMAIN}/terms`} style={S.link}>Terms</a> ·{" "}
