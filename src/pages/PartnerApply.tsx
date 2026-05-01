@@ -59,16 +59,29 @@ const stepSchemas = [
     popiaConsent: z.boolean().refine((v) => v === true, {
       message: "POPIA consent is required to submit",
     }),
+    smsOptIn: z.boolean().optional().default(false),
   }),
 ] as const;
 
-const fullSchema = stepSchemas[0].merge(stepSchemas[1]).merge(stepSchemas[2]);
+const fullSchema = stepSchemas[0]
+  .merge(stepSchemas[1])
+  .merge(stepSchemas[2])
+  .superRefine((val, ctx) => {
+    if (val.smsOptIn && (!val.phone || val.phone.trim().length < 6)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["smsOptIn"],
+        message:
+          "Add a phone number in step 1 to opt in to SMS, or uncheck this option.",
+      });
+    }
+  });
 type FormData = z.infer<typeof fullSchema>;
 
 const STEP_FIELDS: Array<Array<keyof FormData>> = [
   ["companyName", "brandName", "websiteUrl", "country", "contactName", "contactRole", "email", "phone"],
   ["productCategory", "productDescription", "ingredientsSummary", "manufacturingCertifications", "thirdPartyTested", "sahpraAware"],
-  ["sampleUnitsAvailable", "targetAudience", "distributionGoals", "preferredStartDate", "popiaConsent"],
+  ["sampleUnitsAvailable", "targetAudience", "distributionGoals", "preferredStartDate", "popiaConsent", "smsOptIn"],
 ];
 
 const STEPS = [
@@ -107,6 +120,7 @@ const PartnerApply = () => {
       distributionGoals: "",
       preferredStartDate: "",
       popiaConsent: false,
+      smsOptIn: false,
     },
   });
 
@@ -146,6 +160,9 @@ const PartnerApply = () => {
         target_audience: data.targetAudience || null,
         distribution_goals: data.distributionGoals,
         preferred_start_date: data.preferredStartDate || null,
+        sms_opt_in: data.smsOptIn === true,
+        sms_consent_at: data.smsOptIn === true ? new Date().toISOString() : null,
+        sms_consent_source: data.smsOptIn === true ? "partner_application" : null,
       };
 
       const { data: inserted, error } = await supabase
