@@ -347,7 +347,7 @@ const AdminEmailLog = () => {
               <div className="flex gap-2">
                 <Input
                   type="search"
-                  placeholder="e.g. user@example.com or partial match"
+                  placeholder="Search by email or IP hash"
                   value={emailSearch}
                   onChange={(e) => setEmailSearch(e.target.value)}
                 />
