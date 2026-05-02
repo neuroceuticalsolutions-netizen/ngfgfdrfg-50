@@ -26,7 +26,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Mail, ShieldCheck, Info, Database } from "lucide-react";
+import { Loader2, RefreshCw, Mail, ShieldCheck, Info, Database, Eye, EyeOff } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Tooltip,
@@ -78,6 +78,28 @@ function presetRange(preset: Preset): { start: string; end: string } {
   return { start: isoDaysAgo(30), end };
 }
 
+const REVEAL_PREF_KEY = "admin_email_log_reveal_emails";
+
+/**
+ * Mask an email like "john.doe@example.com" -> "j••••e@e••••e.com".
+ * Keeps the first/last character of the local part and of the domain label.
+ */
+function maskEmail(email: string | null | undefined): string {
+  if (!email) return "—";
+  const at = email.indexOf("@");
+  if (at < 1) return "•••";
+  const local = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const maskPart = (s: string) => {
+    if (s.length <= 2) return s[0] + "•";
+    return s[0] + "•".repeat(Math.min(4, s.length - 2)) + s[s.length - 1];
+  };
+  const dotIdx = domain.lastIndexOf(".");
+  const domainName = dotIdx > 0 ? domain.slice(0, dotIdx) : domain;
+  const tld = dotIdx > 0 ? domain.slice(dotIdx) : "";
+  return `${maskPart(local)}@${maskPart(domainName)}${tld}`;
+}
+
 const AdminEmailLog = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -94,6 +116,16 @@ const AdminEmailLog = () => {
   const [emailSearch, setEmailSearch] = useState<string>("");
   const [exactMatch, setExactMatch] = useState<boolean>(false);
   const [page, setPage] = useState(0);
+  const [revealAll, setRevealAll] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem(REVEAL_PREF_KEY) === "1";
+  });
+  const [revealedRows, setRevealedRows] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.localStorage.setItem(REVEAL_PREF_KEY, revealAll ? "1" : "0");
+  }, [revealAll]);
 
   const [rows, setRows] = useState<LogRow[]>([]);
   const [templates, setTemplates] = useState<string[]>([]);
@@ -291,6 +323,22 @@ const AdminEmailLog = () => {
                 <span className="ml-1.5 text-xs opacity-70">{opt.count}</span>
               </Button>
             ))}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setRevealAll((v) => !v);
+                setRevealedRows(new Set());
+              }}
+              title={revealAll ? "Mask recipient emails" : "Reveal full recipient emails"}
+            >
+              {revealAll ? (
+                <EyeOff className="h-4 w-4 mr-2" />
+              ) : (
+                <Eye className="h-4 w-4 mr-2" />
+              )}
+              {revealAll ? "Mask emails" : "Reveal emails"}
+            </Button>
             <Button variant="outline" size="sm" onClick={fetchData} disabled={refreshing}>
               {refreshing ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -538,10 +586,40 @@ const AdminEmailLog = () => {
                       </TableCell>
                     </TableRow>
                   ) : (
-                    pageRows.map((r) => (
+                    pageRows.map((r) => {
+                      const isRevealed = revealAll || revealedRows.has(r.id);
+                      return (
                       <TableRow key={r.id}>
                         <TableCell className="font-medium">{r.template_name}</TableCell>
-                        <TableCell className="font-mono text-xs">{r.recipient_email}</TableCell>
+                        <TableCell className="font-mono text-xs">
+                          <div className="flex items-center gap-1.5">
+                            <span title={isRevealed ? r.recipient_email : "Email is masked"}>
+                              {isRevealed ? r.recipient_email : maskEmail(r.recipient_email)}
+                            </span>
+                            {!revealAll && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setRevealedRows((prev) => {
+                                    const next = new Set(prev);
+                                    if (next.has(r.id)) next.delete(r.id);
+                                    else next.add(r.id);
+                                    return next;
+                                  })
+                                }
+                                className="text-muted-foreground hover:text-foreground transition-colors"
+                                aria-label={isRevealed ? "Hide email" : "Reveal email"}
+                                title={isRevealed ? "Hide email" : "Reveal email"}
+                              >
+                                {isRevealed ? (
+                                  <EyeOff className="h-3.5 w-3.5" />
+                                ) : (
+                                  <Eye className="h-3.5 w-3.5" />
+                                )}
+                              </button>
+                            )}
+                          </div>
+                        </TableCell>
                         <TableCell
                           className="font-mono text-xs text-muted-foreground max-w-[140px] truncate"
                           title={r.recipient_ip_hash ?? ""}
@@ -564,7 +642,8 @@ const AdminEmailLog = () => {
                           {r.error_message ?? "—"}
                         </TableCell>
                       </TableRow>
-                    ))
+                      );
+                    })
                   )}
                 </TableBody>
               </Table>
