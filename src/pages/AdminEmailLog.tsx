@@ -8,6 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -83,6 +85,7 @@ const AdminEmailLog = () => {
   const [templateFilter, setTemplateFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [emailSearch, setEmailSearch] = useState<string>("");
+  const [exactMatch, setExactMatch] = useState<boolean>(false);
   const [page, setPage] = useState(0);
 
   const [rows, setRows] = useState<LogRow[]>([]);
@@ -192,17 +195,19 @@ const AdminEmailLog = () => {
         }
       }
       if (q) {
-        const matchEmail = r.recipient_email?.toLowerCase().includes(q);
-        const matchIp = r.recipient_ip_hash?.toLowerCase().includes(q);
+        const email = r.recipient_email?.toLowerCase() ?? "";
+        const ip = r.recipient_ip_hash?.toLowerCase() ?? "";
+        const matchEmail = exactMatch ? email === q : email.includes(q);
+        const matchIp = exactMatch ? ip === q : ip.includes(q);
         if (!matchEmail && !matchIp) return false;
       }
       return true;
     });
-  }, [dedupedAll, templateFilter, statusFilter, emailSearch]);
+  }, [dedupedAll, templateFilter, statusFilter, emailSearch, exactMatch]);
 
   useEffect(() => {
     setPage(0);
-  }, [emailSearch, templateFilter, statusFilter]);
+  }, [emailSearch, templateFilter, statusFilter, exactMatch]);
 
   const stats = useMemo(() => {
     const s = { total: filtered.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
@@ -341,13 +346,29 @@ const AdminEmailLog = () => {
             </div>
 
             <div className="md:col-span-4">
-              <label className="text-xs font-medium text-muted-foreground mb-1 block">
-                Search recipient email
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-xs font-medium text-muted-foreground">
+                  Search recipient email
+                </label>
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="exact-match"
+                    checked={exactMatch}
+                    onCheckedChange={setExactMatch}
+                  />
+                  <Label htmlFor="exact-match" className="text-xs text-muted-foreground cursor-pointer">
+                    Exact match
+                  </Label>
+                </div>
+              </div>
               <div className="flex gap-2">
                 <Input
                   type="search"
-                  placeholder="Search by email or IP hash"
+                  placeholder={
+                    exactMatch
+                      ? "Exact email or IP hash"
+                      : "Search by email or IP hash (partial)"
+                  }
                   value={emailSearch}
                   onChange={(e) => setEmailSearch(e.target.value)}
                 />
