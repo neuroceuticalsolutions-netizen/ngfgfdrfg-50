@@ -31,6 +31,7 @@ type LogRow = {
   message_id: string | null;
   template_name: string;
   recipient_email: string;
+  recipient_ip_hash: string | null;
   status: string;
   error_message: string | null;
   created_at: string;
@@ -133,7 +134,7 @@ const AdminEmailLog = () => {
     try {
       const { data, error } = await supabase
         .from("email_send_log")
-        .select("id, message_id, template_name, recipient_email, status, error_message, created_at")
+        .select("id, message_id, template_name, recipient_email, recipient_ip_hash, status, error_message, created_at")
         .gte("created_at", range.start)
         .lte("created_at", range.end)
         .order("created_at", { ascending: false })
@@ -190,7 +191,11 @@ const AdminEmailLog = () => {
           return false;
         }
       }
-      if (q && !r.recipient_email?.toLowerCase().includes(q)) return false;
+      if (q) {
+        const matchEmail = r.recipient_email?.toLowerCase().includes(q);
+        const matchIp = r.recipient_ip_hash?.toLowerCase().includes(q);
+        if (!matchEmail && !matchIp) return false;
+      }
       return true;
     });
   }, [dedupedAll, templateFilter, statusFilter, emailSearch]);
@@ -342,7 +347,7 @@ const AdminEmailLog = () => {
               <div className="flex gap-2">
                 <Input
                   type="search"
-                  placeholder="e.g. user@example.com or partial match"
+                  placeholder="Search by email or IP hash"
                   value={emailSearch}
                   onChange={(e) => setEmailSearch(e.target.value)}
                 />
@@ -390,6 +395,7 @@ const AdminEmailLog = () => {
                   <TableRow>
                     <TableHead>Template</TableHead>
                     <TableHead>Recipient</TableHead>
+                    <TableHead>IP hash</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Sent at</TableHead>
                     <TableHead>Error</TableHead>
@@ -398,7 +404,7 @@ const AdminEmailLog = () => {
                 <TableBody>
                   {pageRows.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                      <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
                         No emails match these filters.
                       </TableCell>
                     </TableRow>
@@ -407,6 +413,12 @@ const AdminEmailLog = () => {
                       <TableRow key={r.id}>
                         <TableCell className="font-medium">{r.template_name}</TableCell>
                         <TableCell className="font-mono text-xs">{r.recipient_email}</TableCell>
+                        <TableCell
+                          className="font-mono text-xs text-muted-foreground max-w-[140px] truncate"
+                          title={r.recipient_ip_hash ?? ""}
+                        >
+                          {r.recipient_ip_hash ?? "—"}
+                        </TableCell>
                         <TableCell>
                           <Badge
                             className={
