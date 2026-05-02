@@ -81,6 +81,7 @@ const AdminEmailLog = () => {
   const [customEnd, setCustomEnd] = useState<string>("");
   const [templateFilter, setTemplateFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [emailSearch, setEmailSearch] = useState<string>("");
   const [page, setPage] = useState(0);
 
   const [rows, setRows] = useState<LogRow[]>([]);
@@ -179,6 +180,7 @@ const AdminEmailLog = () => {
   }, [rows]);
 
   const filtered = useMemo(() => {
+    const q = emailSearch.trim().toLowerCase();
     return dedupedAll.filter((r) => {
       if (templateFilter !== "all" && r.template_name !== templateFilter) return false;
       if (statusFilter !== "all") {
@@ -188,9 +190,14 @@ const AdminEmailLog = () => {
           return false;
         }
       }
+      if (q && !r.recipient_email?.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [dedupedAll, templateFilter, statusFilter]);
+  }, [dedupedAll, templateFilter, statusFilter, emailSearch]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [emailSearch, templateFilter, statusFilter]);
 
   const stats = useMemo(() => {
     const s = { total: filtered.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
@@ -326,6 +333,25 @@ const AdminEmailLog = () => {
                   <SelectItem value="suppressed">Suppressed</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="md:col-span-4">
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                Search recipient email
+              </label>
+              <div className="flex gap-2">
+                <Input
+                  type="search"
+                  placeholder="e.g. user@example.com or partial match"
+                  value={emailSearch}
+                  onChange={(e) => setEmailSearch(e.target.value)}
+                />
+                {emailSearch && (
+                  <Button variant="outline" onClick={() => setEmailSearch("")}>
+                    Clear
+                  </Button>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>
