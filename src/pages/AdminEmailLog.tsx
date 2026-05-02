@@ -323,6 +323,22 @@ const AdminEmailLog = () => {
                 <span className="ml-1.5 text-xs opacity-70">{opt.count}</span>
               </Button>
             ))}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setRevealAll((v) => !v);
+                setRevealedRows(new Set());
+              }}
+              title={revealAll ? "Mask recipient emails" : "Reveal full recipient emails"}
+            >
+              {revealAll ? (
+                <EyeOff className="h-4 w-4 mr-2" />
+              ) : (
+                <Eye className="h-4 w-4 mr-2" />
+              )}
+              {revealAll ? "Mask emails" : "Reveal emails"}
+            </Button>
             <Button variant="outline" size="sm" onClick={fetchData} disabled={refreshing}>
               {refreshing ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
