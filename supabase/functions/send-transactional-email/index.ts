@@ -21,6 +21,29 @@ const corsHeaders = {
     'authorization, x-client-info, apikey, content-type',
 }
 
+// Derive the originating IP from common forwarding headers, then hash it
+// (with a salt) for non-reversible correlation in email_send_log.
+function getRequestIp(req: Request): string | null {
+  const fwd = req.headers.get('x-forwarded-for')
+  if (fwd) return fwd.split(',')[0].trim()
+  return (
+    req.headers.get('cf-connecting-ip') ||
+    req.headers.get('x-real-ip') ||
+    null
+  )
+}
+
+async function hashIp(ip: string | null): Promise<string | null> {
+  if (!ip) return null
+  const salt = Deno.env.get('IP_HASH_SALT') ?? 'lovable-email-log'
+  const data = new TextEncoder().encode(`${salt}:${ip}`)
+  const digest = await crypto.subtle.digest('SHA-256', data)
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 32)
+}
+
 // Generate a cryptographically random 32-byte hex token
 function generateToken(): string {
   const bytes = new Uint8Array(32)
@@ -39,6 +62,8 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
+
+  const recipientIpHash = await hashIp(getRequestIp(req))
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL')
   const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
@@ -152,6 +177,7 @@ Deno.serve(async (req) => {
       message_id: messageId,
       template_name: templateName,
       recipient_email: effectiveRecipient,
+      recipient_ip_hash: recipientIpHash,
       status: 'suppressed',
     })
 
@@ -185,6 +211,7 @@ Deno.serve(async (req) => {
       message_id: messageId,
       template_name: templateName,
       recipient_email: effectiveRecipient,
+      recipient_ip_hash: recipientIpHash,
       status: 'failed',
       error_message: 'Failed to look up unsubscribe token',
     })
@@ -218,6 +245,7 @@ Deno.serve(async (req) => {
         message_id: messageId,
         template_name: templateName,
         recipient_email: effectiveRecipient,
+        recipient_ip_hash: recipientIpHash,
         status: 'failed',
         error_message: 'Failed to create unsubscribe token',
       })
@@ -247,6 +275,7 @@ Deno.serve(async (req) => {
         message_id: messageId,
         template_name: templateName,
         recipient_email: effectiveRecipient,
+        recipient_ip_hash: recipientIpHash,
         status: 'failed',
         error_message: 'Failed to confirm unsubscribe token storage',
       })
@@ -269,6 +298,7 @@ Deno.serve(async (req) => {
       message_id: messageId,
       template_name: templateName,
       recipient_email: effectiveRecipient,
+      recipient_ip_hash: recipientIpHash,
       status: 'suppressed',
       error_message:
         'Unsubscribe token used but email missing from suppressed list',
@@ -305,6 +335,7 @@ Deno.serve(async (req) => {
     message_id: messageId,
     template_name: templateName,
     recipient_email: effectiveRecipient,
+    recipient_ip_hash: recipientIpHash,
     status: 'pending',
   })
 
@@ -323,6 +354,7 @@ Deno.serve(async (req) => {
       idempotency_key: idempotencyKey,
       unsubscribe_token: unsubscribeToken,
       queued_at: new Date().toISOString(),
+      recipient_ip_hash: recipientIpHash,
     },
   })
 
@@ -337,6 +369,7 @@ Deno.serve(async (req) => {
       message_id: messageId,
       template_name: templateName,
       recipient_email: effectiveRecipient,
+      recipient_ip_hash: recipientIpHash,
       status: 'failed',
       error_message: 'Failed to enqueue email',
     })
