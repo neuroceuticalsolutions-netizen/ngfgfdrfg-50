@@ -130,6 +130,60 @@ const AdminEmailLog = () => {
   const [rows, setRows] = useState<LogRow[]>([]);
   const [templates, setTemplates] = useState<string[]>([]);
 
+  // Retention setting (admin-controlled).
+  const RETENTION_PRESETS = [30, 60, 90, 180, 365] as const;
+  const [retentionDays, setRetentionDays] = useState<number | null>(null);
+  const [retentionDraft, setRetentionDraft] = useState<string>("90");
+  const [savingRetention, setSavingRetention] = useState(false);
+
+  const fetchRetention = async () => {
+    const { data, error } = await supabase
+      .from("email_log_retention_settings")
+      .select("retention_days")
+      .eq("id", 1)
+      .maybeSingle();
+    if (error) {
+      console.error("Failed to load retention settings", error);
+      return;
+    }
+    const days = data?.retention_days ?? 90;
+    setRetentionDays(days);
+    setRetentionDraft(String(days));
+  };
+
+  const saveRetention = async () => {
+    const parsed = Number(retentionDraft);
+    if (!Number.isInteger(parsed) || parsed < 1 || parsed > 3650) {
+      toast({
+        title: "Invalid retention window",
+        description: "Enter a whole number of days between 1 and 3650.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setSavingRetention(true);
+    try {
+      const { error } = await supabase
+        .from("email_log_retention_settings")
+        .update({ retention_days: parsed })
+        .eq("id", 1);
+      if (error) throw error;
+      setRetentionDays(parsed);
+      toast({
+        title: "Retention updated",
+        description: `Email log entries will be deleted after ${parsed} days.`,
+      });
+    } catch (e: any) {
+      toast({
+        title: "Failed to update retention",
+        description: e?.message ?? "Unknown error",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingRetention(false);
+    }
+  };
+
   const range = useMemo(() => {
     if (preset === "custom") {
       const start = customStart ? new Date(customStart).toISOString() : isoDaysAgo(30);
@@ -202,6 +256,7 @@ const AdminEmailLog = () => {
   useEffect(() => {
     if (!authorized) return;
     fetchData();
+    fetchRetention();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorized, range.start, range.end]);
 
