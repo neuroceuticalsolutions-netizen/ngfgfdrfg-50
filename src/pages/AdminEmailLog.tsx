@@ -210,15 +210,29 @@ const AdminEmailLog = () => {
   }, [emailSearch, templateFilter, statusFilter, exactMatch]);
 
   const stats = useMemo(() => {
-    const s = { total: filtered.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
-    for (const r of filtered) {
+    // Compute counts from rows after template + search filters but BEFORE the
+    // status filter, so the quick-filter chips always show accurate per-status totals.
+    const q = emailSearch.trim().toLowerCase();
+    const base = dedupedAll.filter((r) => {
+      if (templateFilter !== "all" && r.template_name !== templateFilter) return false;
+      if (q) {
+        const email = r.recipient_email?.toLowerCase() ?? "";
+        const ip = r.recipient_ip_hash?.toLowerCase() ?? "";
+        const matchEmail = exactMatch ? email === q : email.includes(q);
+        const matchIp = exactMatch ? ip === q : ip.includes(q);
+        if (!matchEmail && !matchIp) return false;
+      }
+      return true;
+    });
+    const s = { total: base.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
+    for (const r of base) {
       if (r.status === "sent") s.sent++;
       else if (["failed", "dlq", "bounced", "complained"].includes(r.status)) s.failed++;
       else if (r.status === "suppressed") s.suppressed++;
       else if (r.status === "pending") s.pending++;
     }
     return s;
-  }, [filtered]);
+  }, [dedupedAll, templateFilter, emailSearch, exactMatch]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageRows = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
@@ -250,14 +264,35 @@ const AdminEmailLog = () => {
               Sent auth and transactional emails with deduplicated latest status per message.
             </p>
           </div>
-          <Button variant="outline" onClick={fetchData} disabled={refreshing}>
-            {refreshing ? (
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
-            ) : (
-              <RefreshCw className="h-4 w-4 mr-2" />
-            )}
-            Refresh
-          </Button>
+          <div className="flex items-center gap-2 flex-wrap">
+            {(
+              [
+                { value: "all", label: "All", count: stats.total },
+                { value: "pending", label: "Pending", count: stats.pending },
+                { value: "sent", label: "Sent", count: stats.sent },
+                { value: "failed", label: "Failed", count: stats.failed },
+                { value: "suppressed", label: "Suppressed", count: stats.suppressed },
+              ] as const
+            ).map((opt) => (
+              <Button
+                key={opt.value}
+                size="sm"
+                variant={statusFilter === opt.value ? "default" : "outline"}
+                onClick={() => setStatusFilter(opt.value)}
+              >
+                {opt.label}
+                <span className="ml-1.5 text-xs opacity-70">{opt.count}</span>
+              </Button>
+            ))}
+            <Button variant="outline" size="sm" onClick={fetchData} disabled={refreshing}>
+              {refreshing ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <RefreshCw className="h-4 w-4 mr-2" />
+              )}
+              Refresh
+            </Button>
+          </div>
         </div>
 
         {/* Filters */}
