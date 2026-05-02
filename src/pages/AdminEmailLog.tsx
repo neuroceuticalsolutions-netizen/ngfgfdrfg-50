@@ -26,7 +26,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Mail, ShieldCheck, Info } from "lucide-react";
+import { Loader2, RefreshCw, Mail, ShieldCheck, Info, Database } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Tooltip,
@@ -311,6 +311,45 @@ const AdminEmailLog = () => {
             digest of the originating IP address — never the raw IP. Hashes are one-way and used
             only to correlate delivery attempts (e.g. spotting repeated failures from the same
             source). Recipient emails and IP hashes are visible to admins only.
+          </AlertDescription>
+        </Alert>
+
+        {/* Data retention */}
+        <Alert className="mb-6">
+          <Database className="h-4 w-4" />
+          <AlertTitle>Data retention</AlertTitle>
+          <AlertDescription>
+            <p className="mb-2">
+              Email log entries (template name, recipient email, IP hash, status, error message,
+              timestamp) are retained <strong>indefinitely</strong> by default — no automated
+              purge is configured. Logs are append-only: each delivery attempt writes a new row
+              and existing rows are never modified.
+            </p>
+            <p className="mb-2">
+              <strong>How data is deleted:</strong>
+            </p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>
+                <strong>Manual purge:</strong> An admin can permanently delete entries through the
+                backend database (e.g. delete rows older than 90 days, or delete all rows for a
+                specific recipient on POPIA/GDPR request).
+              </li>
+              <li>
+                <strong>Right to erasure:</strong> If a user requests deletion of their personal
+                data, their entries in <span className="font-mono text-xs">email_send_log</span>{" "}
+                and <span className="font-mono text-xs">email_unsubscribe_tokens</span> should be
+                removed alongside their account.
+              </li>
+              <li>
+                <strong>Suppression list:</strong> Bounced/complained/unsubscribed addresses are
+                kept in <span className="font-mono text-xs">suppressed_emails</span> as long as
+                needed to prevent re-sending — these are intentionally retained.
+              </li>
+            </ul>
+            <p className="mt-2 text-xs text-muted-foreground">
+              If you'd like an automated retention window (e.g. auto-delete logs older than 90 days),
+              ask your developer to configure a scheduled cleanup job.
+            </p>
           </AlertDescription>
         </Alert>
 
