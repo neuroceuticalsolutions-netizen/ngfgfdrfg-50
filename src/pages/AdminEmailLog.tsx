@@ -26,7 +26,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Mail, ShieldCheck, Info, Database } from "lucide-react";
+import { Loader2, RefreshCw, Mail, ShieldCheck, Info, Database, Eye, EyeOff } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Tooltip,
@@ -76,6 +76,28 @@ function presetRange(preset: Preset): { start: string; end: string } {
   if (preset === "24h") return { start: isoHoursAgo(24), end };
   if (preset === "7d") return { start: isoDaysAgo(7), end };
   return { start: isoDaysAgo(30), end };
+}
+
+const REVEAL_PREF_KEY = "admin_email_log_reveal_emails";
+
+/**
+ * Mask an email like "john.doe@example.com" -> "j••••e@e••••e.com".
+ * Keeps the first/last character of the local part and of the domain label.
+ */
+function maskEmail(email: string | null | undefined): string {
+  if (!email) return "—";
+  const at = email.indexOf("@");
+  if (at < 1) return "•••";
+  const local = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const maskPart = (s: string) => {
+    if (s.length <= 2) return s[0] + "•";
+    return s[0] + "•".repeat(Math.min(4, s.length - 2)) + s[s.length - 1];
+  };
+  const dotIdx = domain.lastIndexOf(".");
+  const domainName = dotIdx > 0 ? domain.slice(0, dotIdx) : domain;
+  const tld = dotIdx > 0 ? domain.slice(dotIdx) : "";
+  return `${maskPart(local)}@${maskPart(domainName)}${tld}`;
 }
 
 const AdminEmailLog = () => {
