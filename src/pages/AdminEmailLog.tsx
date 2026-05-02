@@ -130,6 +130,60 @@ const AdminEmailLog = () => {
   const [rows, setRows] = useState<LogRow[]>([]);
   const [templates, setTemplates] = useState<string[]>([]);
 
+  // Retention setting (admin-controlled).
+  const RETENTION_PRESETS = [30, 60, 90, 180, 365] as const;
+  const [retentionDays, setRetentionDays] = useState<number | null>(null);
+  const [retentionDraft, setRetentionDraft] = useState<string>("90");
+  const [savingRetention, setSavingRetention] = useState(false);
+
+  const fetchRetention = async () => {
+    const { data, error } = await supabase
+      .from("email_log_retention_settings")
+      .select("retention_days")
+      .eq("id", 1)
+      .maybeSingle();
+    if (error) {
+      console.error("Failed to load retention settings", error);
+      return;
+    }
+    const days = data?.retention_days ?? 90;
+    setRetentionDays(days);
+    setRetentionDraft(String(days));
+  };
+
+  const saveRetention = async () => {
+    const parsed = Number(retentionDraft);
+    if (!Number.isInteger(parsed) || parsed < 1 || parsed > 3650) {
+      toast({
+        title: "Invalid retention window",
+        description: "Enter a whole number of days between 1 and 3650.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setSavingRetention(true);
+    try {
+      const { error } = await supabase
+        .from("email_log_retention_settings")
+        .update({ retention_days: parsed })
+        .eq("id", 1);
+      if (error) throw error;
+      setRetentionDays(parsed);
+      toast({
+        title: "Retention updated",
+        description: `Email log entries will be deleted after ${parsed} days.`,
+      });
+    } catch (e: any) {
+      toast({
+        title: "Failed to update retention",
+        description: e?.message ?? "Unknown error",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingRetention(false);
+    }
+  };
+
   const range = useMemo(() => {
     if (preset === "custom") {
       const start = customStart ? new Date(customStart).toISOString() : isoDaysAgo(30);
@@ -202,6 +256,7 @@ const AdminEmailLog = () => {
   useEffect(() => {
     if (!authorized) return;
     fetchData();
+    fetchRetention();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorized, range.start, range.end]);
 
@@ -369,7 +424,8 @@ const AdminEmailLog = () => {
           <AlertDescription>
             <p className="mb-2">
               Email log entries (template name, recipient email, IP hash, status, error message,
-              timestamp) are automatically deleted <strong>90 days</strong> after they are
+              timestamp) are automatically deleted{" "}
+              <strong>{retentionDays ?? 90} days</strong> after they are
               created. A scheduled cleanup job runs daily at <strong>03:15 UTC</strong>. Logs are
               append-only until then — each delivery attempt writes a new row and existing rows
               are never modified.
@@ -380,7 +436,7 @@ const AdminEmailLog = () => {
             <ul className="list-disc pl-5 space-y-1">
               <li>
                 <strong>Automatic purge:</strong> Daily scheduled job removes any entry older
-                than 90 days from the email log.
+                than {retentionDays ?? 90} days from the email log.
               </li>
               <li>
                 <strong>Manual purge:</strong> An admin can permanently delete entries through the
@@ -400,11 +456,86 @@ const AdminEmailLog = () => {
               </li>
             </ul>
             <p className="mt-2 text-xs text-muted-foreground">
-              To change the retention window (e.g. 30 or 180 days), ask your developer to update
-              the scheduled cleanup job.
+              Use the <strong>Retention window</strong> control below to change how long email
+              log entries are kept before automatic deletion.
             </p>
           </AlertDescription>
         </Alert>
+
+        {/* Retention settings */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Database className="h-4 w-4" /> Retention window
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Email log entries older than this many days will be permanently deleted by the
+              daily cleanup job. Changes take effect on the next scheduled run (03:15 UTC).
+            </p>
+            <div className="flex flex-wrap items-end gap-3">
+              <div className="flex-1 min-w-[180px]">
+                <Label className="text-xs font-medium text-muted-foreground mb-1 block">
+                  Preset
+                </Label>
+                <Select
+                  value={
+                    RETENTION_PRESETS.includes(Number(retentionDraft) as any)
+                      ? retentionDraft
+                      : "custom"
+                  }
+                  onValueChange={(v) => {
+                    if (v !== "custom") setRetentionDraft(v);
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {RETENTION_PRESETS.map((d) => (
+                      <SelectItem key={d} value={String(d)}>
+                        {d} days
+                      </SelectItem>
+                    ))}
+                    <SelectItem value="custom">Custom…</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-32">
+                <Label className="text-xs font-medium text-muted-foreground mb-1 block">
+                  Days
+                </Label>
+                <Input
+                  type="number"
+                  min={1}
+                  max={3650}
+                  value={retentionDraft}
+                  onChange={(e) => setRetentionDraft(e.target.value)}
+                />
+              </div>
+              <Button
+                onClick={saveRetention}
+                disabled={
+                  savingRetention ||
+                  retentionDays === null ||
+                  Number(retentionDraft) === retentionDays ||
+                  !Number.isInteger(Number(retentionDraft)) ||
+                  Number(retentionDraft) < 1 ||
+                  Number(retentionDraft) > 3650
+                }
+              >
+                {savingRetention && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                Save
+              </Button>
+              {retentionDays !== null && (
+                <span className="text-xs text-muted-foreground">
+                  Current: <strong>{retentionDays} days</strong>
+                </span>
+              )}
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Filters */}
         <Card className="mb-6">
