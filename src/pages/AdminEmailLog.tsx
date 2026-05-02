@@ -369,18 +369,23 @@ const AdminEmailLog = () => {
           <AlertDescription>
             <p className="mb-2">
               Email log entries (template name, recipient email, IP hash, status, error message,
-              timestamp) are retained <strong>indefinitely</strong> by default — no automated
-              purge is configured. Logs are append-only: each delivery attempt writes a new row
-              and existing rows are never modified.
+              timestamp) are automatically deleted <strong>90 days</strong> after they are
+              created. A scheduled cleanup job runs daily at <strong>03:15 UTC</strong>. Logs are
+              append-only until then — each delivery attempt writes a new row and existing rows
+              are never modified.
             </p>
             <p className="mb-2">
               <strong>How data is deleted:</strong>
             </p>
             <ul className="list-disc pl-5 space-y-1">
               <li>
+                <strong>Automatic purge:</strong> Daily scheduled job removes any entry older
+                than 90 days from the email log.
+              </li>
+              <li>
                 <strong>Manual purge:</strong> An admin can permanently delete entries through the
-                backend database (e.g. delete rows older than 90 days, or delete all rows for a
-                specific recipient on POPIA/GDPR request).
+                backend database (e.g. delete all rows for a specific recipient on POPIA/GDPR
+                request, or run a one-off cleanup).
               </li>
               <li>
                 <strong>Right to erasure:</strong> If a user requests deletion of their personal
@@ -395,8 +400,8 @@ const AdminEmailLog = () => {
               </li>
             </ul>
             <p className="mt-2 text-xs text-muted-foreground">
-              If you'd like an automated retention window (e.g. auto-delete logs older than 90 days),
-              ask your developer to configure a scheduled cleanup job.
+              To change the retention window (e.g. 30 or 180 days), ask your developer to update
+              the scheduled cleanup job.
             </p>
           </AlertDescription>
         </Alert>
