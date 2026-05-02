@@ -26,7 +26,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Mail } from "lucide-react";
+import { Loader2, RefreshCw, Mail, ShieldCheck, Info } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type LogRow = {
   id: string;
@@ -295,6 +302,18 @@ const AdminEmailLog = () => {
           </div>
         </div>
 
+        {/* Privacy disclaimer */}
+        <Alert className="mb-6">
+          <ShieldCheck className="h-4 w-4" />
+          <AlertTitle>Privacy notice</AlertTitle>
+          <AlertDescription>
+            The <span className="font-mono text-xs">IP hash</span> column shows a salted SHA-256
+            digest of the originating IP address — never the raw IP. Hashes are one-way and used
+            only to correlate delivery attempts (e.g. spotting repeated failures from the same
+            source). Recipient emails and IP hashes are visible to admins only.
+          </AlertDescription>
+        </Alert>
+
         {/* Filters */}
         <Card className="mb-6">
           <CardHeader>
@@ -451,7 +470,22 @@ const AdminEmailLog = () => {
                   <TableRow>
                     <TableHead>Template</TableHead>
                     <TableHead>Recipient</TableHead>
-                    <TableHead>IP hash</TableHead>
+                    <TableHead>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span className="inline-flex items-center gap-1 cursor-help">
+                              IP hash
+                              <Info className="h-3 w-3 text-muted-foreground" />
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent className="max-w-xs">
+                            Salted SHA-256 hash of the originating IP address — not the raw IP.
+                            One-way and used only for correlating delivery attempts.
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Sent at</TableHead>
                     <TableHead>Error</TableHead>
