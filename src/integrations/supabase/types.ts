@@ -60,6 +60,7 @@ export type Database = {
           message_id: string | null
           metadata: Json | null
           recipient_email: string
+          recipient_ip_hash: string | null
           status: string
           template_name: string
         }
@@ -70,6 +71,7 @@ export type Database = {
           message_id?: string | null
           metadata?: Json | null
           recipient_email: string
+          recipient_ip_hash?: string | null
           status: string
           template_name: string
         }
@@ -80,6 +82,7 @@ export type Database = {
           message_id?: string | null
           metadata?: Json | null
           recipient_email?: string
+          recipient_ip_hash?: string | null
           status?: string
           template_name?: string
         }
