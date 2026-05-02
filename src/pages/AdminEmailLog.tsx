@@ -210,15 +210,29 @@ const AdminEmailLog = () => {
   }, [emailSearch, templateFilter, statusFilter, exactMatch]);
 
   const stats = useMemo(() => {
-    const s = { total: filtered.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
-    for (const r of filtered) {
+    // Compute counts from rows after template + search filters but BEFORE the
+    // status filter, so the quick-filter chips always show accurate per-status totals.
+    const q = emailSearch.trim().toLowerCase();
+    const base = dedupedAll.filter((r) => {
+      if (templateFilter !== "all" && r.template_name !== templateFilter) return false;
+      if (q) {
+        const email = r.recipient_email?.toLowerCase() ?? "";
+        const ip = r.recipient_ip_hash?.toLowerCase() ?? "";
+        const matchEmail = exactMatch ? email === q : email.includes(q);
+        const matchIp = exactMatch ? ip === q : ip.includes(q);
+        if (!matchEmail && !matchIp) return false;
+      }
+      return true;
+    });
+    const s = { total: base.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
+    for (const r of base) {
       if (r.status === "sent") s.sent++;
       else if (["failed", "dlq", "bounced", "complained"].includes(r.status)) s.failed++;
       else if (r.status === "suppressed") s.suppressed++;
       else if (r.status === "pending") s.pending++;
     }
     return s;
-  }, [filtered]);
+  }, [dedupedAll, templateFilter, emailSearch, exactMatch]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageRows = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
