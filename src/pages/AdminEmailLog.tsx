@@ -116,6 +116,16 @@ const AdminEmailLog = () => {
   const [emailSearch, setEmailSearch] = useState<string>("");
   const [exactMatch, setExactMatch] = useState<boolean>(false);
   const [page, setPage] = useState(0);
+  const [revealAll, setRevealAll] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem(REVEAL_PREF_KEY) === "1";
+  });
+  const [revealedRows, setRevealedRows] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.localStorage.setItem(REVEAL_PREF_KEY, revealAll ? "1" : "0");
+  }, [revealAll]);
 
   const [rows, setRows] = useState<LogRow[]>([]);
   const [templates, setTemplates] = useState<string[]>([]);
