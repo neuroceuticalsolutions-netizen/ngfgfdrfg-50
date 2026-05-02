@@ -586,10 +586,40 @@ const AdminEmailLog = () => {
                       </TableCell>
                     </TableRow>
                   ) : (
-                    pageRows.map((r) => (
+                    pageRows.map((r) => {
+                      const isRevealed = revealAll || revealedRows.has(r.id);
+                      return (
                       <TableRow key={r.id}>
                         <TableCell className="font-medium">{r.template_name}</TableCell>
-                        <TableCell className="font-mono text-xs">{r.recipient_email}</TableCell>
+                        <TableCell className="font-mono text-xs">
+                          <div className="flex items-center gap-1.5">
+                            <span title={isRevealed ? r.recipient_email : "Email is masked"}>
+                              {isRevealed ? r.recipient_email : maskEmail(r.recipient_email)}
+                            </span>
+                            {!revealAll && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setRevealedRows((prev) => {
+                                    const next = new Set(prev);
+                                    if (next.has(r.id)) next.delete(r.id);
+                                    else next.add(r.id);
+                                    return next;
+                                  })
+                                }
+                                className="text-muted-foreground hover:text-foreground transition-colors"
+                                aria-label={isRevealed ? "Hide email" : "Reveal email"}
+                                title={isRevealed ? "Hide email" : "Reveal email"}
+                              >
+                                {isRevealed ? (
+                                  <EyeOff className="h-3.5 w-3.5" />
+                                ) : (
+                                  <Eye className="h-3.5 w-3.5" />
+                                )}
+                              </button>
+                            )}
+                          </div>
+                        </TableCell>
                         <TableCell
                           className="font-mono text-xs text-muted-foreground max-w-[140px] truncate"
                           title={r.recipient_ip_hash ?? ""}
@@ -612,7 +642,8 @@ const AdminEmailLog = () => {
                           {r.error_message ?? "—"}
                         </TableCell>
                       </TableRow>
-                    ))
+                      );
+                    })
                   )}
                 </TableBody>
               </Table>
