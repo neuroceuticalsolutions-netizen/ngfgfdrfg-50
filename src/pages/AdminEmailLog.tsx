@@ -250,14 +250,35 @@ const AdminEmailLog = () => {
               Sent auth and transactional emails with deduplicated latest status per message.
             </p>
           </div>
-          <Button variant="outline" onClick={fetchData} disabled={refreshing}>
-            {refreshing ? (
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
-            ) : (
-              <RefreshCw className="h-4 w-4 mr-2" />
-            )}
-            Refresh
-          </Button>
+          <div className="flex items-center gap-2 flex-wrap">
+            {(
+              [
+                { value: "all", label: "All", count: stats.total },
+                { value: "pending", label: "Pending", count: stats.pending },
+                { value: "sent", label: "Sent", count: stats.sent },
+                { value: "failed", label: "Failed", count: stats.failed },
+                { value: "suppressed", label: "Suppressed", count: stats.suppressed },
+              ] as const
+            ).map((opt) => (
+              <Button
+                key={opt.value}
+                size="sm"
+                variant={statusFilter === opt.value ? "default" : "outline"}
+                onClick={() => setStatusFilter(opt.value)}
+              >
+                {opt.label}
+                <span className="ml-1.5 text-xs opacity-70">{opt.count}</span>
+              </Button>
+            ))}
+            <Button variant="outline" size="sm" onClick={fetchData} disabled={refreshing}>
+              {refreshing ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <RefreshCw className="h-4 w-4 mr-2" />
+              )}
+              Refresh
+            </Button>
+          </div>
         </div>
 
         {/* Filters */}
