@@ -470,7 +470,22 @@ const AdminEmailLog = () => {
                   <TableRow>
                     <TableHead>Template</TableHead>
                     <TableHead>Recipient</TableHead>
-                    <TableHead>IP hash</TableHead>
+                    <TableHead>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span className="inline-flex items-center gap-1 cursor-help">
+                              IP hash
+                              <Info className="h-3 w-3 text-muted-foreground" />
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent className="max-w-xs">
+                            Salted SHA-256 hash of the originating IP address — not the raw IP.
+                            One-way and used only for correlating delivery attempts.
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Sent at</TableHead>
                     <TableHead>Error</TableHead>
