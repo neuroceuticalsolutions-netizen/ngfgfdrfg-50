@@ -302,6 +302,18 @@ const AdminEmailLog = () => {
           </div>
         </div>
 
+        {/* Privacy disclaimer */}
+        <Alert className="mb-6">
+          <ShieldCheck className="h-4 w-4" />
+          <AlertTitle>Privacy notice</AlertTitle>
+          <AlertDescription>
+            The <span className="font-mono text-xs">IP hash</span> column shows a salted SHA-256
+            digest of the originating IP address — never the raw IP. Hashes are one-way and used
+            only to correlate delivery attempts (e.g. spotting repeated failures from the same
+            source). Recipient emails and IP hashes are visible to admins only.
+          </AlertDescription>
+        </Alert>
+
         {/* Filters */}
         <Card className="mb-6">
           <CardHeader>
