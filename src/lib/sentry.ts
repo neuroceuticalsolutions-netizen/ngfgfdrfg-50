@@ -1,7 +1,9 @@
 import * as Sentry from "@sentry/react"
 import { supabase } from "@/integrations/supabase/client"
 
-const DSN = import.meta.env.VITE_SENTRY_DSN as string | undefined
+const DSN =
+  (import.meta.env.VITE_SENTRY_DSN as string | undefined) ||
+  "https://769c947bf850e52964ed9134626415e0@o4511349450932224.ingest.de.sentry.io/4511349480292432"
 
 let initialized = false
 
