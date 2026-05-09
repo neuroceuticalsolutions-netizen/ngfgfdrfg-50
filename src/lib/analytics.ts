@@ -11,6 +11,8 @@
 
 type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
+import * as Sentry from "@sentry/react";
+
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
@@ -25,6 +27,19 @@ export const trackEvent = (event: string, props: AnalyticsProps = {}) => {
   if (!isBrowser()) return;
 
   const payload = { event, ...props, timestamp: new Date().toISOString() };
+
+  // 0. Sentry breadcrumb (debugging context for any later errors)
+  try {
+    Sentry.addBreadcrumb({
+      category: "user-action",
+      type: "user",
+      level: "info",
+      message: event,
+      data: props as Record<string, unknown>,
+    });
+  } catch {
+    /* no-op */
+  }
 
   // 1. GTM / GA4 dataLayer
   try {
