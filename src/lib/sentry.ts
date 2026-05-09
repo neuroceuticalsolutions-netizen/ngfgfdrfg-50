@@ -5,6 +5,16 @@ const DSN =
   (import.meta.env.VITE_SENTRY_DSN as string | undefined) ||
   "https://769c947bf850e52964ed9134626415e0@o4511349450932224.ingest.de.sentry.io/4511349480292432"
 
+// PII capture is OFF by default. Set VITE_SENTRY_SEND_PII="true" to allow
+// sending personally identifiable info (e.g. user email, IP, full URLs)
+// to Sentry. When false, identifiers are scrubbed before send.
+const SEND_PII =
+  String(import.meta.env.VITE_SENTRY_SEND_PII ?? "").toLowerCase() === "true"
+
+export function isSentryPiiEnabled() {
+  return SEND_PII
+}
+
 let initialized = false
 
 export function initSentry() {
@@ -17,13 +27,18 @@ export function initSentry() {
     environment: "production",
     // Errors only — no tracing, no session replay
     tracesSampleRate: 0,
-    // Strip potentially sensitive query strings / hash fragments from URLs
-    sendDefaultPii: false,
+    // Only send default PII (IP, headers, cookies) when explicitly enabled.
+    sendDefaultPii: SEND_PII,
     beforeSend(event) {
       try {
         if (event.request?.url) {
           const u = new URL(event.request.url)
           event.request.url = `${u.origin}${u.pathname}`
+        }
+        if (!SEND_PII && event.user) {
+          // Strip email and any other identifying fields when PII is disabled.
+          const { id, ip_address: _ip, email: _email, username: _username, ...rest } = event.user
+          event.user = { id, ...rest }
         }
       } catch {
         // ignore
@@ -87,8 +102,9 @@ async function applyUser(user: AuthUserLike | null) {
   Sentry.setTag("auth", "authenticated")
   Sentry.setUser({
     id: user.id,
-    email: user.email ?? undefined,
+    email: SEND_PII ? user.email ?? undefined : undefined,
   })
+  Sentry.setTag("pii", SEND_PII ? "enabled" : "disabled")
 
   // Organization context: derive from user_roles (admin vs user).
   try {
