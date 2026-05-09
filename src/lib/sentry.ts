@@ -34,7 +34,7 @@ export function initSentry() {
 
   initialized = true
 
-  // Anonymous, per-tab session id (no PII). Stored only in sessionStorage.
+  // Anonymous, per-tab session id used as a fallback when no auth user is present.
   try {
     const KEY = "sentry_anon_session_id"
     let sid = sessionStorage.getItem(KEY)
@@ -46,49 +46,66 @@ export function initSentry() {
       sessionStorage.setItem(KEY, sid)
     }
     Sentry.setUser({ id: sid })
+    Sentry.setTag("auth", "anonymous")
   } catch {
     // sessionStorage may be unavailable — continue without it
   }
 
-  // Attach a hashed auth user id when signed in (no email, no PII).
-  // The hash is irreversible from Sentry's side and lets you correlate
-  // multiple errors from the same account without exposing identity.
+  // Attach the signed-in user's identity (id, email) and organization role
+  // so every captured event is tied to the right account.
   void attachAuthContext()
   supabase.auth.onAuthStateChange((_event, session) => {
-    void applyUserId(session?.user?.id)
+    void applyUser(session?.user ?? null)
   })
 }
 
 async function attachAuthContext() {
   try {
     const { data } = await supabase.auth.getSession()
-    await applyUserId(data.session?.user?.id)
+    await applyUser(data.session?.user ?? null)
   } catch {
     // ignore
   }
 }
 
-async function applyUserId(userId?: string) {
-  if (!initialized) return
-  if (!userId) {
-    Sentry.setTag("auth", "anonymous")
-    return
-  }
-  const hashed = await sha256(userId)
-  Sentry.setTag("auth", "authenticated")
-  Sentry.setUser({
-    id: sessionStorage.getItem("sentry_anon_session_id") ?? undefined,
-    // Non-reversible hash of the auth user id
-    username: `u_${hashed.slice(0, 16)}`,
-  })
+type AuthUserLike = {
+  id: string
+  email?: string | null
 }
 
-async function sha256(input: string): Promise<string> {
-  const buf = new TextEncoder().encode(input)
-  const digest = await crypto.subtle.digest("SHA-256", buf)
-  return Array.from(new Uint8Array(digest))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("")
+async function applyUser(user: AuthUserLike | null) {
+  if (!initialized) return
+  if (!user) {
+    Sentry.setTag("auth", "anonymous")
+    Sentry.setTag("org_role", "anonymous")
+    Sentry.setUser({
+      id: sessionStorage.getItem("sentry_anon_session_id") ?? undefined,
+    })
+    return
+  }
+
+  Sentry.setTag("auth", "authenticated")
+  Sentry.setUser({
+    id: user.id,
+    email: user.email ?? undefined,
+  })
+
+  // Organization context: derive from user_roles (admin vs user).
+  try {
+    const { data: roles } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+    const roleList = (roles ?? []).map((r) => r.role)
+    const primaryRole = roleList.includes("admin") ? "admin" : roleList[0] ?? "user"
+    Sentry.setTag("org_role", primaryRole)
+    Sentry.setContext("organization", {
+      name: "Neuroceutical Solutions",
+      roles: roleList,
+    })
+  } catch {
+    Sentry.setTag("org_role", "unknown")
+  }
 }
 
 export { Sentry }
