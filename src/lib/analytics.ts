@@ -12,7 +12,7 @@
 type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
 import * as Sentry from "@sentry/react";
-import { newCorrelationId, getCorrelationId } from "@/lib/correlation";
+import { newCorrelationId } from "@/lib/correlation";
 
 declare global {
   interface Window {
