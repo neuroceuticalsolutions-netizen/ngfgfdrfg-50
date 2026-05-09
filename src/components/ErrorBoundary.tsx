@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from "react"
 import { AlertTriangle, RefreshCw, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import * as Sentry from "@sentry/react"
 
 interface Props {
   children: ReactNode
@@ -21,6 +22,17 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("[ErrorBoundary] Uncaught error:", error, errorInfo)
+    try {
+      Sentry.withScope((scope) => {
+        scope.setTag("source", "react-error-boundary")
+        scope.setContext("react", {
+          componentStack: errorInfo.componentStack,
+        })
+        Sentry.captureException(error)
+      })
+    } catch {
+      /* no-op */
+    }
   }
 
   handleReload = () => {
