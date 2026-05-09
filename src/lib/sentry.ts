@@ -1,5 +1,6 @@
 import * as Sentry from "@sentry/react"
 import { supabase } from "@/integrations/supabase/client"
+import { getCorrelationId, initCorrelationId } from "@/lib/correlation"
 
 const DSN =
   (import.meta.env.VITE_SENTRY_DSN as string | undefined) ||
@@ -40,14 +41,32 @@ export function initSentry() {
           const { id, ip_address: _ip, email: _email, username: _username, ...rest } = event.user
           event.user = { id, ...rest }
         }
+        // Stamp the active correlation id on every event so it can be
+        // grouped with the breadcrumbs/logs from the same user action.
+        const cid = getCorrelationId()
+        event.tags = { ...(event.tags ?? {}), correlation_id: cid }
+        event.contexts = {
+          ...(event.contexts ?? {}),
+          correlation: { id: cid },
+        }
       } catch {
         // ignore
       }
       return event
     },
+    beforeBreadcrumb(breadcrumb) {
+      try {
+        const cid = getCorrelationId()
+        breadcrumb.data = { ...(breadcrumb.data ?? {}), correlation_id: cid }
+      } catch {
+        /* no-op */
+      }
+      return breadcrumb
+    },
   })
 
   initialized = true
+  initCorrelationId()
 
   // Anonymous, per-tab session id used as a fallback when no auth user is present.
   try {
