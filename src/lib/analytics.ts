@@ -12,6 +12,7 @@
 type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
 import * as Sentry from "@sentry/react";
+import { newCorrelationId, getCorrelationId } from "@/lib/correlation";
 
 declare global {
   interface Window {
@@ -26,7 +27,15 @@ const isBrowser = () => typeof window !== "undefined";
 export const trackEvent = (event: string, props: AnalyticsProps = {}) => {
   if (!isBrowser()) return;
 
-  const payload = { event, ...props, timestamp: new Date().toISOString() };
+  // Each tracked user action starts a fresh correlation id so any errors
+  // it triggers can be grouped together in Sentry.
+  const correlationId = newCorrelationId();
+  const payload = {
+    event,
+    ...props,
+    correlation_id: correlationId,
+    timestamp: new Date().toISOString(),
+  };
 
   // 0. Sentry breadcrumb (debugging context for any later errors)
   try {
@@ -35,7 +44,7 @@ export const trackEvent = (event: string, props: AnalyticsProps = {}) => {
       type: "user",
       level: "info",
       message: event,
-      data: props as Record<string, unknown>,
+      data: { ...(props as Record<string, unknown>), correlation_id: correlationId },
     });
   } catch {
     /* no-op */
