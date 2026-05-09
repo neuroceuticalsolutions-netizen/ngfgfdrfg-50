@@ -20,26 +20,29 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' &&
     componentTagger(),
     // Upload source maps to Sentry on production builds only.
-    // Requires the following build-time env vars (Workspace Settings → Build Secrets):
+    // Requires these build-time env vars (Workspace Settings → Build Secrets):
     //   SENTRY_AUTH_TOKEN  (required, secret)
     //   SENTRY_ORG         (required, your Sentry org slug)
     //   SENTRY_PROJECT     (required, your Sentry project slug)
-    mode === 'production' &&
-      process.env.SENTRY_AUTH_TOKEN &&
-      process.env.SENTRY_ORG &&
-      process.env.SENTRY_PROJECT &&
-      sentryVitePlugin({
-        org: process.env.SENTRY_ORG,
-        project: process.env.SENTRY_PROJECT,
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-        telemetry: false,
-        sourcemaps: {
-          filesToDeleteAfterUpload: ["./dist/**/*.map"],
-        },
-        release: {
-          name: process.env.SENTRY_RELEASE || undefined,
-        },
-      }),
+    ...(mode === 'production' &&
+    process.env.SENTRY_AUTH_TOKEN &&
+    process.env.SENTRY_ORG &&
+    process.env.SENTRY_PROJECT
+      ? [
+          sentryVitePlugin({
+            org: process.env.SENTRY_ORG,
+            project: process.env.SENTRY_PROJECT,
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+            telemetry: false,
+            sourcemaps: {
+              filesToDeleteAfterUpload: ["./dist/**/*.map"],
+            },
+            release: {
+              name: process.env.SENTRY_RELEASE || undefined,
+            },
+          }),
+        ]
+      : []),
   ].filter(Boolean),
   resolve: {
     alias: {
