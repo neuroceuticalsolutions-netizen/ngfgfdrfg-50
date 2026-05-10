@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { AlertTriangle, RefreshCw, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import * as Sentry from "@sentry/react"
+import { getRenderStages, getLastRenderStage, markRenderStage } from "@/lib/render-stage"
 
 /**
  * Client-side render watchdog.
@@ -22,44 +23,122 @@ interface Props {
   timeoutMs?: number
 }
 
-function hasPaintedContent(): boolean {
-  if (typeof document === "undefined") return true
-  const root = document.getElementById("root")
-  if (!root) return false
+interface PaintProbe {
+  painted: boolean
+  rootExists: boolean
+  rootHtmlLength: number
+  rootTextLength: number
+  visibleElements: { tag: string; w: number; h: number }[]
+}
 
-  // A nav OR a section/main with measurable layout counts as "rendered".
+function probePaint(): PaintProbe {
+  const probe: PaintProbe = {
+    painted: false,
+    rootExists: false,
+    rootHtmlLength: 0,
+    rootTextLength: 0,
+    visibleElements: [],
+  }
+  if (typeof document === "undefined") {
+    probe.painted = true
+    return probe
+  }
+  const root = document.getElementById("root")
+  if (!root) return probe
+  probe.rootExists = true
+  probe.rootHtmlLength = root.innerHTML.length
+  probe.rootTextLength = (root.textContent ?? "").trim().length
+
   const candidates = root.querySelectorAll("nav, main, section, header")
   for (const el of Array.from(candidates)) {
     const rect = (el as HTMLElement).getBoundingClientRect()
-    if (rect.width > 0 && rect.height > 0) return true
+    if (rect.width > 0 && rect.height > 0) {
+      probe.visibleElements.push({
+        tag: el.tagName.toLowerCase(),
+        w: Math.round(rect.width),
+        h: Math.round(rect.height),
+      })
+    }
   }
-  // Fallback: any visible text content at all.
-  return (root.textContent ?? "").trim().length > 0
+  probe.painted = probe.visibleElements.length > 0 || probe.rootTextLength > 0
+  return probe
+}
+
+function collectNavTiming() {
+  if (typeof performance === "undefined") return null
+  const nav = performance.getEntriesByType?.("navigation")?.[0] as
+    | PerformanceNavigationTiming
+    | undefined
+  if (!nav) return null
+  return {
+    type: nav.type,
+    domInteractive: Math.round(nav.domInteractive),
+    domContentLoaded: Math.round(nav.domContentLoadedEventEnd),
+    loadEvent: Math.round(nav.loadEventEnd),
+    transferSize: nav.transferSize,
+    sinceStart: Math.round(performance.now() - nav.startTime),
+  }
 }
 
 export const RenderWatchdog = ({ timeoutMs = 8000 }: Props) => {
   const [failed, setFailed] = useState(false)
 
   useEffect(() => {
+    markRenderStage("app-render")
     const t = window.setTimeout(() => {
-      if (!hasPaintedContent()) {
+      const probe = probePaint()
+      if (!probe.painted) {
         setFailed(true)
+        const stages = getRenderStages()
+        const last = getLastRenderStage()
+        const navTiming = collectNavTiming()
+        const fontsStatus =
+          typeof document !== "undefined" && (document as Document).fonts
+            ? (document as Document).fonts.status
+            : "unsupported"
         try {
           Sentry.captureMessage("render-watchdog: no content after timeout", {
             level: "error",
-            tags: { source: "render-watchdog" },
-            extra: {
-              timeoutMs,
-              url: typeof window !== "undefined" ? window.location.href : null,
-              vw: typeof window !== "undefined" ? window.innerWidth : null,
-              vh: typeof window !== "undefined" ? window.innerHeight : null,
+            tags: {
+              source: "render-watchdog",
+              route: typeof window !== "undefined" ? window.location.pathname : "unknown",
+              last_render_stage: last?.stage ?? "none",
+              fonts_status: String(fontsStatus),
+              root_exists: String(probe.rootExists),
+            },
+            contexts: {
+              render_watchdog: {
+                timeoutMs,
+                last_render_stage: last,
+                stages,
+                paint_probe: probe,
+                nav_timing: navTiming,
+                url: typeof window !== "undefined" ? window.location.href : null,
+                pathname:
+                  typeof window !== "undefined" ? window.location.pathname : null,
+                referrer: typeof document !== "undefined" ? document.referrer : null,
+                document_ready_state:
+                  typeof document !== "undefined" ? document.readyState : null,
+                fonts_status: String(fontsStatus),
+                user_agent:
+                  typeof navigator !== "undefined" ? navigator.userAgent : null,
+                vw: typeof window !== "undefined" ? window.innerWidth : null,
+                vh: typeof window !== "undefined" ? window.innerHeight : null,
+                dpr: typeof window !== "undefined" ? window.devicePixelRatio : null,
+                online: typeof navigator !== "undefined" ? navigator.onLine : null,
+              },
             },
           })
         } catch {
           /* no-op */
         }
         // eslint-disable-next-line no-console
-        console.error("[RenderWatchdog] No content painted after", timeoutMs, "ms")
+        console.error(
+          "[RenderWatchdog] No content painted after",
+          timeoutMs,
+          "ms",
+          { lastStage: last, stages, probe, navTiming },
+        )
       }
     }, timeoutMs)
 
