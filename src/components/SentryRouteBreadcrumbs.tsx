@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom"
 import * as Sentry from "@sentry/react"
 import { newCorrelationId } from "@/lib/correlation"
+import { markRenderStage } from "@/lib/render-stage"
 
 /**
  * Records a Sentry breadcrumb on every route change so captured
@@ -15,6 +16,7 @@ export function SentryRouteBreadcrumbs() {
     const to = location.pathname + location.search
     // New navigation = new user action = new correlation id.
     const correlationId = newCorrelationId()
+    markRenderStage("route-change", to)
     Sentry.addBreadcrumb({
       category: "navigation",
       type: "navigation",
