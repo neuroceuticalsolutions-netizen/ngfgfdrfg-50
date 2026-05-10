@@ -34,10 +34,20 @@ const Index = () => {
   useEffect(() => {
     let cancelled = false
 
-    const minDelay = new Promise((resolve) => setTimeout(resolve, 600))
-    const fontsReady = document.fonts.ready
+    const minDelay = new Promise<void>((resolve) => setTimeout(resolve, 600))
+    // Cap font wait at 2.5s — on flaky networks document.fonts.ready can
+    // stall, which would leave users stuck on the skeleton indefinitely.
+    const fontsReady = Promise.race<void>([
+      document.fonts ? document.fonts.ready.then(() => undefined) : Promise.resolve(),
+      new Promise<void>((resolve) => setTimeout(resolve, 2500)),
+    ])
+    // Absolute hard cap: regardless of anything else, reveal the page.
+    const hardCap = new Promise<void>((resolve) => setTimeout(resolve, 4000))
 
-    Promise.all([minDelay, fontsReady]).then(() => {
+    Promise.race([
+      Promise.all([minDelay, fontsReady]).then(() => undefined),
+      hardCap,
+    ]).then(() => {
       if (!cancelled) setIsReady(true)
     })
 
