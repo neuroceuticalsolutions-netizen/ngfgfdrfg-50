@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SentryRouteBreadcrumbs } from "@/components/SentryRouteBreadcrumbs";
 import { CookieConsent } from "@/components/CookieConsent";
+import { RenderWatchdog } from "@/components/RenderWatchdog";
 import { OrganizationSchema, WebSiteSchema } from "@/components/StructuredData";
 import { useEffect } from "react";
 import { installCtaClickTracker } from "@/lib/analytics";
@@ -83,6 +84,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieConsent />
+        <RenderWatchdog />
       </BrowserRouter>
     </TooltipProvider>
     </QueryClientProvider>
