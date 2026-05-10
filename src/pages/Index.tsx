@@ -12,6 +12,7 @@ import { HomeSkeleton } from "@/components/sections/home-skeleton"
 import { SEOHead } from "@/components/SEOHead"
 import { FAQSchema } from "@/components/StructuredData"
 import { PageDisclaimer } from "@/components/PageDisclaimer"
+import { markRenderStage } from "@/lib/render-stage"
 
 const homeFaqs = [
   {
@@ -33,6 +34,7 @@ const Index = () => {
 
   useEffect(() => {
     let cancelled = false
+    markRenderStage("home-skeleton-shown")
 
     const minDelay = new Promise<void>((resolve) => setTimeout(resolve, 600))
     // Cap font wait at 2.5s — on flaky networks document.fonts.ready can
@@ -48,7 +50,10 @@ const Index = () => {
       Promise.all([minDelay, fontsReady]).then(() => undefined),
       hardCap,
     ]).then(() => {
-      if (!cancelled) setIsReady(true)
+      if (!cancelled) {
+        markRenderStage("home-content-revealed")
+        setIsReady(true)
+      }
     })
 
     return () => { cancelled = true }
