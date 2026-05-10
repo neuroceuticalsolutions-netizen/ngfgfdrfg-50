@@ -11,6 +11,9 @@ export const HeroSection = () => {
           src={heroImage} 
           alt="Focused professionals in South African office environment" 
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-royal-purple/80 via-royal-purple/60 to-transparent"></div>
       </div>
