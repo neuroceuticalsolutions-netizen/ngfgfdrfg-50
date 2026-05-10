@@ -5,9 +5,12 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 import { initSentry } from './lib/sentry'
 import { installCorrelationFetch } from './lib/correlation-fetch'
 import { installViewportSanity } from './lib/viewport-sanity'
+import { markRenderStage } from './lib/render-stage'
 import * as Sentry from '@sentry/react'
 
+markRenderStage('script-eval')
 initSentry()
+markRenderStage('sentry-init')
 installCorrelationFetch()
 installViewportSanity()
 
@@ -25,6 +28,9 @@ const RETRY_DELAY_MS = 400
 let currentRoot: Root | null = null
 
 function mount(attempt = 1): void {
+  markRenderStage(
+    attempt === 1 ? 'mount-attempt-1' : attempt === 2 ? 'mount-attempt-2' : 'mount-attempt-3',
+  )
   try {
     const container = document.getElementById('root')
     if (!container) throw new Error('#root element not found')
@@ -41,6 +47,7 @@ function mount(attempt = 1): void {
         <App />
       </ErrorBoundary>
     )
+    markRenderStage('mount-success')
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(`[main] mount attempt ${attempt} failed:`, err)
@@ -53,6 +60,7 @@ function mount(attempt = 1): void {
     if (attempt < MAX_ATTEMPTS) {
       window.setTimeout(() => mount(attempt + 1), RETRY_DELAY_MS * attempt)
     } else {
+      markRenderStage('mount-hard-fallback')
       renderHardFallback(err)
     }
   }
