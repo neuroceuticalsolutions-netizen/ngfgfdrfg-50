@@ -19,6 +19,7 @@ export type RenderStage =
   | "mount-attempt-3"
   | "mount-success"
   | "mount-hard-fallback"
+  | "env-missing"
   | "app-render"
   | "home-skeleton-shown"
   | "home-content-revealed"
