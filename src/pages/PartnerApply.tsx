@@ -37,6 +37,14 @@ function generateSmsToken(): string {
   return Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+async function hashSmsToken(token: string): Promise<string> {
+  const data = new TextEncoder().encode(token);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest), (b) =>
+    b.toString(16).padStart(2, "0")
+  ).join("");
+}
+
 function maskPhone(phone: string): string {
   const trimmed = phone.trim();
   if (trimmed.length <= 4) return trimmed;
@@ -230,10 +238,11 @@ const PartnerApply = () => {
       let queuedSmsVerify = false;
       if (data.smsOptIn && data.phone) {
         const token = generateSmsToken();
+        const tokenHash = await hashSmsToken(token);
         const { error: tokenErr } = await supabase
           .from("partner_applications")
           .update({
-            sms_verification_token: token,
+            sms_verification_token_hash: tokenHash,
             sms_verification_sent_at: new Date().toISOString(),
           })
           .eq("id", inserted.id);
