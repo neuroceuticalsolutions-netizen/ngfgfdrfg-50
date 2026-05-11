@@ -34,6 +34,13 @@ Deno.serve(async (req) => {
       return json({ status: 'invalid', error: 'Missing or invalid token' }, 400)
     }
 
+    // Hash the incoming token (sha256 hex) — DB stores only hashes.
+    const tokenBytes = new TextEncoder().encode(token)
+    const digest = await crypto.subtle.digest('SHA-256', tokenBytes)
+    const tokenHash = Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('')
+
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
@@ -45,7 +52,7 @@ Deno.serve(async (req) => {
       .select(
         'id, sms_opt_in, phone, sms_verified_at, sms_verification_sent_at'
       )
-      .eq('sms_verification_token', token)
+      .eq('sms_verification_token_hash', tokenHash)
       .maybeSingle()
 
     if (fetchErr) {
@@ -76,7 +83,7 @@ Deno.serve(async (req) => {
       .from('partner_applications')
       .update({
         sms_verified_at: new Date().toISOString(),
-        sms_verification_token: null,
+        sms_verification_token_hash: null,
       })
       .eq('id', app.id)
 
