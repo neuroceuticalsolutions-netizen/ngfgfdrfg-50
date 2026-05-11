@@ -82,7 +82,7 @@ const Science = () => {
         title="Nootropics Science & Research | Neuroceutical SA"
         description="Explore peer-reviewed research behind nootropics and cognitive enhancement. Evidence-based brain health insights for South African consumers."
         path="/science"
-        keywords="nootropics research, cognitive enhancement science, brain health research south africa, clinical studies nootropics, neuroceutical science, evidence-based supplements SA, focus and memory research"
+        keywords="neuroceuticals research, nootropics research, cognitive enhancers science, stress relief science south africa, mental fatigue research SA, brain health research south africa, clinical studies nootropics, evidence-based supplements SA, focus and memory research"
       />
       <FAQSchema faqs={scienceFaqs} />
       <BreadcrumbSchema items={[
