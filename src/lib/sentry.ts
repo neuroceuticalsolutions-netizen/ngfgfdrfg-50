@@ -1,6 +1,16 @@
 import * as Sentry from "@sentry/react"
-import { supabase } from "@/integrations/supabase/client"
 import { getCorrelationId, initCorrelationId } from "@/lib/correlation"
+
+// NOTE: Do NOT statically import the Supabase client here. The client
+// constructor throws synchronously at module-init time when the
+// VITE_SUPABASE_* env vars are missing (e.g. a stale published build).
+// Because static imports are hoisted, that would crash the entry bundle
+// before main.tsx's env-readiness guard can render the friendly fallback.
+// Load it lazily inside the functions that actually need it.
+async function getSupabase() {
+  const mod = await import("@/integrations/supabase/client")
+  return mod.supabase
+}
 
 const DSN =
   (import.meta.env.VITE_SENTRY_DSN as string | undefined) ||
@@ -88,13 +98,16 @@ export function initSentry() {
   // Attach the signed-in user's identity (id, email) and organization role
   // so every captured event is tied to the right account.
   void attachAuthContext()
-  supabase.auth.onAuthStateChange((_event, session) => {
-    void applyUser(session?.user ?? null)
-  })
+  void getSupabase().then((supabase) => {
+    supabase.auth.onAuthStateChange((_event, session) => {
+      void applyUser(session?.user ?? null)
+    })
+  }).catch(() => { /* no-op */ })
 }
 
 async function attachAuthContext() {
   try {
+    const supabase = await getSupabase()
     const { data } = await supabase.auth.getSession()
     await applyUser(data.session?.user ?? null)
   } catch {
@@ -127,6 +140,7 @@ async function applyUser(user: AuthUserLike | null) {
 
   // Organization context: derive from user_roles (admin vs user).
   try {
+    const supabase = await getSupabase()
     const { data: roles } = await supabase
       .from("user_roles")
       .select("role")
