@@ -66,7 +66,7 @@ const Index = () => {
           title="Nootropics South Africa | Brain Supplements SA"
           description="Premium nootropics in South Africa. Science-backed brain supplements for focus, memory & mental clarity. Trusted SA distributor of cognitive enhancers."
           path="/"
-          keywords="nootropics south africa, brain supplements south africa, cognitive enhancement SA, focus supplements johannesburg, memory supplements cape town, mental clarity, neuroceuticals SA, smart drugs south africa, ZYN nicotine pouches SA, EU Natural south africa"
+        keywords="neuroceuticals south africa, nootropics south africa, cognitive enhancers SA, stress relief supplements south africa, mental fatigue support SA, brain supplements south africa, focus supplements johannesburg, memory supplements cape town, mental clarity, smart drugs south africa, ZYN nicotine pouches SA, EU Natural south africa"
         />
         <HomeSkeleton />
       </main>
@@ -79,7 +79,7 @@ const Index = () => {
         title="Nootropics South Africa | Brain Supplements SA"
         description="Premium nootropics in South Africa. Science-backed brain supplements for focus, memory & mental clarity. Trusted SA distributor of cognitive enhancers."
         path="/"
-        keywords="nootropics south africa, brain supplements south africa, cognitive enhancement SA, focus supplements johannesburg, memory supplements cape town, mental clarity, neuroceuticals SA, smart drugs south africa, ZYN nicotine pouches SA, EU Natural south africa"
+        keywords="neuroceuticals south africa, nootropics south africa, cognitive enhancers SA, stress relief supplements south africa, mental fatigue support SA, brain supplements south africa, focus supplements johannesburg, memory supplements cape town, mental clarity, smart drugs south africa, ZYN nicotine pouches SA, EU Natural south africa"
       />
       <FAQSchema faqs={homeFaqs} />
       <Navigation />

@@ -83,7 +83,7 @@ const Newsletter = () => {
         title="Free Nootropic Samples SA | Newsletter Sign-Up"
         description="Get free nootropic samples in South Africa. Subscribe for early access to new brain supplements, focus aids and cognitive enhancement launches."
         path="/newsletter"
-        keywords="free nootropic samples south africa, free brain supplement samples SA, nootropics newsletter, cognitive enhancement updates south africa, ZYN samples SA, supplement launches south africa"
+        keywords="free neuroceutical samples south africa, free nootropic samples south africa, cognitive enhancers newsletter SA, stress relief supplement samples, mental fatigue product launches SA, free brain supplement samples SA, ZYN samples SA, supplement launches south africa"
       />
       <FAQSchema faqs={newsletterFaqs} />
       <BreadcrumbSchema items={[

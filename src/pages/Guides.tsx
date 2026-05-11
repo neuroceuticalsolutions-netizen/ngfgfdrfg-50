@@ -45,7 +45,7 @@ const Guides = () => {
         title="Science & Guides | Nootropics South Africa"
         description="Evidence-informed guides on stress relief, mental fatigue and cognitive performance for South Africans. Practical, SA-localized nootropic insights."
         path="/guides"
-        keywords="nootropics guides south africa, stress relief SA, mental fatigue south africa, cognitive performance johannesburg, brain fog cape town, focus supplements SA, nootropic science"
+        keywords="neuroceuticals guides south africa, nootropics guides south africa, cognitive enhancers SA, stress relief SA, mental fatigue south africa, cognitive performance johannesburg, brain fog cape town, focus supplements SA, nootropic science"
       />
       <FAQSchema faqs={guidesFaqs} />
       <BreadcrumbSchema

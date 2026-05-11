@@ -1,5 +1,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import { SEOHead } from "@/components/SEOHead";
 
 const NotFound = () => {
   const location = useLocation();
@@ -13,6 +15,15 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-subtle-gradient">
+      <SEOHead
+        title="Page Not Found"
+        description="The page you're looking for doesn't exist. Explore Neuroceutical Solutions for nootropics, cognitive enhancers, stress relief and mental fatigue support in South Africa."
+        path={location.pathname}
+        keywords="neuroceuticals, cognitive enhancers, stress relief, mental fatigue, nootropics south africa"
+      />
+      <Helmet>
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <div className="text-center max-w-md mx-auto px-6">
         <div className="w-24 h-24 bg-hero-gradient rounded-full mx-auto mb-8 flex items-center justify-center">
           <span className="text-4xl text-white">🔍</span>

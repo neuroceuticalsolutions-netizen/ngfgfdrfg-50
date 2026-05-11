@@ -28,7 +28,7 @@ const About = () => {
         title="About Neuroceutical Solutions | Nootropics SA"
         description="Meet South Africa's trusted distributor of premium, science-backed nootropics and cognitive enhancement products. Local expertise, global brands."
         path="/about"
-        keywords="neuroceutical solutions south africa, about nootropics distributor SA, south african cognitive enhancement company, brain supplement distributor johannesburg, trusted nootropics brand SA"
+        keywords="neuroceuticals south africa, neuroceutical solutions south africa, about nootropics distributor SA, cognitive enhancers south africa, stress relief brand SA, mental fatigue solutions south africa, brain supplement distributor johannesburg, trusted nootropics brand SA"
       />
       <FAQSchema faqs={aboutFaqs} />
       <BreadcrumbSchema items={[

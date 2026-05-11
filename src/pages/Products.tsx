@@ -125,7 +125,7 @@ const Products = () => {
         title="Buy Nootropics South Africa | Brain Supplements SA"
         description="Shop premium nootropics in South Africa: ZYN pouches, matcha, L-theanine, EU Natural. Curated brain supplements for focus, energy & mental performance."
         path="/products"
-        keywords="buy nootropics south africa, nootropics for sale SA, ZYN pouches south africa, EU Natural south africa, matcha tea south africa, L-theanine caffeine SA, focus supplements, energy supplements south africa, brain enhancement products SA"
+        keywords="buy neuroceuticals south africa, buy nootropics south africa, cognitive enhancers for sale SA, stress relief supplements south africa, mental fatigue supplements SA, ZYN pouches south africa, EU Natural south africa, matcha tea south africa, L-theanine caffeine SA, focus supplements, energy supplements south africa, brain enhancement products SA"
       />
       <FAQSchema faqs={productsFaqs} />
       <BreadcrumbSchema items={[
