@@ -26,13 +26,6 @@ import PartnerApply from "./pages/PartnerApply";
 import AdminLogin from "./pages/AdminLogin";
 import AdminApplications from "./pages/AdminApplications";
 import Unsubscribe from "./pages/Unsubscribe";
-import AdminEmailPreview from "./pages/AdminEmailPreview";
-import AdminRobotsTxt from "./pages/AdminRobotsTxt";
-import AdminAuthEmailPreview from "./pages/AdminAuthEmailPreview";
-import AdminSmsConsent from "./pages/AdminSmsConsent";
-import AdminEmailLog from "./pages/AdminEmailLog";
-import AccountSmsPreferences from "./pages/AccountSmsPreferences";
-import PartnerSmsVerify from "./pages/PartnerSmsVerify";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -67,15 +60,8 @@ const App = () => {
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/articles/:slug" element={<ArticleDetail />} />
           <Route path="/partners/apply" element={<PartnerApply />} />
-          <Route path="/partners/sms-verify" element={<PartnerSmsVerify />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/applications" element={<AdminApplications />} />
-          <Route path="/admin/email-preview" element={<AdminEmailPreview />} />
-          <Route path="/admin/robots-txt" element={<AdminRobotsTxt />} />
-          <Route path="/admin/auth-email-preview" element={<AdminAuthEmailPreview />} />
-          <Route path="/admin/sms-consent" element={<AdminSmsConsent />} />
-          <Route path="/admin/email-log" element={<AdminEmailLog />} />
-          <Route path="/account/sms-preferences" element={<AccountSmsPreferences />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
