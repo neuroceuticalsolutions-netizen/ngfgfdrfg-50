@@ -55,7 +55,7 @@ const Contact = () => {
         title="Contact Neuroceutical Solutions | Nootropics SA"
         description="Contact South Africa's nootropics distributor. Questions on brain supplements, focus or energy products? Speak to our SA team today."
         path="/contact"
-        keywords="contact nootropics south africa, neuroceutical solutions contact, brain supplement enquiries SA, nootropics support south africa, customer service johannesburg"
+        keywords="contact neuroceuticals south africa, contact nootropics south africa, neuroceutical solutions contact, cognitive enhancers enquiries SA, stress relief product support, mental fatigue supplement help SA, brain supplement enquiries SA, customer service johannesburg"
       />
       <FAQSchema faqs={contactFaqs} />
       <BreadcrumbSchema items={[
