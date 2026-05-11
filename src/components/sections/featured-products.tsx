@@ -110,8 +110,6 @@ export const FeaturedProducts = () => {
                           src={product.logo} 
                           alt={`${product.brand} logo`} 
                           className="w-24 h-24 sm:w-32 sm:h-32 lg:w-48 lg:h-48 object-contain transition-transform duration-200 hover:scale-105"
-                          loading="lazy"
-                          decoding="async"
                           style={{
                             transform: 'translate3d(0, 0, 0)',
                             filter: 'drop-shadow(0 4px 12px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))'

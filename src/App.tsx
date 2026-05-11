@@ -5,9 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { SentryRouteBreadcrumbs } from "@/components/SentryRouteBreadcrumbs";
 import { CookieConsent } from "@/components/CookieConsent";
-import { RenderWatchdog } from "@/components/RenderWatchdog";
 import { OrganizationSchema, WebSiteSchema } from "@/components/StructuredData";
 import { useEffect } from "react";
 import { installCtaClickTracker } from "@/lib/analytics";
@@ -52,7 +50,6 @@ const App = () => {
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        <SentryRouteBreadcrumbs />
         <OrganizationSchema />
         <WebSiteSchema />
         <Routes>
@@ -84,7 +81,6 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieConsent />
-        <RenderWatchdog />
       </BrowserRouter>
     </TooltipProvider>
     </QueryClientProvider>

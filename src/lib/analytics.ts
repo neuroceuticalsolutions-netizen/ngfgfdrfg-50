@@ -11,9 +11,6 @@
 
 type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
-import * as Sentry from "@sentry/react";
-import { newCorrelationId } from "@/lib/correlation";
-
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
@@ -27,28 +24,7 @@ const isBrowser = () => typeof window !== "undefined";
 export const trackEvent = (event: string, props: AnalyticsProps = {}) => {
   if (!isBrowser()) return;
 
-  // Each tracked user action starts a fresh correlation id so any errors
-  // it triggers can be grouped together in Sentry.
-  const correlationId = newCorrelationId();
-  const payload = {
-    event,
-    ...props,
-    correlation_id: correlationId,
-    timestamp: new Date().toISOString(),
-  };
-
-  // 0. Sentry breadcrumb (debugging context for any later errors)
-  try {
-    Sentry.addBreadcrumb({
-      category: "user-action",
-      type: "user",
-      level: "info",
-      message: event,
-      data: { ...(props as Record<string, unknown>), correlation_id: correlationId },
-    });
-  } catch {
-    /* no-op */
-  }
+  const payload = { event, ...props, timestamp: new Date().toISOString() };
 
   // 1. GTM / GA4 dataLayer
   try {

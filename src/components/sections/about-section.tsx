@@ -29,7 +29,7 @@ export const AboutSection = () => {
           }}>
               <div className="text-center">
                 <div className="w-6 h-4 sm:w-8 sm:h-6 flex items-center justify-center mx-auto">
-                  <img src={southAfricaFlag} alt="South African Flag" className="w-full h-full object-cover rounded-sm" loading="lazy" decoding="async" />
+                  <img src={southAfricaFlag} alt="South African Flag" className="w-full h-full object-cover rounded-sm" />
                 </div>
                 <p className="text-xs sm:text-sm text-grey-600 mt-1">South African Based</p>
               </div>

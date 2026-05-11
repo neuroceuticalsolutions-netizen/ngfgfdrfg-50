@@ -77,8 +77,6 @@ export const Testimonials = () => {
                       src={testimonial.logo} 
                       alt={`${testimonial.brand} logo`}
                       className="absolute top-4 right-4 w-12 h-12 sm:w-16 sm:h-16 object-contain"
-                      loading="lazy"
-                      decoding="async"
                     />
                     <div className="mb-6">
                       <div className="flex text-fresh-teal text-lg sm:text-xl mb-4">
@@ -120,8 +118,6 @@ export const Testimonials = () => {
                 src={testimonial.logo} 
                 alt={`${testimonial.brand} logo`}
                 className="absolute top-4 right-4 w-12 h-12 sm:w-16 sm:h-16 object-contain"
-                loading="lazy"
-                decoding="async"
               />
               <div className="mb-6">
                 <div className="flex text-fresh-teal text-lg sm:text-xl mb-4">
