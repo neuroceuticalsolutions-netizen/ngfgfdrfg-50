@@ -21,6 +21,18 @@ const corsHeaders = {
     'authorization, x-client-info, apikey, content-type',
 }
 
+// Templates that may be triggered by anonymous (unauthenticated) callers
+// from public flows like the partner application form. All other templates
+// require an authenticated admin caller or service-role invocation.
+const ANON_ALLOWED_TEMPLATES = new Set<string>([
+  'partner-application-submitted',
+  'partner-sms-verify',
+])
+
+// Per-IP rate limit for anon callers (sliding window via email_send_log).
+const ANON_RATE_LIMIT_WINDOW_MIN = 10
+const ANON_RATE_LIMIT_MAX = 5
+
 // Derive the originating IP from common forwarding headers, then hash it
 // (with a salt) for non-reversible correlation in email_send_log.
 function getRequestIp(req: Request): string | null {
@@ -53,9 +65,10 @@ function generateToken(): string {
     .join('')
 }
 
-// Auth note: this function uses verify_jwt = true in config.toml, so Supabase's
-// gateway validates the caller's JWT (anon or service_role) before the request
-// reaches this code. No in-function auth check is needed.
+// Auth note: the gateway validates the JWT signature, but the publishable
+// anon key passes that check. We additionally classify the caller below
+// (service_role / authenticated user / anon) and enforce template allowlists
+// and rate limits accordingly to prevent abuse.
 
 Deno.serve(async (req) => {
   // Handle CORS preflight
@@ -67,8 +80,9 @@ Deno.serve(async (req) => {
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL')
   const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+  const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')
 
-  if (!supabaseUrl || !supabaseServiceKey) {
+  if (!supabaseUrl || !supabaseServiceKey || !supabaseAnonKey) {
     console.error('Missing required environment variables')
     return new Response(
       JSON.stringify({ error: 'Server configuration error' }),
@@ -77,6 +91,30 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     )
+  }
+
+  // Classify the caller. Service role bypasses all template/rate restrictions.
+  // Authenticated end-users are allowed any template (admins routinely call
+  // admin-only templates from the dashboard). Anonymous callers are
+  // restricted to a small allowlist and rate-limited per IP.
+  const authHeader = req.headers.get('Authorization') ?? ''
+  const bearer = authHeader.startsWith('Bearer ')
+    ? authHeader.slice('Bearer '.length)
+    : ''
+
+  let callerKind: 'service_role' | 'authenticated' | 'anon' = 'anon'
+  if (bearer && bearer === supabaseServiceKey) {
+    callerKind = 'service_role'
+  } else if (bearer) {
+    try {
+      const authClient = createClient(supabaseUrl, supabaseAnonKey, {
+        global: { headers: { Authorization: `Bearer ${bearer}` } },
+      })
+      const { data: userData } = await authClient.auth.getUser(bearer)
+      if (userData?.user) callerKind = 'authenticated'
+    } catch {
+      // Treat as anon on failure
+    }
   }
 
   // Parse request body
@@ -109,6 +147,18 @@ Deno.serve(async (req) => {
       JSON.stringify({ error: 'templateName is required' }),
       {
         status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      }
+    )
+  }
+
+  // Anonymous callers may only trigger an explicit allowlist of templates.
+  if (callerKind === 'anon' && !ANON_ALLOWED_TEMPLATES.has(templateName)) {
+    console.warn('Blocked anon email send', { templateName, recipientIpHash })
+    return new Response(
+      JSON.stringify({ error: 'Authentication required for this template' }),
+      {
+        status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     )
@@ -149,6 +199,43 @@ Deno.serve(async (req) => {
 
   // Create Supabase client with service role (bypasses RLS)
   const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
+  // Rate-limit anon callers per source IP using the email_send_log as the
+  // sliding-window counter.
+  if (callerKind === 'anon' && recipientIpHash) {
+    const sinceIso = new Date(
+      Date.now() - ANON_RATE_LIMIT_WINDOW_MIN * 60_000
+    ).toISOString()
+    const { count, error: rateErr } = await supabase
+      .from('email_send_log')
+      .select('id', { count: 'exact', head: true })
+      .eq('recipient_ip_hash', recipientIpHash)
+      .gte('created_at', sinceIso)
+    if (rateErr) {
+      console.error('Rate-limit check failed — refusing to send', rateErr)
+      return new Response(
+        JSON.stringify({ error: 'Rate-limit check failed' }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      )
+    }
+    if ((count ?? 0) >= ANON_RATE_LIMIT_MAX) {
+      console.warn('Anon rate limit exceeded', {
+        recipientIpHash,
+        count,
+        templateName,
+      })
+      return new Response(
+        JSON.stringify({ error: 'Too many requests' }),
+        {
+          status: 429,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      )
+    }
+  }
 
   // 2. Check suppression list (fail-closed: if we can't verify, don't send)
   const { data: suppressed, error: suppressionError } = await supabase
