@@ -1,4 +1,5 @@
 import { createRoot, type Root } from 'react-dom/client'
+import type { ComponentType, ReactNode } from 'react'
 import './index.css'
 import { initSentry } from './lib/sentry'
 import { installCorrelationFetch } from './lib/correlation-fetch'
@@ -64,8 +65,8 @@ async function bootstrap(): Promise<void> {
   }
 }
 
-type AppCtor = React.ComponentType
-type BoundaryCtor = React.ComponentType<{ children: React.ReactNode }>
+type AppCtor = ComponentType
+type BoundaryCtor = ComponentType<{ children: ReactNode }>
 
 function mount(App: AppCtor, ErrorBoundary: BoundaryCtor, attempt = 1): void {
   markRenderStage(
