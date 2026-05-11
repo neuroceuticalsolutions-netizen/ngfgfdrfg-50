@@ -25,32 +25,6 @@ const EMAIL_SUBJECTS: Record<string, string> = {
   reauthentication: 'Your verification code',
 }
 
-// Derive a stable, non-reversible hash of the request's source IP for
-// correlation in email_send_log. Returns null when no IP header is present.
-// Note: for auth emails, the request originates from the Supabase auth
-// gateway, so this hash typically identifies the gateway egress rather
-// than the end user — still useful for spotting backend-side patterns.
-function getRequestIp(req: Request): string | null {
-  const fwd = req.headers.get('x-forwarded-for')
-  if (fwd) return fwd.split(',')[0].trim()
-  return (
-    req.headers.get('cf-connecting-ip') ||
-    req.headers.get('x-real-ip') ||
-    null
-  )
-}
-
-async function hashIp(ip: string | null): Promise<string | null> {
-  if (!ip) return null
-  const salt = Deno.env.get('IP_HASH_SALT') ?? 'lovable-email-log'
-  const data = new TextEncoder().encode(`${salt}:${ip}`)
-  const digest = await crypto.subtle.digest('SHA-256', data)
-  return Array.from(new Uint8Array(digest))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
-    .slice(0, 32)
-}
-
 // Template mapping
 const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
   signup: SignupEmail,
@@ -168,8 +142,6 @@ async function handleWebhook(req: Request): Promise<Response> {
     )
   }
 
-  const recipientIpHash = await hashIp(getRequestIp(req))
-
   // Verify signature + timestamp, then parse payload.
   let payload: any
   let run_id = ''
@@ -277,7 +249,6 @@ async function handleWebhook(req: Request): Promise<Response> {
     message_id: messageId,
     template_name: emailType,
     recipient_email: payload.data.email,
-    recipient_ip_hash: recipientIpHash,
     status: 'pending',
   })
 
@@ -295,7 +266,6 @@ async function handleWebhook(req: Request): Promise<Response> {
       purpose: 'transactional',
       label: emailType,
       queued_at: new Date().toISOString(),
-      recipient_ip_hash: recipientIpHash,
     },
   })
 
@@ -305,7 +275,6 @@ async function handleWebhook(req: Request): Promise<Response> {
       message_id: messageId,
       template_name: emailType,
       recipient_email: payload.data.email,
-      recipient_ip_hash: recipientIpHash,
       status: 'failed',
       error_message: 'Failed to enqueue email',
     })

@@ -8,8 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -26,21 +24,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Mail, ShieldCheck, Info, Database, Eye, EyeOff } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Loader2, RefreshCw, Mail } from "lucide-react";
 
 type LogRow = {
   id: string;
   message_id: string | null;
   template_name: string;
   recipient_email: string;
-  recipient_ip_hash: string | null;
   status: string;
   error_message: string | null;
   created_at: string;
@@ -78,28 +68,6 @@ function presetRange(preset: Preset): { start: string; end: string } {
   return { start: isoDaysAgo(30), end };
 }
 
-const REVEAL_PREF_KEY = "admin_email_log_reveal_emails";
-
-/**
- * Mask an email like "john.doe@example.com" -> "j••••e@e••••e.com".
- * Keeps the first/last character of the local part and of the domain label.
- */
-function maskEmail(email: string | null | undefined): string {
-  if (!email) return "—";
-  const at = email.indexOf("@");
-  if (at < 1) return "•••";
-  const local = email.slice(0, at);
-  const domain = email.slice(at + 1);
-  const maskPart = (s: string) => {
-    if (s.length <= 2) return s[0] + "•";
-    return s[0] + "•".repeat(Math.min(4, s.length - 2)) + s[s.length - 1];
-  };
-  const dotIdx = domain.lastIndexOf(".");
-  const domainName = dotIdx > 0 ? domain.slice(0, dotIdx) : domain;
-  const tld = dotIdx > 0 ? domain.slice(dotIdx) : "";
-  return `${maskPart(local)}@${maskPart(domainName)}${tld}`;
-}
-
 const AdminEmailLog = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -114,75 +82,10 @@ const AdminEmailLog = () => {
   const [templateFilter, setTemplateFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [emailSearch, setEmailSearch] = useState<string>("");
-  const [exactMatch, setExactMatch] = useState<boolean>(false);
   const [page, setPage] = useState(0);
-  const [revealAll, setRevealAll] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    return window.localStorage.getItem(REVEAL_PREF_KEY) === "1";
-  });
-  const [revealedRows, setRevealedRows] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    window.localStorage.setItem(REVEAL_PREF_KEY, revealAll ? "1" : "0");
-  }, [revealAll]);
 
   const [rows, setRows] = useState<LogRow[]>([]);
   const [templates, setTemplates] = useState<string[]>([]);
-
-  // Retention setting (admin-controlled).
-  const RETENTION_PRESETS = [30, 60, 90, 180, 365] as const;
-  const [retentionDays, setRetentionDays] = useState<number | null>(null);
-  const [retentionDraft, setRetentionDraft] = useState<string>("90");
-  const [savingRetention, setSavingRetention] = useState(false);
-
-  const fetchRetention = async () => {
-    const { data, error } = await supabase
-      .from("email_log_retention_settings")
-      .select("retention_days")
-      .eq("id", 1)
-      .maybeSingle();
-    if (error) {
-      console.error("Failed to load retention settings", error);
-      return;
-    }
-    const days = data?.retention_days ?? 90;
-    setRetentionDays(days);
-    setRetentionDraft(String(days));
-  };
-
-  const saveRetention = async () => {
-    const parsed = Number(retentionDraft);
-    if (!Number.isInteger(parsed) || parsed < 1 || parsed > 3650) {
-      toast({
-        title: "Invalid retention window",
-        description: "Enter a whole number of days between 1 and 3650.",
-        variant: "destructive",
-      });
-      return;
-    }
-    setSavingRetention(true);
-    try {
-      const { error } = await supabase
-        .from("email_log_retention_settings")
-        .update({ retention_days: parsed })
-        .eq("id", 1);
-      if (error) throw error;
-      setRetentionDays(parsed);
-      toast({
-        title: "Retention updated",
-        description: `Email log entries will be deleted after ${parsed} days.`,
-      });
-    } catch (e: any) {
-      toast({
-        title: "Failed to update retention",
-        description: e?.message ?? "Unknown error",
-        variant: "destructive",
-      });
-    } finally {
-      setSavingRetention(false);
-    }
-  };
 
   const range = useMemo(() => {
     if (preset === "custom") {
@@ -230,7 +133,7 @@ const AdminEmailLog = () => {
     try {
       const { data, error } = await supabase
         .from("email_send_log")
-        .select("id, message_id, template_name, recipient_email, recipient_ip_hash, status, error_message, created_at")
+        .select("id, message_id, template_name, recipient_email, status, error_message, created_at")
         .gte("created_at", range.start)
         .lte("created_at", range.end)
         .order("created_at", { ascending: false })
@@ -256,7 +159,6 @@ const AdminEmailLog = () => {
   useEffect(() => {
     if (!authorized) return;
     fetchData();
-    fetchRetention();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authorized, range.start, range.end]);
 
@@ -288,45 +190,25 @@ const AdminEmailLog = () => {
           return false;
         }
       }
-      if (q) {
-        const email = r.recipient_email?.toLowerCase() ?? "";
-        const ip = r.recipient_ip_hash?.toLowerCase() ?? "";
-        const matchEmail = exactMatch ? email === q : email.includes(q);
-        const matchIp = exactMatch ? ip === q : ip.includes(q);
-        if (!matchEmail && !matchIp) return false;
-      }
+      if (q && !r.recipient_email?.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [dedupedAll, templateFilter, statusFilter, emailSearch, exactMatch]);
+  }, [dedupedAll, templateFilter, statusFilter, emailSearch]);
 
   useEffect(() => {
     setPage(0);
-  }, [emailSearch, templateFilter, statusFilter, exactMatch]);
+  }, [emailSearch, templateFilter, statusFilter]);
 
   const stats = useMemo(() => {
-    // Compute counts from rows after template + search filters but BEFORE the
-    // status filter, so the quick-filter chips always show accurate per-status totals.
-    const q = emailSearch.trim().toLowerCase();
-    const base = dedupedAll.filter((r) => {
-      if (templateFilter !== "all" && r.template_name !== templateFilter) return false;
-      if (q) {
-        const email = r.recipient_email?.toLowerCase() ?? "";
-        const ip = r.recipient_ip_hash?.toLowerCase() ?? "";
-        const matchEmail = exactMatch ? email === q : email.includes(q);
-        const matchIp = exactMatch ? ip === q : ip.includes(q);
-        if (!matchEmail && !matchIp) return false;
-      }
-      return true;
-    });
-    const s = { total: base.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
-    for (const r of base) {
+    const s = { total: filtered.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
+    for (const r of filtered) {
       if (r.status === "sent") s.sent++;
       else if (["failed", "dlq", "bounced", "complained"].includes(r.status)) s.failed++;
       else if (r.status === "suppressed") s.suppressed++;
       else if (r.status === "pending") s.pending++;
     }
     return s;
-  }, [dedupedAll, templateFilter, emailSearch, exactMatch]);
+  }, [filtered]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const pageRows = filtered.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
@@ -358,184 +240,15 @@ const AdminEmailLog = () => {
               Sent auth and transactional emails with deduplicated latest status per message.
             </p>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            {(
-              [
-                { value: "all", label: "All", count: stats.total },
-                { value: "pending", label: "Pending", count: stats.pending },
-                { value: "sent", label: "Sent", count: stats.sent },
-                { value: "failed", label: "Failed", count: stats.failed },
-                { value: "suppressed", label: "Suppressed", count: stats.suppressed },
-              ] as const
-            ).map((opt) => (
-              <Button
-                key={opt.value}
-                size="sm"
-                variant={statusFilter === opt.value ? "default" : "outline"}
-                onClick={() => setStatusFilter(opt.value)}
-              >
-                {opt.label}
-                <span className="ml-1.5 text-xs opacity-70">{opt.count}</span>
-              </Button>
-            ))}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setRevealAll((v) => !v);
-                setRevealedRows(new Set());
-              }}
-              title={revealAll ? "Mask recipient emails" : "Reveal full recipient emails"}
-            >
-              {revealAll ? (
-                <EyeOff className="h-4 w-4 mr-2" />
-              ) : (
-                <Eye className="h-4 w-4 mr-2" />
-              )}
-              {revealAll ? "Mask emails" : "Reveal emails"}
-            </Button>
-            <Button variant="outline" size="sm" onClick={fetchData} disabled={refreshing}>
-              {refreshing ? (
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
-              ) : (
-                <RefreshCw className="h-4 w-4 mr-2" />
-              )}
-              Refresh
-            </Button>
-          </div>
+          <Button variant="outline" onClick={fetchData} disabled={refreshing}>
+            {refreshing ? (
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+            ) : (
+              <RefreshCw className="h-4 w-4 mr-2" />
+            )}
+            Refresh
+          </Button>
         </div>
-
-        {/* Privacy disclaimer */}
-        <Alert className="mb-6">
-          <ShieldCheck className="h-4 w-4" />
-          <AlertTitle>Privacy notice</AlertTitle>
-          <AlertDescription>
-            The <span className="font-mono text-xs">IP hash</span> column shows a salted SHA-256
-            digest of the originating IP address — never the raw IP. Hashes are one-way and used
-            only to correlate delivery attempts (e.g. spotting repeated failures from the same
-            source). Recipient emails and IP hashes are visible to admins only.
-          </AlertDescription>
-        </Alert>
-
-        {/* Data retention */}
-        <Alert className="mb-6">
-          <Database className="h-4 w-4" />
-          <AlertTitle>Data retention</AlertTitle>
-          <AlertDescription>
-            <p className="mb-2">
-              Email log entries (template name, recipient email, IP hash, status, error message,
-              timestamp) are automatically deleted{" "}
-              <strong>{retentionDays ?? 90} days</strong> after they are
-              created. A scheduled cleanup job runs daily at <strong>03:15 UTC</strong>. Logs are
-              append-only until then — each delivery attempt writes a new row and existing rows
-              are never modified.
-            </p>
-            <p className="mb-2">
-              <strong>How data is deleted:</strong>
-            </p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>
-                <strong>Automatic purge:</strong> Daily scheduled job removes any entry older
-                than {retentionDays ?? 90} days from the email log.
-              </li>
-              <li>
-                <strong>Manual purge:</strong> An admin can permanently delete entries through the
-                backend database (e.g. delete all rows for a specific recipient on POPIA/GDPR
-                request, or run a one-off cleanup).
-              </li>
-              <li>
-                <strong>Right to erasure:</strong> If a user requests deletion of their personal
-                data, their entries in <span className="font-mono text-xs">email_send_log</span>{" "}
-                and <span className="font-mono text-xs">email_unsubscribe_tokens</span> should be
-                removed alongside their account.
-              </li>
-              <li>
-                <strong>Suppression list:</strong> Bounced/complained/unsubscribed addresses are
-                kept in <span className="font-mono text-xs">suppressed_emails</span> as long as
-                needed to prevent re-sending — these are intentionally retained.
-              </li>
-            </ul>
-            <p className="mt-2 text-xs text-muted-foreground">
-              Use the <strong>Retention window</strong> control below to change how long email
-              log entries are kept before automatic deletion.
-            </p>
-          </AlertDescription>
-        </Alert>
-
-        {/* Retention settings */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Database className="h-4 w-4" /> Retention window
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Email log entries older than this many days will be permanently deleted by the
-              daily cleanup job. Changes take effect on the next scheduled run (03:15 UTC).
-            </p>
-            <div className="flex flex-wrap items-end gap-3">
-              <div className="flex-1 min-w-[180px]">
-                <Label className="text-xs font-medium text-muted-foreground mb-1 block">
-                  Preset
-                </Label>
-                <Select
-                  value={
-                    RETENTION_PRESETS.includes(Number(retentionDraft) as any)
-                      ? retentionDraft
-                      : "custom"
-                  }
-                  onValueChange={(v) => {
-                    if (v !== "custom") setRetentionDraft(v);
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {RETENTION_PRESETS.map((d) => (
-                      <SelectItem key={d} value={String(d)}>
-                        {d} days
-                      </SelectItem>
-                    ))}
-                    <SelectItem value="custom">Custom…</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="w-32">
-                <Label className="text-xs font-medium text-muted-foreground mb-1 block">
-                  Days
-                </Label>
-                <Input
-                  type="number"
-                  min={1}
-                  max={3650}
-                  value={retentionDraft}
-                  onChange={(e) => setRetentionDraft(e.target.value)}
-                />
-              </div>
-              <Button
-                onClick={saveRetention}
-                disabled={
-                  savingRetention ||
-                  retentionDays === null ||
-                  Number(retentionDraft) === retentionDays ||
-                  !Number.isInteger(Number(retentionDraft)) ||
-                  Number(retentionDraft) < 1 ||
-                  Number(retentionDraft) > 3650
-                }
-              >
-                {savingRetention && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                Save
-              </Button>
-              {retentionDays !== null && (
-                <span className="text-xs text-muted-foreground">
-                  Current: <strong>{retentionDays} days</strong>
-                </span>
-              )}
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Filters */}
         <Card className="mb-6">
@@ -623,29 +336,13 @@ const AdminEmailLog = () => {
             </div>
 
             <div className="md:col-span-4">
-              <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-medium text-muted-foreground">
-                  Search recipient email
-                </label>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    id="exact-match"
-                    checked={exactMatch}
-                    onCheckedChange={setExactMatch}
-                  />
-                  <Label htmlFor="exact-match" className="text-xs text-muted-foreground cursor-pointer">
-                    Exact match
-                  </Label>
-                </div>
-              </div>
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">
+                Search recipient email
+              </label>
               <div className="flex gap-2">
                 <Input
                   type="search"
-                  placeholder={
-                    exactMatch
-                      ? "Exact email or IP hash"
-                      : "Search by email or IP hash (partial)"
-                  }
+                  placeholder="e.g. user@example.com or partial match"
                   value={emailSearch}
                   onChange={(e) => setEmailSearch(e.target.value)}
                 />
@@ -693,22 +390,6 @@ const AdminEmailLog = () => {
                   <TableRow>
                     <TableHead>Template</TableHead>
                     <TableHead>Recipient</TableHead>
-                    <TableHead>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <span className="inline-flex items-center gap-1 cursor-help">
-                              IP hash
-                              <Info className="h-3 w-3 text-muted-foreground" />
-                            </span>
-                          </TooltipTrigger>
-                          <TooltipContent className="max-w-xs">
-                            Salted SHA-256 hash of the originating IP address — not the raw IP.
-                            One-way and used only for correlating delivery attempts.
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Sent at</TableHead>
                     <TableHead>Error</TableHead>
@@ -717,51 +398,15 @@ const AdminEmailLog = () => {
                 <TableBody>
                   {pageRows.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
+                      <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
                         No emails match these filters.
                       </TableCell>
                     </TableRow>
                   ) : (
-                    pageRows.map((r) => {
-                      const isRevealed = revealAll || revealedRows.has(r.id);
-                      return (
+                    pageRows.map((r) => (
                       <TableRow key={r.id}>
                         <TableCell className="font-medium">{r.template_name}</TableCell>
-                        <TableCell className="font-mono text-xs">
-                          <div className="flex items-center gap-1.5">
-                            <span title={isRevealed ? r.recipient_email : "Email is masked"}>
-                              {isRevealed ? r.recipient_email : maskEmail(r.recipient_email)}
-                            </span>
-                            {!revealAll && (
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  setRevealedRows((prev) => {
-                                    const next = new Set(prev);
-                                    if (next.has(r.id)) next.delete(r.id);
-                                    else next.add(r.id);
-                                    return next;
-                                  })
-                                }
-                                className="text-muted-foreground hover:text-foreground transition-colors"
-                                aria-label={isRevealed ? "Hide email" : "Reveal email"}
-                                title={isRevealed ? "Hide email" : "Reveal email"}
-                              >
-                                {isRevealed ? (
-                                  <EyeOff className="h-3.5 w-3.5" />
-                                ) : (
-                                  <Eye className="h-3.5 w-3.5" />
-                                )}
-                              </button>
-                            )}
-                          </div>
-                        </TableCell>
-                        <TableCell
-                          className="font-mono text-xs text-muted-foreground max-w-[140px] truncate"
-                          title={r.recipient_ip_hash ?? ""}
-                        >
-                          {r.recipient_ip_hash ?? "—"}
-                        </TableCell>
+                        <TableCell className="font-mono text-xs">{r.recipient_email}</TableCell>
                         <TableCell>
                           <Badge
                             className={
@@ -778,8 +423,7 @@ const AdminEmailLog = () => {
                           {r.error_message ?? "—"}
                         </TableCell>
                       </TableRow>
-                      );
-                    })
+                    ))
                   )}
                 </TableBody>
               </Table>

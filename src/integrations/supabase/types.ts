@@ -52,27 +52,6 @@ export type Database = {
           },
         ]
       }
-      email_log_retention_settings: {
-        Row: {
-          id: number
-          retention_days: number
-          updated_at: string
-          updated_by: string | null
-        }
-        Insert: {
-          id?: number
-          retention_days?: number
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Update: {
-          id?: number
-          retention_days?: number
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Relationships: []
-      }
       email_send_log: {
         Row: {
           created_at: string
@@ -81,7 +60,6 @@ export type Database = {
           message_id: string | null
           metadata: Json | null
           recipient_email: string
-          recipient_ip_hash: string | null
           status: string
           template_name: string
         }
@@ -92,7 +70,6 @@ export type Database = {
           message_id?: string | null
           metadata?: Json | null
           recipient_email: string
-          recipient_ip_hash?: string | null
           status: string
           template_name: string
         }
@@ -103,7 +80,6 @@ export type Database = {
           message_id?: string | null
           metadata?: Json | null
           recipient_email?: string
-          recipient_ip_hash?: string | null
           status?: string
           template_name?: string
         }
@@ -372,8 +348,6 @@ export type Database = {
         }
         Returns: number
       }
-      purge_old_email_logs: { Args: { days_to_keep?: number }; Returns: number }
-      purge_old_email_logs_using_settings: { Args: never; Returns: number }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }
         Returns: {
