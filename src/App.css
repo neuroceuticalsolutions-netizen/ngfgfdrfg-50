@@ -1,8 +1,29 @@
+/*
+ * Root layout reset.
+ *
+ * The Vite starter shipped with `max-width: 1280px; padding: 2rem; text-align: center`
+ * on #root. That constrained the app shell and, combined with our fixed nav and
+ * absolutely-positioned hero background, pushed sections offscreen on mobile
+ * preview viewports. Keep #root as a full-bleed, full-height container so layout
+ * is driven entirely by Tailwind utilities inside each page.
+ */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  /* Use the small-viewport unit where supported so mobile browser chrome
+     (URL bar showing/hiding) doesn't create a sub-100vh dead zone. */
+  min-height: 100svh;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Belt-and-braces: never allow a stray wide child to create horizontal scroll
+   that hides the hero CTAs on small screens. */
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .logo {

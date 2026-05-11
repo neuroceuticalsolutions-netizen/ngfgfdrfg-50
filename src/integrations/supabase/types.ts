@@ -52,6 +52,117 @@ export type Database = {
           },
         ]
       }
+      email_log_retention_settings: {
+        Row: {
+          id: number
+          retention_days: number
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id?: number
+          retention_days?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: number
+          retention_days?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      email_send_log: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          message_id: string | null
+          metadata: Json | null
+          recipient_email: string
+          recipient_ip_hash: string | null
+          status: string
+          template_name: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          message_id?: string | null
+          metadata?: Json | null
+          recipient_email: string
+          recipient_ip_hash?: string | null
+          status: string
+          template_name: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          message_id?: string | null
+          metadata?: Json | null
+          recipient_email?: string
+          recipient_ip_hash?: string | null
+          status?: string
+          template_name?: string
+        }
+        Relationships: []
+      }
+      email_send_state: {
+        Row: {
+          auth_email_ttl_minutes: number
+          batch_size: number
+          id: number
+          retry_after_until: string | null
+          send_delay_ms: number
+          transactional_email_ttl_minutes: number
+          updated_at: string
+        }
+        Insert: {
+          auth_email_ttl_minutes?: number
+          batch_size?: number
+          id?: number
+          retry_after_until?: string | null
+          send_delay_ms?: number
+          transactional_email_ttl_minutes?: number
+          updated_at?: string
+        }
+        Update: {
+          auth_email_ttl_minutes?: number
+          batch_size?: number
+          id?: number
+          retry_after_until?: string | null
+          send_delay_ms?: number
+          transactional_email_ttl_minutes?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      email_unsubscribe_tokens: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          token: string
+          used_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          token: string
+          used_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          token?: string
+          used_at?: string | null
+        }
+        Relationships: []
+      }
       partner_applications: {
         Row: {
           admin_notes: string | null
@@ -73,6 +184,12 @@ export type Database = {
           product_description: string
           sahpra_aware: boolean
           sample_units_available: number | null
+          sms_consent_at: string | null
+          sms_consent_source: string | null
+          sms_opt_in: boolean
+          sms_verification_sent_at: string | null
+          sms_verification_token_hash: string | null
+          sms_verified_at: string | null
           status: Database["public"]["Enums"]["application_status"]
           target_audience: string | null
           third_party_tested: boolean
@@ -99,6 +216,12 @@ export type Database = {
           product_description: string
           sahpra_aware?: boolean
           sample_units_available?: number | null
+          sms_consent_at?: string | null
+          sms_consent_source?: string | null
+          sms_opt_in?: boolean
+          sms_verification_sent_at?: string | null
+          sms_verification_token_hash?: string | null
+          sms_verified_at?: string | null
           status?: Database["public"]["Enums"]["application_status"]
           target_audience?: string | null
           third_party_tested?: boolean
@@ -125,11 +248,77 @@ export type Database = {
           product_description?: string
           sahpra_aware?: boolean
           sample_units_available?: number | null
+          sms_consent_at?: string | null
+          sms_consent_source?: string | null
+          sms_opt_in?: boolean
+          sms_verification_sent_at?: string | null
+          sms_verification_token_hash?: string | null
+          sms_verified_at?: string | null
           status?: Database["public"]["Enums"]["application_status"]
           target_audience?: string | null
           third_party_tested?: boolean
           updated_at?: string
           website_url?: string | null
+        }
+        Relationships: []
+      }
+      sms_preferences: {
+        Row: {
+          consent_at: string | null
+          consent_source: string
+          created_at: string
+          id: string
+          opted_out_at: string | null
+          phone_e164: string | null
+          sms_opt_in: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          consent_at?: string | null
+          consent_source?: string
+          created_at?: string
+          id?: string
+          opted_out_at?: string | null
+          phone_e164?: string | null
+          sms_opt_in?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          consent_at?: string | null
+          consent_source?: string
+          created_at?: string
+          id?: string
+          opted_out_at?: string | null
+          phone_e164?: string | null
+          sms_opt_in?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      suppressed_emails: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          metadata: Json | null
+          reason: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          metadata?: Json | null
+          reason: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          metadata?: Json | null
+          reason?: string
         }
         Relationships: []
       }
@@ -159,12 +348,39 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      delete_email: {
+        Args: { message_id: number; queue_name: string }
+        Returns: boolean
+      }
+      enqueue_email: {
+        Args: { payload: Json; queue_name: string }
+        Returns: number
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      move_to_dlq: {
+        Args: {
+          dlq_name: string
+          message_id: number
+          payload: Json
+          source_queue: string
+        }
+        Returns: number
+      }
+      purge_old_email_logs: { Args: { days_to_keep?: number }; Returns: number }
+      purge_old_email_logs_using_settings: { Args: never; Returns: number }
+      read_email_batch: {
+        Args: { batch_size: number; queue_name: string; vt: number }
+        Returns: {
+          message: Json
+          msg_id: number
+          read_ct: number
+        }[]
       }
     }
     Enums: {

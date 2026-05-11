@@ -13,10 +13,12 @@ import { template as partnerApplicationSubmitted } from './partner-application-s
 import { template as partnerApplicationReviewing } from './partner-application-reviewing.tsx'
 import { template as partnerApplicationApproved } from './partner-application-approved.tsx'
 import { template as partnerApplicationDeclined } from './partner-application-declined.tsx'
+import { template as partnerSmsVerify } from './partner-sms-verify.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'partner-application-submitted': partnerApplicationSubmitted,
   'partner-application-reviewing': partnerApplicationReviewing,
   'partner-application-approved': partnerApplicationApproved,
   'partner-application-declined': partnerApplicationDeclined,
+  'partner-sms-verify': partnerSmsVerify,
 }

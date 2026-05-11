@@ -24,6 +24,34 @@ import { Footer } from "@/components/sections/footer";
 import { SEOHead } from "@/components/SEOHead";
 import { supabase } from "@/integrations/supabase/client";
 import { trackEvent, trackPartnerSubmit } from "@/lib/analytics";
+import {
+  useCooldown,
+  describeRateLimitError,
+  COOLDOWNS,
+} from "@/lib/auth-rate-limit";
+
+function generateSmsToken(): string {
+  // 32 bytes -> 64-char hex token; cryptographically secure in browsers.
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function hashSmsToken(token: string): Promise<string> {
+  const data = new TextEncoder().encode(token);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest), (b) =>
+    b.toString(16).padStart(2, "0")
+  ).join("");
+}
+
+function maskPhone(phone: string): string {
+  const trimmed = phone.trim();
+  if (trimmed.length <= 4) return trimmed;
+  const last4 = trimmed.slice(-4);
+  const prefix = trimmed.startsWith("+") ? trimmed.slice(0, 4) : trimmed.slice(0, 3);
+  return `${prefix} ••• ••• ${last4}`;
+}
 
 const stepSchemas = [
   // Step 1 — Brand & contact
@@ -59,16 +87,29 @@ const stepSchemas = [
     popiaConsent: z.boolean().refine((v) => v === true, {
       message: "POPIA consent is required to submit",
     }),
+    smsOptIn: z.boolean().optional().default(false),
   }),
 ] as const;
 
-const fullSchema = stepSchemas[0].merge(stepSchemas[1]).merge(stepSchemas[2]);
+const fullSchema = stepSchemas[0]
+  .merge(stepSchemas[1])
+  .merge(stepSchemas[2])
+  .superRefine((val, ctx) => {
+    if (val.smsOptIn && (!val.phone || val.phone.trim().length < 6)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["smsOptIn"],
+        message:
+          "Add a phone number in step 1 to opt in to SMS, or uncheck this option.",
+      });
+    }
+  });
 type FormData = z.infer<typeof fullSchema>;
 
 const STEP_FIELDS: Array<Array<keyof FormData>> = [
   ["companyName", "brandName", "websiteUrl", "country", "contactName", "contactRole", "email", "phone"],
   ["productCategory", "productDescription", "ingredientsSummary", "manufacturingCertifications", "thirdPartyTested", "sahpraAware"],
-  ["sampleUnitsAvailable", "targetAudience", "distributionGoals", "preferredStartDate", "popiaConsent"],
+  ["sampleUnitsAvailable", "targetAudience", "distributionGoals", "preferredStartDate", "popiaConsent", "smsOptIn"],
 ];
 
 const STEPS = [
@@ -83,6 +124,7 @@ const PartnerApply = () => {
   const [step, setStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedId, setSubmittedId] = useState<string | null>(null);
+  const [smsVerificationQueued, setSmsVerificationQueued] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(fullSchema),
@@ -107,10 +149,15 @@ const PartnerApply = () => {
       distributionGoals: "",
       preferredStartDate: "",
       popiaConsent: false,
+      smsOptIn: false,
     },
   });
 
   const { register, handleSubmit, setValue, watch, trigger, formState: { errors } } = form;
+  // Per-email cooldown so the same address can't spam application + SMS
+  // verification emails. Persists across reloads / duplicate tabs.
+  const watchedEmail = watch("email");
+  const applyCd = useCooldown("partnerApply", watchedEmail);
 
   const handleNext = async () => {
     const valid = await trigger(STEP_FIELDS[step] as any);
@@ -122,7 +169,18 @@ const PartnerApply = () => {
   const handleBack = () => setStep((s) => Math.max(s - 1, 0));
 
   const onSubmit = async (data: FormData) => {
+    if (applyCd.blocked) {
+      toast({
+        title: "Please wait a moment",
+        description: `You can submit again in ${applyCd.remaining}s. This protects your inbox from duplicate confirmation emails.`,
+        variant: "destructive",
+      });
+      return;
+    }
     setIsSubmitting(true);
+    // Arm the cooldown BEFORE the request so a refresh / second tab can't
+    // re-trigger the same emails.
+    applyCd.arm();
     trackEvent("partner_apply_submit_attempt", { productCategory: data.productCategory });
 
     try {
@@ -146,6 +204,9 @@ const PartnerApply = () => {
         target_audience: data.targetAudience || null,
         distribution_goals: data.distributionGoals,
         preferred_start_date: data.preferredStartDate || null,
+        sms_opt_in: data.smsOptIn === true,
+        sms_consent_at: data.smsOptIn === true ? new Date().toISOString() : null,
+        sms_consent_source: data.smsOptIn === true ? "partner_application" : null,
       };
 
       const { data: inserted, error } = await supabase
@@ -171,8 +232,46 @@ const PartnerApply = () => {
         })
         .catch(() => { /* ignore — email infra may not be set up yet */ });
 
+      // If SMS opt-in, generate a verification token, persist it, then queue
+      // the email-confirmed SMS verification email. Failure is non-fatal —
+      // we still treat the application as submitted.
+      let queuedSmsVerify = false;
+      if (data.smsOptIn && data.phone) {
+        const token = generateSmsToken();
+        const tokenHash = await hashSmsToken(token);
+        const { error: tokenErr } = await supabase
+          .from("partner_applications")
+          .update({
+            sms_verification_token_hash: tokenHash,
+            sms_verification_sent_at: new Date().toISOString(),
+          })
+          .eq("id", inserted.id);
+        if (!tokenErr) {
+          const verifyUrl = `${window.location.origin}/partners/sms-verify?token=${encodeURIComponent(token)}`;
+          const phoneMasked = maskPhone(data.phone);
+          supabase.functions
+            .invoke("send-transactional-email", {
+              body: {
+                templateName: "partner-sms-verify",
+                recipientEmail: data.email,
+                idempotencyKey: `partner-sms-verify-${inserted.id}`,
+                templateData: {
+                  name: data.contactName,
+                  phoneMasked,
+                  verifyUrl,
+                },
+              },
+            })
+            .catch(() => { /* email infra may not be set up */ });
+          queuedSmsVerify = true;
+        } else {
+          console.warn("Could not store SMS verification token", tokenErr);
+        }
+      }
+
       trackPartnerSubmit({ productCategory: data.productCategory });
       setSubmittedId(inserted.id);
+      setSmsVerificationQueued(queuedSmsVerify);
       toast({
         title: "Application submitted",
         description: "Check your inbox for a confirmation email.",
@@ -180,9 +279,18 @@ const PartnerApply = () => {
     } catch (err: any) {
       console.error("Partner application error:", err);
       trackEvent("partner_apply_submit_error", { message: err?.message ?? "unknown" });
+      const rl = describeRateLimitError(err);
+      if (rl.isRateLimit && rl.retryAfterSec) {
+        applyCd.arm(Math.max(rl.retryAfterSec, COOLDOWNS.partnerApply));
+      } else {
+        // Genuine validation/server error → let them retry immediately
+        applyCd.reset();
+      }
       toast({
-        title: "Submission failed",
-        description: err?.message ?? "Please try again, or email partners@neuroceutical.co.za.",
+        title: rl.isRateLimit ? "Too many attempts" : "Submission failed",
+        description: rl.isRateLimit
+          ? rl.message
+          : err?.message ?? "Please try again, or email partners@neuroceutical.co.za.",
         variant: "destructive",
       });
     } finally {
@@ -221,6 +329,17 @@ const PartnerApply = () => {
                 <li><strong>Internal review</strong> — our team verifies product, compliance, and fit (typically 2–3 business days). You'll receive a status update when review begins.</li>
                 <li><strong>Decision</strong> — we email you with next steps for sample distribution onboarding.</li>
               </ol>
+              {smsVerificationQueued && (
+                <div className="rounded-lg border border-fresh-teal/30 bg-fresh-teal/5 p-4 text-sm">
+                  <p className="font-semibold text-royal-purple mb-1">Confirm your SMS number</p>
+                  <p className="text-grey-700">
+                    You opted in to SMS updates. We've sent a separate email
+                    with a one-click confirmation link — please click it to
+                    activate SMS notifications. Until you confirm, no SMS
+                    will be sent (POPIA-compliant double opt-in).
+                  </p>
+                </div>
+              )}
               <p className="text-sm text-grey-500">
                 Distribution standards apply: GMP/ISO manufacturing, SAHPRA-aware labelling, and third-party testing where applicable.
               </p>
@@ -420,6 +539,40 @@ const PartnerApply = () => {
                     <p className="text-xs text-grey-500">
                       We do not sell or share your data. You can request access or deletion at any time.
                     </p>
+
+                    <div className="pt-3 border-t border-grey-200 space-y-2">
+                      <p className="text-sm font-semibold text-royal-purple">
+                        Optional: SMS notifications
+                      </p>
+                      <CheckboxField
+                        name="smsOptIn"
+                        label="I consent to receive transactional SMS (e.g. application status updates, verification codes) from Neuroceutical Solutions at the phone number provided in step 1."
+                        checked={watch("smsOptIn") === true}
+                        onChange={(v) =>
+                          setValue("smsOptIn", v, { shouldValidate: true })
+                        }
+                        error={(errors as any).smsOptIn?.message}
+                      />
+                      <p className="text-xs text-grey-500">
+                        Optional and off by default. Transactional only — no
+                        marketing. Standard carrier rates may apply. You can
+                        withdraw consent at any time by replying STOP or
+                        emailing{" "}
+                        <a
+                          href="mailto:support@neuroceutical.co.za"
+                          className="underline"
+                        >
+                          support@neuroceutical.co.za
+                        </a>
+                        .
+                      </p>
+                      <p className="text-xs text-grey-500">
+                        <strong className="text-grey-700">Two-step confirmation:</strong>{" "}
+                        After you submit, we'll email you a one-click link to
+                        confirm your number. SMS is only enabled once you click
+                        that link (POPIA-compliant double opt-in).
+                      </p>
+                    </div>
                   </div>
                 </>
               )}
@@ -441,12 +594,18 @@ const PartnerApply = () => {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 ) : (
-                  <Button type="submit" disabled={isSubmitting} className="min-w-[200px]">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || applyCd.blocked}
+                    className="min-w-[200px]"
+                  >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Submitting…
                       </>
+                    ) : applyCd.blocked ? (
+                      <>Try again in {applyCd.remaining}s</>
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />

@@ -36,7 +36,7 @@ const Privacy = () => {
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="prose prose-lg max-w-none">
             <p className="text-grey-600 mb-8">
-              <strong>Last Updated:</strong> January 2024
+              <strong>Last Updated:</strong> May 2026
             </p>
 
             <h2 className="heading-md text-royal-purple mb-4">1. Information We Collect</h2>
@@ -77,7 +77,34 @@ const Privacy = () => {
               Our website may use cookies to enhance your browsing experience. You can choose to disable cookies through your browser settings, though this may affect certain functionality of our website.
             </p>
 
-            <h2 className="heading-md text-royal-purple mb-4">6. Your Rights</h2>
+            <h2 className="heading-md text-royal-purple mb-4">6. Email Log Retention</h2>
+            <p className="text-grey-700 mb-4">
+              When we send you an email (such as a newsletter, partnership update, or account notification), we keep a short delivery record so we can troubleshoot bounces, prevent spam, and prove that consented messages were actually sent. Each record contains:
+            </p>
+            <ul className="list-disc pl-6 text-grey-700 mb-6 space-y-2">
+              <li>The template name (e.g. <em>partner-application-submitted</em>)</li>
+              <li>The recipient email address</li>
+              <li>A salted SHA-256 hash of the originating IP address — <strong>never the raw IP</strong></li>
+              <li>The delivery status (pending, sent, failed, bounced, complained, suppressed)</li>
+              <li>Any error message returned by the email provider</li>
+              <li>The timestamp of the delivery attempt</li>
+            </ul>
+            <p className="text-grey-700 mb-4">
+              <strong>Retention period:</strong> Email log entries are automatically and permanently deleted <strong>90 days</strong> after they are created. A scheduled cleanup job runs every day at 03:15 UTC and removes any entry older than 90 days. Records are append-only until then — we do not modify entries after they are written.
+            </p>
+            <p className="text-grey-700 mb-4">
+              <strong>How deletion works:</strong>
+            </p>
+            <ul className="list-disc pl-6 text-grey-700 mb-6 space-y-2">
+              <li><strong>Automatic purge:</strong> A daily database job permanently deletes any log entry older than 90 days. Once deleted, entries cannot be recovered.</li>
+              <li><strong>Right-to-erasure requests:</strong> If you ask us to delete your personal data, we will remove your entries from the email log and unsubscribe-token records alongside any account data, even if they are not yet 90 days old.</li>
+              <li><strong>Suppression list:</strong> If your address has bounced, complained, or unsubscribed, we keep it on a separate suppression list for as long as needed to prevent us from emailing you again. This is required to honour your opt-out and is retained even if the corresponding log entry has been purged.</li>
+            </ul>
+            <p className="text-grey-700 mb-8">
+              Email log records are visible only to authorised administrators. To request deletion of your email log entries, contact us using the details in section 8.
+            </p>
+
+            <h2 className="heading-md text-royal-purple mb-4">7. Your Rights</h2>
             <p className="text-grey-700 mb-6">
               Under the Protection of Personal Information Act (POPIA), you have the right to:
             </p>
@@ -89,7 +116,7 @@ const Privacy = () => {
               <li>Withdraw consent for marketing communications</li>
             </ul>
 
-            <h2 className="heading-md text-royal-purple mb-4">7. Contact Us</h2>
+            <h2 className="heading-md text-royal-purple mb-4">8. Contact Us</h2>
             <p className="text-grey-700 mb-4">
               If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us:
             </p>
