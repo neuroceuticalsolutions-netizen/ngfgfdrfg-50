@@ -28,6 +28,10 @@ export const Navigation = () => {
             <Link to="/products" className="text-grey-700 hover:text-royal-purple transition-colors font-medium">
               Products
             </Link>
+            <Link to="/peptides" className="text-grey-700 hover:text-royal-purple transition-colors font-medium inline-flex items-center gap-1.5">
+              Peptides
+              <span className="w-1.5 h-1.5 rounded-full bg-fresh-teal" aria-hidden="true" />
+            </Link>
             <Link to="/science" className="text-grey-700 hover:text-royal-purple transition-colors font-medium">
               Science
             </Link>
@@ -86,6 +90,14 @@ export const Navigation = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Products
+              </Link>
+              <Link
+                to="/peptides"
+                className="text-grey-700 hover:text-royal-purple transition-colors font-medium px-2 py-1 inline-flex items-center gap-1.5"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Peptides
+                <span className="w-1.5 h-1.5 rounded-full bg-fresh-teal" aria-hidden="true" />
               </Link>
               <Link 
                 to="/science" 

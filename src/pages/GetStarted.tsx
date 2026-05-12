@@ -179,6 +179,27 @@ const GetStarted = () => {
                 </CardContent>
               </Card>
             ))}
+            {/* Coming soon: in-house peptide range */}
+            <Card className="border-2 border-fresh-teal bg-grey-900 text-white hover:shadow-lg transition-shadow flex flex-col">
+              <CardHeader>
+                <div className="w-full h-28 rounded-lg flex items-center justify-center mb-4 bg-royal-purple/30 border border-fresh-teal/40">
+                  <span className="text-fresh-teal font-bold text-lg tracking-wide">PEPTIDES</span>
+                </div>
+                <CardTitle className="text-lg text-white">Neuroceutical Peptides</CardTitle>
+                <CardDescription className="text-grey-300 font-medium">
+                  Cosmetic Peptide Range
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1 flex flex-col">
+                <p className="text-sm text-grey-300 mb-4 flex-1">
+                  In-house cosmetic peptide skincare range, formulated for South African skin
+                  and aligned with SAHPRA cosmetics guidelines.
+                </p>
+                <div className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-fresh-teal/20 text-fresh-teal self-start">
+                  Coming Soon
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Partner Benefits */}
