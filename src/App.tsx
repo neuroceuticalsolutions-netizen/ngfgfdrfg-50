@@ -36,6 +36,11 @@ import AdminEmailLog from "./pages/AdminEmailLog";
 import AccountSmsPreferences from "./pages/AccountSmsPreferences";
 import PartnerSmsVerify from "./pages/PartnerSmsVerify";
 import NotFound from "./pages/NotFound";
+import Peptides from "./pages/Peptides";
+import PeptidesProducts from "./pages/PeptidesProducts";
+import PeptideDetail from "./pages/PeptideDetail";
+import PeptidesScience from "./pages/PeptidesScience";
+import PeptidesGuides from "./pages/PeptidesGuides";
 
 const queryClient = new QueryClient();
 
@@ -80,6 +85,11 @@ const App = () => {
           <Route path="/admin/email-log" element={<AdminEmailLog />} />
           <Route path="/account/sms-preferences" element={<AccountSmsPreferences />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/peptides" element={<Peptides />} />
+          <Route path="/peptides/products" element={<PeptidesProducts />} />
+          <Route path="/peptides/products/:slug" element={<PeptideDetail />} />
+          <Route path="/peptides/science" element={<PeptidesScience />} />
+          <Route path="/peptides/guides" element={<PeptidesGuides />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
