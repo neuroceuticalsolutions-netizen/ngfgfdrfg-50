@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { SEOHead } from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { ArticleSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { getArticleBySlug } from "@/data/articles";
 import NotFound from "./NotFound";
@@ -113,6 +113,12 @@ const ArticleDetail = () => {
           { name: "Newsletter", url: `${BASE_URL}/newsletter` },
           { name: article.title, url: `${BASE_URL}/articles/${article.slug}` },
         ]}
+      />
+      <ArticleSchema
+        title={article.title}
+        description={article.excerpt}
+        slug={article.slug}
+        date={article.date}
       />
       <Navigation />
 

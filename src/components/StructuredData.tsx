@@ -218,3 +218,78 @@ export const BreadcrumbSchema = ({ items }: BreadcrumbSchemaProps) => {
     </Helmet>
   );
 };
+
+interface ArticleSchemaProps {
+  title: string;
+  description: string;
+  slug: string;
+  date: string;
+  author?: string;
+  image?: string;
+}
+
+export const ArticleSchema = ({
+  title,
+  description,
+  slug,
+  date,
+  author = "Neuroceutical Solutions",
+  image,
+}: ArticleSchemaProps) => {
+  const SITE_URL = "https://neuroceutical.lovable.app";
+  const url = `${SITE_URL}/articles/${slug}`;
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: date,
+    author: { "@type": "Organization", name: author },
+    publisher: {
+      "@type": "Organization",
+      name: "Neuroceutical Solutions",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/lovable-uploads/927e818d-632e-49e4-bdad-c04fa319a4d1.png`,
+      },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    url,
+    ...(image ? { image } : {}),
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+    </Helmet>
+  );
+};
+
+export const LocalBusinessSchema = () => {
+  const SITE_URL = "https://neuroceutical.lovable.app";
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#localbusiness`,
+    name: "Neuroceutical Solutions",
+    url: SITE_URL,
+    image: `${SITE_URL}/lovable-uploads/927e818d-632e-49e4-bdad-c04fa319a4d1.png`,
+    telephone: "+27-62-476-7535",
+    email: "info@neuroceuticalsolutions.co.za",
+    priceRange: "$$",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Pietermaritzburg",
+      addressRegion: "KwaZulu-Natal",
+      addressCountry: "ZA",
+    },
+    areaServed: { "@type": "Country", name: "South Africa" },
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
+    </Helmet>
+  );
+};

@@ -82,6 +82,14 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://neuroceutical.lovable.app/disclaimer" />
   </url>
   <url>
+    <loc>https://neuroceutical.lovable.app/partners/apply</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-ZA" href="https://neuroceutical.lovable.app/partners/apply" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neuroceutical.lovable.app/partners/apply" />
+  </url>
+  <url>
     <loc>https://neuroceutical.lovable.app/products/zyn-nicotine-pouches</loc>
     <lastmod>2026-04-29</lastmod>
     <changefreq>weekly</changefreq>

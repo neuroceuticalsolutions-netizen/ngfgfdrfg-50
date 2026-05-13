@@ -30,7 +30,9 @@ export const SEOHead = ({
   publishedTime,
   author,
 }: SEOHeadProps) => {
-  const fullTitle = `${title} | Neuroceutical Solutions`;
+  // Keep titles under the 60-char SEO limit. Pages should include their own
+  // brand context where useful instead of relying on a sitewide suffix.
+  const fullTitle = title;
   const url = `${BASE_URL}${path}`;
   // Resolve relative image paths (e.g. /lovable-uploads/...) to absolute URLs,
   // which is required by OpenGraph / Twitter Card crawlers.
