@@ -10,7 +10,7 @@ import { Newsletter } from "@/components/sections/newsletter"
 import { Footer } from "@/components/sections/footer"
 import { HomeSkeleton } from "@/components/sections/home-skeleton"
 import { SEOHead } from "@/components/SEOHead"
-import { FAQSchema } from "@/components/StructuredData"
+import { FAQSchema, LocalBusinessSchema } from "@/components/StructuredData"
 import { PageDisclaimer } from "@/components/PageDisclaimer"
 import { markRenderStage } from "@/lib/render-stage"
 
@@ -82,6 +82,7 @@ const Index = () => {
         keywords="neuroceuticals south africa, nootropics south africa, cognitive enhancers SA, stress relief supplements south africa, mental fatigue support SA, brain supplements south africa, focus supplements johannesburg, memory supplements cape town, mental clarity, smart drugs south africa, ZYN nicotine pouches SA, EU Natural south africa"
       />
       <FAQSchema faqs={homeFaqs} />
+      <LocalBusinessSchema />
       <Navigation />
       <HeroSection />
       <AudienceSelector />

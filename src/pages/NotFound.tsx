@@ -14,7 +14,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-subtle-gradient">
+    <main className="min-h-screen flex items-center justify-center bg-subtle-gradient">
       <SEOHead
         title="Page Not Found"
         description="The page you're looking for doesn't exist. Explore Neuroceutical Solutions for nootropics, cognitive enhancers, stress relief and mental fatigue support in South Africa."
@@ -39,7 +39,7 @@ const NotFound = () => {
           Return to Home
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 

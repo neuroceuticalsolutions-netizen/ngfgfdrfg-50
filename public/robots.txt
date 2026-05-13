@@ -42,6 +42,7 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /account
 Disallow: /account/
+Disallow: /partners/sms-verify
 Disallow: /*?*utm_
 Disallow: /*?*fbclid
 Disallow: /*?*gclid
