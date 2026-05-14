@@ -41,6 +41,7 @@ import PeptidesProducts from "./pages/PeptidesProducts";
 import PeptideDetail from "./pages/PeptideDetail";
 import PeptidesScience from "./pages/PeptidesScience";
 import PeptidesGuides from "./pages/PeptidesGuides";
+import FocusFaqs from "./pages/FocusFaqs";
 
 const queryClient = new QueryClient();
 
@@ -90,6 +91,7 @@ const App = () => {
           <Route path="/peptides/products/:slug" element={<PeptideDetail />} />
           <Route path="/peptides/science" element={<PeptidesScience />} />
           <Route path="/peptides/guides" element={<PeptidesGuides />} />
+          <Route path="/focus" element={<FocusFaqs />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
