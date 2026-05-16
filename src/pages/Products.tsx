@@ -4,7 +4,6 @@ import { HeroButton } from "@/components/ui/hero-button"
 import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products"
-import { peptideProducts } from "@/data/peptides"
 import { useState, useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
 import { Input } from "@/components/ui/input"
@@ -415,64 +414,6 @@ const Products = () => {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Skincare & Peptides */}
-      {!query.trim() && (selectedCategory === 'all') && (
-        <section className="py-20 bg-subtle-gradient">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="heading-lg text-royal-purple mb-4">Skincare &amp; Peptides</h2>
-              <p className="body-lg text-grey-600 max-w-2xl mx-auto">
-                Cosmetic peptide skincare formulated with peer-reviewed actives like GHK-Cu,
-                Argireline and Matrixyl 3000.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-              {peptideProducts.slice(0, 4).map((p) => (
-                <div key={p.slug} className="bg-white rounded-2xl shadow-medium overflow-hidden hover:shadow-large transition-shadow duration-300">
-                  <div className="aspect-video bg-grey-100 relative overflow-hidden">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-contain p-8" />
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="outline" className="bg-white/90">{p.brand}</Badge>
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <div className="mb-4">
-                      <h3 className="heading-sm text-grey-900">{p.name}</h3>
-                      <div className="flex items-center gap-2 mt-2">
-                        <div className="flex text-yellow-400 text-sm">
-                          {"★".repeat(Math.floor(p.rating))}
-                          {p.rating % 1 !== 0 && "☆"}
-                        </div>
-                        <span className="text-xs text-grey-500">({p.rating})</span>
-                      </div>
-                    </div>
-                    <p className="body-md text-grey-600 mb-6">{p.shortDescription}</p>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {p.benefits.map((b, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs">{b}</Badge>
-                      ))}
-                    </div>
-                    <div className="flex gap-3">
-                      <Link to={`/peptides/products/${p.slug}`} className="flex-1">
-                        <HeroButton variant="hero" className="w-full">Get Product Info</HeroButton>
-                      </Link>
-                      <Link to="/peptides">
-                        <HeroButton variant="outline" size="default">Learn More</HeroButton>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-10">
-              <Link to="/peptides/products">
-                <HeroButton variant="outline" size="lg">View All Peptide Products</HeroButton>
-              </Link>
             </div>
           </div>
         </section>
