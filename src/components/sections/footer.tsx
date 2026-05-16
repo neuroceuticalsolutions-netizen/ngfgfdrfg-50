@@ -1,6 +1,7 @@
 import { HeroButton } from "@/components/ui/hero-button";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
+import { isSupabaseConfigured } from "@/integrations/supabase/safe-client";
 export const Footer = () => {
   return <footer className="bg-grey-900 text-white py-16">
       <div className="container mx-auto px-6">
@@ -93,6 +94,20 @@ export const Footer = () => {
             </div>
             <div className="text-sm text-grey-400">
               <p>Designed for South African distribution</p>
+              <p className="mt-2 flex items-center gap-2" aria-live="polite">
+                <span
+                  className={`inline-block h-2 w-2 rounded-full ${
+                    isSupabaseConfigured ? "bg-emerald-400" : "bg-red-400"
+                  }`}
+                  aria-hidden="true"
+                />
+                <span className="text-xs">
+                  Backend:{" "}
+                  <span className={isSupabaseConfigured ? "text-emerald-400" : "text-red-400"}>
+                    {isSupabaseConfigured ? "Configured" : "Not configured"}
+                  </span>
+                </span>
+              </p>
             </div>
           </div>
         </div>
