@@ -4,6 +4,25 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 
+// Build-time guard: fail the build if required Supabase env vars are missing.
+// Runs only for production builds (`vite build`), not the dev server.
+const requireSupabaseEnvPlugin = () => ({
+  name: "require-supabase-env",
+  apply: "build" as const,
+  enforce: "pre" as const,
+  configResolved() {
+    const required = ["VITE_SUPABASE_URL", "VITE_SUPABASE_PUBLISHABLE_KEY"];
+    const missing = required.filter((k) => !process.env[k] || process.env[k]?.trim() === "");
+    if (missing.length > 0) {
+      throw new Error(
+        `[require-supabase-env] Build aborted. Missing required env var(s): ${missing.join(
+          ", "
+        )}. Set them in your Lovable Cloud / build environment before building.`
+      );
+    }
+  },
+});
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
@@ -17,6 +36,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
+    requireSupabaseEnvPlugin(),
     mode === 'development' &&
     componentTagger(),
     // Upload source maps to Sentry on production builds only.
