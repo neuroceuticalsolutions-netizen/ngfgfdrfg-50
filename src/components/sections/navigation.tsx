@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { HeroButton } from "@/components/ui/hero-button"
 import { Link } from "react-router-dom"
+import { ChevronDown } from "lucide-react"
 
 export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -11,12 +12,13 @@ export const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <Link to="/">
+            <Link to="/" className="flex items-center gap-1">
               <img 
                 src="/lovable-uploads/808eb30a-9764-43b9-8484-c2cd5ac5164c.png"
                 alt="Neuroceutical Solutions logo" 
                 className="h-12 sm:h-16 w-auto cursor-pointer"
               />
+              <ChevronDown className="h-4 w-4 text-grey-700" aria-hidden="true" />
             </Link>
           </div>
 
