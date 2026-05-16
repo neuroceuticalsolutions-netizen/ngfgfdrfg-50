@@ -5,21 +5,42 @@ import { ChevronDown } from "lucide-react"
 
 export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isHiddenMenuOpen, setIsHiddenMenuOpen] = useState(false)
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-grey-200">
       <div className="container mx-auto px-6 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <Link to="/" className="flex items-center gap-1">
+          <div className="flex items-center space-x-1 relative">
+            <Link to="/">
               <img 
                 src="/lovable-uploads/808eb30a-9764-43b9-8484-c2cd5ac5164c.png"
                 alt="Neuroceutical Solutions logo" 
                 className="h-12 sm:h-16 w-auto cursor-pointer"
               />
-              <ChevronDown className="h-4 w-4 text-grey-700" aria-hidden="true" />
             </Link>
+            <button
+              type="button"
+              onClick={() => setIsHiddenMenuOpen(!isHiddenMenuOpen)}
+              aria-label="More options"
+              aria-expanded={isHiddenMenuOpen}
+              className="p-1 text-grey-700 hover:text-royal-purple transition-colors"
+            >
+              <ChevronDown className={`h-4 w-4 transition-transform ${isHiddenMenuOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+            </button>
+            {isHiddenMenuOpen && (
+              <div className="absolute top-full left-0 mt-1 bg-white border border-grey-200 rounded-md shadow-lg py-2 min-w-[160px] z-50">
+                <Link
+                  to="/peptides"
+                  onClick={() => setIsHiddenMenuOpen(false)}
+                  className="flex items-center gap-1.5 px-4 py-2 text-grey-700 hover:text-royal-purple hover:bg-grey-50 transition-colors font-medium text-sm"
+                >
+                  Peptides
+                  <span className="w-1.5 h-1.5 rounded-full bg-fresh-teal" aria-hidden="true" />
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Navigation Links - Hidden on mobile, shown on larger screens */}
@@ -29,10 +50,6 @@ export const Navigation = () => {
             </Link>
             <Link to="/products" className="text-grey-700 hover:text-royal-purple transition-colors font-medium">
               Products
-            </Link>
-            <Link to="/peptides" className="text-grey-700 hover:text-royal-purple transition-colors font-medium inline-flex items-center gap-1.5">
-              Peptides
-              <span className="w-1.5 h-1.5 rounded-full bg-fresh-teal" aria-hidden="true" />
             </Link>
             <Link to="/science" className="text-grey-700 hover:text-royal-purple transition-colors font-medium">
               Science
@@ -92,14 +109,6 @@ export const Navigation = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Products
-              </Link>
-              <Link
-                to="/peptides"
-                className="text-grey-700 hover:text-royal-purple transition-colors font-medium px-2 py-1 inline-flex items-center gap-1.5"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Peptides
-                <span className="w-1.5 h-1.5 rounded-full bg-fresh-teal" aria-hidden="true" />
               </Link>
               <Link 
                 to="/science" 
