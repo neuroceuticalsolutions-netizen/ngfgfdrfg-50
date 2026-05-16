@@ -85,7 +85,6 @@ function makeStub(): SupabaseClient<Database> {
       if (prop === "auth") return authStub;
       if (prop === "functions") return { invoke: () => asyncResponse(null) };
       if (prop === "from" || prop === "rpc") return () => makeQueryStub();
-    },
       if (prop === "channel") {
         return () => ({
           on: () => ({ subscribe: () => ({ unsubscribe: () => undefined }) }),
