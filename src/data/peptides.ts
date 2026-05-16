@@ -121,7 +121,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "firming",
     categoryLabel: "Firming",
-    price: "R720",
+    price: "R1,200",
     rating: 4.5,
     shortDescription:
       "Daily moisturiser with Syn-Coll peptide to support skin density and structural integrity.",
