@@ -153,7 +153,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "brightening",
     categoryLabel: "Brightening",
-    price: "R680",
+    price: "R1,150",
     rating: 4.5,
     shortDescription:
       "Brightening serum combining copper and zinc peptides to even skin tone and boost radiance.",
