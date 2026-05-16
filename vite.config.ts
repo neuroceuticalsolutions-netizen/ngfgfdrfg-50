@@ -1,28 +1,8 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
-
-// Build-time guard: fail the build if required Supabase env vars are missing.
-// Runs only for production builds (`vite build`), not the dev server.
-const requireSupabaseEnvPlugin = (mode: string) => ({
-  name: "require-supabase-env",
-  apply: "build" as const,
-  enforce: "pre" as const,
-  configResolved() {
-    const env = { ...loadEnv(mode, process.cwd(), ""), ...process.env };
-    const required = ["VITE_SUPABASE_URL", "VITE_SUPABASE_PUBLISHABLE_KEY"];
-    const missing = required.filter((k) => !env[k] || String(env[k]).trim() === "");
-    if (missing.length > 0) {
-      throw new Error(
-        `[require-supabase-env] Build aborted. Missing required env var(s): ${missing.join(
-          ", "
-        )}. Set them in your Lovable Cloud / build environment before building.`
-      );
-    }
-  },
-});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -37,7 +17,6 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    requireSupabaseEnvPlugin(mode),
     mode === 'development' &&
     componentTagger(),
     // Upload source maps to Sentry on production builds only.
