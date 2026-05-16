@@ -59,7 +59,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "anti-ageing",
     categoryLabel: "Anti-Ageing",
-    price: "R800",
+    price: "R1,350",
     rating: 4.7,
     shortDescription:
       "Dual-action expression line treatment with a clinically validated peptide combination.",
