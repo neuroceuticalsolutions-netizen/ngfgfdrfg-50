@@ -8,16 +8,12 @@ Neuroceutical Solutions partners with global brands to bring scientifically form
 
 - [Home](/): Overview of the brand, featured products and audience selector for consumers vs partners.
 - [About](/about): Company story, founder, distribution standards and South African focus.
-- [Products](/products): Full nootropic and cosmetic peptide catalog with search and category filters.
+- [Products](/products): Full nootropic catalog with search and category filters.
 - [Science](/science): Research methodology, ingredient overviews and SAHPRA-compliant claims.
 - [Guides](/guides): Educational articles on nootropics, cognitive health and supplement use.
 - [Newsletter](/newsletter): Subscribe for new product launches and recent newsletter issues.
 - [Get Started](/get-started): Information for brands wanting to join the free sample distribution program.
 - [Contact](/contact): Customer service and partnership enquiries.
-- [Peptides](/peptides): Cosmetic peptide skincare landing page (GHK-Cu, Argireline, Matrixyl 3000, Eyeliss).
-- [Peptide Products](/peptides/products): Filterable cosmetic peptide product catalog.
-- [Peptide Science](/peptides/science): Science behind cosmetic peptide formulations.
-- [Peptide Guides](/peptides/guides): Educational articles on peptide skincare.
 
 ## Optional
 
