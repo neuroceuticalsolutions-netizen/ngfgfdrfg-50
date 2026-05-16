@@ -27,7 +27,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "anti-ageing",
     categoryLabel: "Anti-Ageing",
-    price: "R750",
+    price: "R1,250",
     rating: 4.8,
     shortDescription:
       "Advanced copper peptide serum that supports collagen synthesis and skin renewal.",
@@ -59,7 +59,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "anti-ageing",
     categoryLabel: "Anti-Ageing",
-    price: "R800",
+    price: "R1,350",
     rating: 4.7,
     shortDescription:
       "Dual-action expression line treatment with a clinically validated peptide combination.",
@@ -90,7 +90,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "eye-care",
     categoryLabel: "Eye Care",
-    price: "R650",
+    price: "R1,100",
     rating: 4.6,
     shortDescription:
       "Targeted under-eye treatment for puffiness, dark circles and fine lines around the eye contour.",
@@ -121,7 +121,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "firming",
     categoryLabel: "Firming",
-    price: "R720",
+    price: "R1,200",
     rating: 4.5,
     shortDescription:
       "Daily moisturiser with Syn-Coll peptide to support skin density and structural integrity.",
@@ -153,7 +153,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "brightening",
     categoryLabel: "Brightening",
-    price: "R680",
+    price: "R1,150",
     rating: 4.5,
     shortDescription:
       "Brightening serum combining copper and zinc peptides to even skin tone and boost radiance.",
