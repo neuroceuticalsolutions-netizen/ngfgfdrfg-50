@@ -39,7 +39,8 @@ export default function AdminSupabaseSafeCheck() {
 
       // Exercise a chained call — must never throw, regardless of config.
       try {
-        const res = await supabase.from("nonexistent_table").select("*");
+        // Cast to any so TS doesn't require a real table name from the generated types.
+        const res = await (supabase as any).from("nonexistent_table").select("*");
         out.push({
           name: "Chained .from().select() returns a response",
           passed: true,
@@ -57,7 +58,7 @@ export default function AdminSupabaseSafeCheck() {
 
       // Fire a second stub access to confirm warning is one-time.
       try {
-        await supabase.from("another_table").select("*");
+        await (supabase as any).from("another_table").select("*");
       } catch { /* no-op */ }
 
       out.push({
