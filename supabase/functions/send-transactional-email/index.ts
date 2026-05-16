@@ -103,6 +103,7 @@ Deno.serve(async (req) => {
     : ''
 
   let callerKind: 'service_role' | 'authenticated' | 'anon' = 'anon'
+  let callerUserId: string | null = null
   if (bearer && bearer === supabaseServiceKey) {
     callerKind = 'service_role'
   } else if (bearer) {
@@ -111,7 +112,10 @@ Deno.serve(async (req) => {
         global: { headers: { Authorization: `Bearer ${bearer}` } },
       })
       const { data: userData } = await authClient.auth.getUser(bearer)
-      if (userData?.user) callerKind = 'authenticated'
+      if (userData?.user) {
+        callerKind = 'authenticated'
+        callerUserId = userData.user.id
+      }
     } catch {
       // Treat as anon on failure
     }
@@ -162,6 +166,34 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     )
+  }
+
+  // Authenticated (non-service-role) callers may only trigger templates outside
+  // the anon allowlist if they have the admin role. This prevents any
+  // self-registered user from impersonating the company by sending arbitrary
+  // admin-tier templates (e.g., partner-application-approved) to any recipient.
+  if (
+    callerKind === 'authenticated' &&
+    !ANON_ALLOWED_TEMPLATES.has(templateName)
+  ) {
+    const adminCheckClient = createClient(supabaseUrl, supabaseServiceKey)
+    const { data: isAdmin, error: roleError } = await adminCheckClient.rpc(
+      'has_role',
+      { _user_id: callerUserId, _role: 'admin' },
+    )
+    if (roleError || !isAdmin) {
+      console.warn('Blocked non-admin authenticated email send', {
+        templateName,
+        callerUserId,
+      })
+      return new Response(
+        JSON.stringify({ error: 'Admin role required for this template' }),
+        {
+          status: 403,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      )
+    }
   }
 
   // 1. Look up template from registry (early — needed to resolve recipient)
