@@ -27,7 +27,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "anti-ageing",
     categoryLabel: "Anti-Ageing",
-    price: "R750",
+    price: "R1,250",
     rating: 4.8,
     shortDescription:
       "Advanced copper peptide serum that supports collagen synthesis and skin renewal.",
