@@ -99,7 +99,7 @@ function makeStub(): SupabaseClient<Database> {
 }
 
 export const supabase: SupabaseClient<Database> = isSupabaseConfigured
-  ? createClient<Database>(SUPABASE_URL, SUPABASE_KEY, {
+  ? createClient<Database>(SUPABASE_URL!, SUPABASE_KEY!, {
       auth: {
         storage: typeof window !== "undefined" ? window.localStorage : undefined,
         persistSession: true,
