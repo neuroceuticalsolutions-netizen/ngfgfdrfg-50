@@ -34,6 +34,7 @@ import AdminAuthEmailPreview from "./pages/AdminAuthEmailPreview";
 import AdminSmsConsent from "./pages/AdminSmsConsent";
 import AdminEmailLog from "./pages/AdminEmailLog";
 import AdminEnvCheck from "./pages/AdminEnvCheck";
+import AdminSupabaseSafeCheck from "./pages/AdminSupabaseSafeCheck";
 import AccountSmsPreferences from "./pages/AccountSmsPreferences";
 import PartnerSmsVerify from "./pages/PartnerSmsVerify";
 import NotFound from "./pages/NotFound";
@@ -86,6 +87,7 @@ const App = () => {
           <Route path="/admin/sms-consent" element={<AdminSmsConsent />} />
           <Route path="/admin/email-log" element={<AdminEmailLog />} />
           <Route path="/admin/env-check" element={<AdminEnvCheck />} />
+          <Route path="/admin/supabase-safe-check" element={<AdminSupabaseSafeCheck />} />
           <Route path="/account/sms-preferences" element={<AccountSmsPreferences />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/peptides" element={<Peptides />} />
