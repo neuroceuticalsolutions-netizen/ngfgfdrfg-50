@@ -22,7 +22,7 @@ import { Loader2, ArrowLeft, ArrowRight, Send, CheckCircle2, ShieldCheck, FlaskC
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { SEOHead } from "@/components/SEOHead";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/safe-client";
 import { trackEvent, trackPartnerSubmit } from "@/lib/analytics";
 import {
   useCooldown,

@@ -8,7 +8,7 @@ import { getCorrelationId, initCorrelationId } from "@/lib/correlation"
 // before main.tsx's env-readiness guard can render the friendly fallback.
 // Load it lazily inside the functions that actually need it.
 async function getSupabase() {
-  const mod = await import("@/integrations/supabase/client")
+  const mod = await import("@/integrations/supabase/safe-client")
   return mod.supabase
 }
 
