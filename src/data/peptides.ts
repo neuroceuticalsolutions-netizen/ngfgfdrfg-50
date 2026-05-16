@@ -90,7 +90,7 @@ export const peptideProducts: PeptideProduct[] = [
     brand: "Neuroceutical Peptides",
     category: "eye-care",
     categoryLabel: "Eye Care",
-    price: "R650",
+    price: "R1,100",
     rating: 4.6,
     shortDescription:
       "Targeted under-eye treatment for puffiness, dark circles and fine lines around the eye contour.",
