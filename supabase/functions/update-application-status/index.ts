@@ -65,7 +65,10 @@ Deno.serve(async (req) => {
       .eq("user_id", userData.user.id)
       .eq("role", "admin")
       .maybeSingle();
-    if (roleErr) return json({ error: roleErr.message }, 500);
+    if (roleErr) {
+      console.error("role check failed", roleErr);
+      return json({ error: "Internal server error" }, 500);
+    }
     if (!roleRow) return json({ error: "Forbidden" }, 403);
 
     // Load current application
@@ -74,7 +77,10 @@ Deno.serve(async (req) => {
       .select("id, email, contact_name, company_name, status")
       .eq("id", applicationId)
       .maybeSingle();
-    if (existErr) return json({ error: existErr.message }, 500);
+    if (existErr) {
+      console.error("load application failed", existErr);
+      return json({ error: "Internal server error" }, 500);
+    }
     if (!existing) return json({ error: "Application not found" }, 404);
 
     if (existing.status === status) {
@@ -86,7 +92,10 @@ Deno.serve(async (req) => {
       .from("partner_applications")
       .update({ status, admin_notes: notes ?? null })
       .eq("id", applicationId);
-    if (updErr) return json({ error: updErr.message }, 500);
+    if (updErr) {
+      console.error("update application failed", updErr);
+      return json({ error: "Internal server error" }, 500);
+    }
 
     await admin.from("application_status_events").insert({
       application_id: applicationId,
