@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useReducer, useState, type ReactNode } from "react";
 
 export interface CartItem {
   slug: string;
@@ -78,11 +78,7 @@ const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [isOpen, setIsOpen] = (function useOpen() {
-    // simple local state via reducer-less hook
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    return require("react").useState(false) as [boolean, (v: boolean) => void];
-  })();
+  const [isOpen, setIsOpen] = useState(false);
 
   // Hydrate from localStorage
   useEffect(() => {
