@@ -6,14 +6,26 @@ import { Badge } from "@/components/ui/badge";
 import { SEOHead } from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { getPeptideBySlug } from "@/data/peptides";
+import { useCart, parsePrice } from "@/context/CartContext";
+import { useState } from "react";
+import { Check } from "lucide-react";
 
 const BASE_URL = "https://neuroceutical.lovable.app";
 
 const PeptideDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  if (!slug) return <Navigate to="/peptides/products" replace />;
-  const product = getPeptideBySlug(slug);
-  if (!product) return <Navigate to="/peptides/products" replace />;
+  const product = slug ? getPeptideBySlug(slug) : undefined;
+  const { addItem, openCart } = useCart();
+  const [added, setAdded] = useState(false);
+
+  if (!slug || !product) return <Navigate to="/peptides/products" replace />;
+
+  const handleAdd = () => {
+    addItem({ slug: product.slug, name: product.name, price: parsePrice(product.price), image: product.image });
+    setAdded(true);
+    openCart();
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -85,8 +97,12 @@ const PeptideDetail = () => {
               </div>
 
               <div className="flex gap-4">
-                <HeroButton variant="hero" className="flex-1" asChild>
-                  <Link to="/contact">Add to Cart</Link>
+                <HeroButton variant="hero" className="flex-1" onClick={handleAdd}>
+                  {added ? (
+                    <span className="inline-flex items-center gap-1"><Check className="w-4 h-4" /> Added!</span>
+                  ) : (
+                    "Add to Cart"
+                  )}
                 </HeroButton>
                 <HeroButton variant="outline" className="flex-1" asChild>
                   <Link to="/peptides/science">Learn More</Link>
