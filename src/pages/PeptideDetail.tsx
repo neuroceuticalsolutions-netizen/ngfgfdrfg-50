@@ -14,12 +14,11 @@ const BASE_URL = "https://neuroceutical.lovable.app";
 
 const PeptideDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  if (!slug) return <Navigate to="/peptides/products" replace />;
-  const product = getPeptideBySlug(slug);
-  if (!product) return <Navigate to="/peptides/products" replace />;
-
+  const product = slug ? getPeptideBySlug(slug) : undefined;
   const { addItem, openCart } = useCart();
   const [added, setAdded] = useState(false);
+
+  if (!slug || !product) return <Navigate to="/peptides/products" replace />;
 
   const handleAdd = () => {
     addItem({ slug: product.slug, name: product.name, price: parsePrice(product.price), image: product.image });
