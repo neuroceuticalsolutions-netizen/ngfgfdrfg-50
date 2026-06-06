@@ -9,6 +9,8 @@ import { Search } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { peptideProducts, peptideCategories, type PeptideCategory } from "@/data/peptides";
+import { useCart, parsePrice } from "@/context/CartContext";
+import { Check } from "lucide-react";
 
 const BASE_URL = "https://neuroceutical.lovable.app";
 
@@ -17,6 +19,15 @@ const PeptidesProducts = () => {
   const initialCat = (searchParams.get("category") as PeptideCategory) || "all";
   const [active, setActive] = useState<"all" | PeptideCategory>(initialCat);
   const [query, setQuery] = useState("");
+  const { addItem, openCart } = useCart();
+  const [addedSlug, setAddedSlug] = useState<string | null>(null);
+
+  const handleAdd = (p: typeof peptideProducts[number]) => {
+    addItem({ slug: p.slug, name: p.name, price: parsePrice(p.price), image: p.image });
+    setAddedSlug(p.slug);
+    openCart();
+    setTimeout(() => setAddedSlug((s) => (s === p.slug ? null : s)), 1500);
+  };
 
   const filtered = peptideProducts.filter((p) => {
     const catMatch = active === "all" || p.category === active;
@@ -129,9 +140,17 @@ const PeptidesProducts = () => {
                       ))}
                     </div>
                     <div className="flex gap-3">
-                      <Link to="/contact" className="flex-1">
-                        <HeroButton variant="hero" className="w-full">Add to Cart</HeroButton>
-                      </Link>
+                      <HeroButton
+                        variant="hero"
+                        className="flex-1"
+                        onClick={() => handleAdd(p)}
+                      >
+                        {addedSlug === p.slug ? (
+                          <span className="inline-flex items-center gap-1"><Check className="w-4 h-4" /> Added!</span>
+                        ) : (
+                          "Add to Cart"
+                        )}
+                      </HeroButton>
                       <Link to={`/peptides/products/${p.slug}`}>
                         <HeroButton variant="outline">Learn More</HeroButton>
                       </Link>
