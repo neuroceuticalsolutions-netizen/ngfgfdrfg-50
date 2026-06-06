@@ -8,6 +8,8 @@ export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isHiddenMenuOpen, setIsHiddenMenuOpen] = useState(false)
   const { itemCount, openCart } = useCart()
+  const location = useLocation()
+  const showCart = location.pathname.startsWith("/peptides") || location.pathname === "/checkout"
 
   const CartButton = ({ className = "" }: { className?: string }) => (
     <button
