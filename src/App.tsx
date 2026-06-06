@@ -44,6 +44,9 @@ import PeptideDetail from "./pages/PeptideDetail";
 import PeptidesScience from "./pages/PeptidesScience";
 import PeptidesGuides from "./pages/PeptidesGuides";
 import FocusFaqs from "./pages/FocusFaqs";
+import Checkout from "./pages/Checkout";
+import { CartProvider } from "@/context/CartContext";
+import { CartDrawer } from "@/components/CartDrawer";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +58,7 @@ const App = () => {
   return (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
+    <CartProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -63,6 +67,7 @@ const App = () => {
         <SentryRouteBreadcrumbs />
         <OrganizationSchema />
         <WebSiteSchema />
+        <CartDrawer />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
@@ -96,6 +101,7 @@ const App = () => {
           <Route path="/peptides/science" element={<PeptidesScience />} />
           <Route path="/peptides/guides" element={<PeptidesGuides />} />
           <Route path="/focus" element={<FocusFaqs />} />
+          <Route path="/checkout" element={<Checkout />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -103,6 +109,7 @@ const App = () => {
         <RenderWatchdog />
       </BrowserRouter>
     </TooltipProvider>
+    </CartProvider>
     </QueryClientProvider>
   </HelmetProvider>
   );
