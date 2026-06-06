@@ -117,9 +117,13 @@ export const CartDrawer = () => {
                 <span className="text-royal-purple font-bold text-lg">{formatPrice(subtotal)}</span>
               </div>
               <p className="text-xs text-grey-500 w-full">Shipping calculated at checkout.</p>
-              <Link to="/checkout" onClick={closeCart} className="w-full">
-                <HeroButton variant="hero" className="w-full">Proceed to Checkout</HeroButton>
-              </Link>
+              {subtotal === 0 ? (
+                <HeroButton variant="hero" className="w-full" disabled>Proceed to Checkout</HeroButton>
+              ) : (
+                <Link to="/checkout" onClick={closeCart} className="w-full">
+                  <HeroButton variant="hero" className="w-full">Proceed to Checkout</HeroButton>
+                </Link>
+              )}
               <HeroButton variant="outline" className="w-full" onClick={closeCart}>
                 Continue Shopping
               </HeroButton>
