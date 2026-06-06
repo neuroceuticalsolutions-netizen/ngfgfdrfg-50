@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCart, formatPrice } from "@/context/CartContext";
@@ -9,9 +10,34 @@ import {
   SheetTitle,
   SheetFooter,
 } from "@/components/ui/sheet";
+import { toast } from "sonner";
 
 export const CartDrawer = () => {
-  const { isOpen, closeCart, items, subtotal, updateQuantity, removeItem } = useCart();
+  const { isOpen, closeCart, items, subtotal, updateQuantity, removeItem, addItem } = useCart();
+  const undoTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+
+  const handleRemove = (item: typeof items[number]) => {
+    removeItem(item.slug);
+    let undone = false;
+    const timer = setTimeout(() => {
+      undone = true;
+      delete undoTimers.current[item.slug];
+    }, 4000);
+    undoTimers.current[item.slug] = timer;
+
+    toast(`${item.name} removed`, {
+      action: {
+        label: "Undo",
+        onClick: () => {
+          if (!undone) {
+            clearTimeout(timer);
+            delete undoTimers.current[item.slug];
+            addItem(item);
+          }
+        },
+      },
+    });
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={(o) => (o ? null : closeCart())}>
