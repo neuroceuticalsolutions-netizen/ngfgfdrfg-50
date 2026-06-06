@@ -74,7 +74,7 @@ export const CartDrawer = () => {
                       <h4 className="font-semibold text-grey-900 text-sm leading-tight">{item.name}</h4>
                       <button
                         type="button"
-                        onClick={() => removeItem(item.slug)}
+                        onClick={() => handleRemove(item)}
                         aria-label={`Remove ${item.name}`}
                         className="text-grey-500 hover:text-royal-purple transition-colors"
                       >
