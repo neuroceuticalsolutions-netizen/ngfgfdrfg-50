@@ -84,7 +84,7 @@ export const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-2">
-            <CartButton />
+            {showCart && <CartButton />}
             <Link to="/get-started">
               <HeroButton
                 variant="hero"
@@ -100,7 +100,7 @@ export const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-1">
-            <CartButton />
+            {showCart && <CartButton />}
             <button
               className="p-2 text-grey-700 hover:text-royal-purple"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
