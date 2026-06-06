@@ -1,11 +1,29 @@
 import { useState } from "react"
 import { HeroButton } from "@/components/ui/hero-button"
 import { Link } from "react-router-dom"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, ShoppingCart } from "lucide-react"
+import { useCart } from "@/context/CartContext"
 
 export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isHiddenMenuOpen, setIsHiddenMenuOpen] = useState(false)
+  const { itemCount, openCart } = useCart()
+
+  const CartButton = ({ className = "" }: { className?: string }) => (
+    <button
+      type="button"
+      onClick={openCart}
+      aria-label={`Open cart${itemCount ? ` (${itemCount} items)` : ""}`}
+      className={`relative p-2 text-grey-700 hover:text-royal-purple transition-colors ${className}`}
+    >
+      <ShoppingCart className="h-5 w-5" />
+      {itemCount > 0 && (
+        <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-royal-purple text-white text-[10px] font-bold flex items-center justify-center">
+          {itemCount > 99 ? "99+" : itemCount}
+        </span>
+      )}
+    </button>
+  )
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-grey-200">
@@ -63,7 +81,8 @@ export const Navigation = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-2">
+            <CartButton />
             <Link to="/get-started">
               <HeroButton
                 variant="hero"
@@ -78,18 +97,22 @@ export const Navigation = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden p-2 text-grey-700 hover:text-royal-purple"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+          <div className="md:hidden flex items-center gap-1">
+            <CartButton />
+            <button
+              className="p-2 text-grey-700 hover:text-royal-purple"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
