@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCart, formatPrice } from "@/context/CartContext";
@@ -9,9 +10,34 @@ import {
   SheetTitle,
   SheetFooter,
 } from "@/components/ui/sheet";
+import { toast } from "sonner";
 
 export const CartDrawer = () => {
-  const { isOpen, closeCart, items, subtotal, updateQuantity, removeItem } = useCart();
+  const { isOpen, closeCart, items, subtotal, updateQuantity, removeItem, addItem } = useCart();
+  const undoTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+
+  const handleRemove = (item: typeof items[number]) => {
+    removeItem(item.slug);
+    let undone = false;
+    const timer = setTimeout(() => {
+      undone = true;
+      delete undoTimers.current[item.slug];
+    }, 4000);
+    undoTimers.current[item.slug] = timer;
+
+    toast(`${item.name} removed`, {
+      action: {
+        label: "Undo",
+        onClick: () => {
+          if (!undone) {
+            clearTimeout(timer);
+            delete undoTimers.current[item.slug];
+            addItem(item);
+          }
+        },
+      },
+    });
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={(o) => (o ? null : closeCart())}>
@@ -48,7 +74,7 @@ export const CartDrawer = () => {
                       <h4 className="font-semibold text-grey-900 text-sm leading-tight">{item.name}</h4>
                       <button
                         type="button"
-                        onClick={() => removeItem(item.slug)}
+                        onClick={() => handleRemove(item)}
                         aria-label={`Remove ${item.name}`}
                         className="text-grey-500 hover:text-royal-purple transition-colors"
                       >
@@ -91,9 +117,13 @@ export const CartDrawer = () => {
                 <span className="text-royal-purple font-bold text-lg">{formatPrice(subtotal)}</span>
               </div>
               <p className="text-xs text-grey-500 w-full">Shipping calculated at checkout.</p>
-              <Link to="/checkout" onClick={closeCart} className="w-full">
-                <HeroButton variant="hero" className="w-full">Proceed to Checkout</HeroButton>
-              </Link>
+              {subtotal === 0 ? (
+                <HeroButton variant="hero" className="w-full" disabled>Proceed to Checkout</HeroButton>
+              ) : (
+                <Link to="/checkout" onClick={closeCart} className="w-full">
+                  <HeroButton variant="hero" className="w-full">Proceed to Checkout</HeroButton>
+                </Link>
+              )}
               <HeroButton variant="outline" className="w-full" onClick={closeCart}>
                 Continue Shopping
               </HeroButton>

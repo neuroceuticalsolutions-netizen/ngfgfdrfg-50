@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { HeroButton } from "@/components/ui/hero-button"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { ChevronDown, ShoppingCart } from "lucide-react"
 import { useCart } from "@/context/CartContext"
 
@@ -8,6 +8,8 @@ export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isHiddenMenuOpen, setIsHiddenMenuOpen] = useState(false)
   const { itemCount, openCart } = useCart()
+  const location = useLocation()
+  const showCart = location.pathname.startsWith("/peptides") || location.pathname === "/checkout"
 
   const CartButton = ({ className = "" }: { className?: string }) => (
     <button
@@ -82,7 +84,7 @@ export const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-2">
-            <CartButton />
+            {showCart && <CartButton />}
             <Link to="/get-started">
               <HeroButton
                 variant="hero"
@@ -98,7 +100,7 @@ export const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-1">
-            <CartButton />
+            {showCart && <CartButton />}
             <button
               className="p-2 text-grey-700 hover:text-royal-purple"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
