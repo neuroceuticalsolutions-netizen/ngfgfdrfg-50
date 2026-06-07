@@ -56,7 +56,7 @@ export const Navigation = () => {
                   onClick={() => setIsHiddenMenuOpen(false)}
                   className="flex items-center gap-1.5 px-4 py-2 text-grey-700 hover:text-royal-purple hover:bg-grey-50 transition-colors font-medium text-sm"
                 >
-                  Peptides
+                  Nootropics
                   <span className="w-1.5 h-1.5 rounded-full bg-fresh-teal" aria-hidden="true" />
                 </Link>
               </div>
