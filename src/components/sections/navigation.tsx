@@ -156,6 +156,14 @@ export const Navigation = () => {
               >
                 Newsletter
               </Link>
+              <Link
+                to="/peptides"
+                className="text-grey-700 hover:text-royal-purple transition-colors font-medium px-2 py-1 flex items-center gap-1.5"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Nootropics
+                <span className="w-1.5 h-1.5 rounded-full bg-fresh-teal" aria-hidden="true" />
+              </Link>
               <Link to="/get-started" onClick={() => setIsMobileMenuOpen(false)}>
                 <HeroButton
                   variant="hero"
