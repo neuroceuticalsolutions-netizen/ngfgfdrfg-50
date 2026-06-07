@@ -11,6 +11,7 @@ export const Navigation = () => {
   const location = useLocation()
   const showCart = location.pathname.startsWith("/peptides") || location.pathname === "/checkout"
   const dropdownLabel = (location.pathname.startsWith("/peptides") || location.pathname === "/checkout") ? "Nootropics" : "Peptides"
+  const dropdownTo = (location.pathname.startsWith("/peptides") || location.pathname === "/checkout") ? "/" : "/peptides";
 
   const CartButton = ({ className = "" }: { className?: string }) => (
     <button
@@ -53,7 +54,7 @@ export const Navigation = () => {
             {isHiddenMenuOpen && (
               <div className="absolute top-full left-0 mt-1 bg-white border border-grey-200 rounded-md shadow-lg py-2 min-w-[160px] z-50">
                 <Link
-                  to="/peptides"
+                  to={dropdownTo}
                   onClick={() => setIsHiddenMenuOpen(false)}
                   className="flex items-center gap-1.5 px-4 py-2 text-grey-700 hover:text-royal-purple hover:bg-grey-50 transition-colors font-medium text-sm"
                 >
@@ -158,7 +159,7 @@ export const Navigation = () => {
                 Newsletter
               </Link>
               <Link
-                to="/peptides"
+                to={dropdownTo}
                 className="text-grey-700 hover:text-royal-purple transition-colors font-medium px-2 py-1 flex items-center gap-1.5"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
