@@ -163,6 +163,51 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string
+          delivery_address: string
+          id: string
+          items: Json
+          payfast_payment_id: string | null
+          payfast_status: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string
+          delivery_address: string
+          id?: string
+          items: Json
+          payfast_payment_id?: string | null
+          payfast_status?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          customer_phone?: string
+          delivery_address?: string
+          id?: string
+          items?: Json
+          payfast_payment_id?: string | null
+          payfast_status?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partner_applications: {
         Row: {
           admin_notes: string | null
