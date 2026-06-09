@@ -45,6 +45,8 @@ import PeptidesScience from "./pages/PeptidesScience";
 import PeptidesGuides from "./pages/PeptidesGuides";
 import FocusFaqs from "./pages/FocusFaqs";
 import Checkout from "./pages/Checkout";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
+import CheckoutCancel from "./pages/CheckoutCancel";
 import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/CartDrawer";
 
@@ -102,6 +104,8 @@ const App = () => {
           <Route path="/peptides/guides" element={<PeptidesGuides />} />
           <Route path="/focus" element={<FocusFaqs />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/cancel" element={<CheckoutCancel />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
