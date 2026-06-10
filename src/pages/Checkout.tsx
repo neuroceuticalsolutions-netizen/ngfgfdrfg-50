@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { SEOHead } from "@/components/SEOHead";
 import { useCart, formatPrice } from "@/context/CartContext";
 import { Loader2, XCircle } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/safe-client";
 
 const Checkout = () => {
   const { items, subtotal, clearCart } = useCart();
