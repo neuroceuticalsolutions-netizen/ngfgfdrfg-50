@@ -226,6 +226,7 @@
   }
 
   /* Carousel optimization */
+  /* Build refresh comment */
   .carousel-optimized {
     will-change: transform;
     transform: translate3d(0, 0, 0);
