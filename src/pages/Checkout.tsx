@@ -43,9 +43,12 @@ function validateField(key: FormKey, value: string): string | null {
   return null;
 }
 
-function loadGoogleMaps(apiKey: string): Promise<typeof google | null> {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type GMaps = any;
+
+function loadGoogleMaps(apiKey: string): Promise<GMaps | null> {
   if (typeof window === "undefined") return Promise.resolve(null);
-  const w = window as unknown as { google?: typeof google; __gmapsPromise?: Promise<typeof google | null> };
+  const w = window as unknown as { google?: GMaps; __gmapsPromise?: Promise<GMaps | null> };
   if (w.google?.maps?.places) return Promise.resolve(w.google);
   if (w.__gmapsPromise) return w.__gmapsPromise;
   w.__gmapsPromise = new Promise((resolve) => {
@@ -53,7 +56,7 @@ function loadGoogleMaps(apiKey: string): Promise<typeof google | null> {
     script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places`;
     script.async = true;
     script.defer = true;
-    script.onload = () => resolve((window as unknown as { google: typeof google }).google);
+    script.onload = () => resolve((window as unknown as { google: GMaps }).google);
     script.onerror = () => resolve(null);
     document.head.appendChild(script);
   });
@@ -96,7 +99,7 @@ const Checkout = () => {
   useEffect(() => {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
     if (!apiKey || !streetRef.current) return;
-    let ac: google.maps.places.Autocomplete | null = null;
+    let ac: any = null;
     let cancelled = false;
     loadGoogleMaps(apiKey).then((g) => {
       if (cancelled || !g || !streetRef.current) return;
@@ -108,7 +111,7 @@ const Checkout = () => {
         const place = ac!.getPlace();
         const comps = place.address_components ?? [];
         const get = (types: string[]) =>
-          comps.find((c) => types.some((t) => c.types.includes(t)))?.long_name ?? "";
+          comps.find((c: any) => types.some((t) => c.types.includes(t)))?.long_name ?? "";
         const streetNumber = get(["street_number"]);
         const route = get(["route"]);
         const street = [streetNumber, route].filter(Boolean).join(" ");
