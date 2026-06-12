@@ -1,8 +1,10 @@
 import { HeroButton } from "@/components/ui/hero-button";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { isSupabaseConfigured } from "@/integrations/supabase/safe-client";
 export const Footer = () => {
+  const { pathname } = useLocation();
+  const isPeptideSide = pathname.startsWith("/peptides") || pathname.startsWith("/checkout");
   return <footer className="bg-grey-900 text-white py-16">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -97,14 +99,30 @@ export const Footer = () => {
               <p className="mt-2 flex items-center gap-2" aria-live="polite">
                 <span
                   className={`inline-block h-2 w-2 rounded-full ${
-                    isSupabaseConfigured ? "bg-emerald-400" : "bg-red-400"
+                    isPeptideSide
+                      ? isSupabaseConfigured
+                        ? "bg-emerald-400"
+                        : "bg-red-400"
+                      : "bg-grey-400"
                   }`}
                   aria-hidden="true"
                 />
                 <span className="text-xs">
                   Backend:{" "}
-                  <span className={isSupabaseConfigured ? "text-emerald-400" : "text-red-400"}>
-                    {isSupabaseConfigured ? "Configured" : "Not configured"}
+                  <span
+                    className={
+                      isPeptideSide
+                        ? isSupabaseConfigured
+                          ? "text-emerald-400"
+                          : "text-red-400"
+                        : "text-grey-400"
+                    }
+                  >
+                    {isPeptideSide
+                      ? isSupabaseConfigured
+                        ? "Configured"
+                        : "Not configured"
+                      : "Not connected"}
                   </span>
                 </span>
               </p>
@@ -112,8 +130,18 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* Non-operational notice */}
+        {!isPeptideSide && (
+          <div className="mb-4 p-4 bg-grey-800 rounded-lg">
+            <p className="text-xs sm:text-sm text-grey-400 leading-relaxed">
+              <span className="text-fresh-teal font-bold">🚧 Nootropics — Coming Soon</span>{" "}
+              The nootropics distribution division is currently in pre-launch. Products are not yet available for purchase. Partner outreach and brand activations are underway.
+            </p>
+          </div>
+        )}
+
         {/* Disclaimer */}
-        <div className="mt-8 p-4 bg-grey-800 rounded-lg">
+        <div className="p-4 bg-grey-800 rounded-lg">
           <p className="text-xs sm:text-sm text-grey-400 leading-relaxed">
             <strong>Disclaimer:</strong> These statements have not been evaluated by the South African Health Products Regulatory Authority (SAHPRA). 
             These products are not intended to diagnose, treat, cure, or prevent any disease. 
