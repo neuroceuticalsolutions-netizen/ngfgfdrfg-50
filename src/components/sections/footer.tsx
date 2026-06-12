@@ -134,7 +134,7 @@ export const Footer = () => {
         {!isPeptideSide && (
           <div className="mb-4 p-4 bg-grey-800 rounded-lg">
             <p className="text-xs sm:text-sm text-grey-400 leading-relaxed">
-              <span className="text-fresh-teal font-bold">🚧 Nootropics — Coming Soon</span>{" "}
+              <span className="text-red-400 font-bold">🚧 Nootropics — Coming Soon</span>{" "}
               The nootropics distribution division is currently in pre-launch. Products are not yet available for purchase. Partner outreach and brand activations are underway.
             </p>
           </div>
