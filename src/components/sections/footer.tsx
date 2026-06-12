@@ -103,7 +103,7 @@ export const Footer = () => {
                       ? isSupabaseConfigured
                         ? "bg-emerald-400"
                         : "bg-red-400"
-                      : "bg-grey-400"
+                      : "bg-red-400"
                   }`}
                   aria-hidden="true"
                 />
@@ -115,7 +115,7 @@ export const Footer = () => {
                         ? isSupabaseConfigured
                           ? "text-emerald-400"
                           : "text-red-400"
-                        : "text-grey-400"
+                        : "text-red-400"
                     }
                   >
                     {isPeptideSide
@@ -134,7 +134,7 @@ export const Footer = () => {
         {!isPeptideSide && (
           <div className="mb-4 p-4 bg-grey-800 rounded-lg">
             <p className="text-xs sm:text-sm text-grey-400 leading-relaxed">
-              <span className="text-fresh-teal font-bold">🚧 Nootropics — Coming Soon</span>{" "}
+              <span className="text-red-400 font-bold">🚧 Nootropics — Coming Soon</span>{" "}
               The nootropics distribution division is currently in pre-launch. Products are not yet available for purchase. Partner outreach and brand activations are underway.
             </p>
           </div>
