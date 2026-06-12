@@ -1,34 +1,175 @@
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { HeroButton } from "@/components/ui/hero-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { SEOHead } from "@/components/SEOHead";
 import { useCart, formatPrice } from "@/context/CartContext";
 import { Loader2, XCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/safe-client";
 
+const SA_PROVINCES = [
+  "Gauteng",
+  "Western Cape",
+  "KwaZulu-Natal",
+  "Eastern Cape",
+  "Limpopo",
+  "Mpumalanga",
+  "North West",
+  "Northern Cape",
+  "Free State",
+];
+
+type FormKey =
+  | "fullName"
+  | "email"
+  | "phone"
+  | "street"
+  | "suburb"
+  | "city"
+  | "province"
+  | "postalCode";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^[\+0][0-9\s]{9,14}$/;
+
+function validateField(key: FormKey, value: string): string | null {
+  if (!value.trim()) return "Required";
+  if (key === "email" && !EMAIL_RE.test(value.trim())) return "Enter a valid email";
+  if (key === "phone" && !PHONE_RE.test(value.trim())) return "Enter a valid SA phone number";
+  if (key === "postalCode" && !/^\d{4}$/.test(value.trim())) return "Enter a 4-digit postal code";
+  return null;
+}
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type GMaps = any;
+
+function loadGoogleMaps(apiKey: string): Promise<GMaps | null> {
+  if (typeof window === "undefined") return Promise.resolve(null);
+  const w = window as unknown as { google?: GMaps; __gmapsPromise?: Promise<GMaps | null> };
+  if (w.google?.maps?.places) return Promise.resolve(w.google);
+  if (w.__gmapsPromise) return w.__gmapsPromise;
+  w.__gmapsPromise = new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => resolve((window as unknown as { google: GMaps }).google);
+    script.onerror = () => resolve(null);
+    document.head.appendChild(script);
+  });
+  return w.__gmapsPromise;
+}
+
 const Checkout = () => {
   const { items, subtotal, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({ fullName: "", email: "", phone: "", address: "" });
+  const [form, setForm] = useState<Record<FormKey, string>>({
+    fullName: "",
+    email: "",
+    phone: "",
+    street: "",
+    suburb: "",
+    city: "",
+    province: "",
+    postalCode: "",
+  });
+  const [touched, setTouched] = useState<Record<FormKey, boolean>>({
+    fullName: false,
+    email: false,
+    phone: false,
+    street: false,
+    suburb: false,
+    city: false,
+    province: false,
+    postalCode: false,
+  });
   const payformRef = useRef<HTMLFormElement>(null);
+  const streetRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (k: keyof typeof form) => (e: { target: { value: string } }) =>
+  const handleChange = (k: FormKey) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const handleBlur = (k: FormKey) => () => setTouched((t) => ({ ...t, [k]: true }));
+
+  // Google Places Autocomplete
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
+    if (!apiKey || !streetRef.current) return;
+    let ac: any = null;
+    let cancelled = false;
+    loadGoogleMaps(apiKey).then((g) => {
+      if (cancelled || !g || !streetRef.current) return;
+      ac = new g.maps.places.Autocomplete(streetRef.current, {
+        componentRestrictions: { country: "za" },
+        fields: ["address_components"],
+      });
+      ac.addListener("place_changed", () => {
+        const place = ac!.getPlace();
+        const comps = place.address_components ?? [];
+        const get = (types: string[]) =>
+          comps.find((c: any) => types.some((t) => c.types.includes(t)))?.long_name ?? "";
+        const streetNumber = get(["street_number"]);
+        const route = get(["route"]);
+        const street = [streetNumber, route].filter(Boolean).join(" ");
+        const suburb = get(["sublocality_level_1", "neighborhood", "sublocality"]);
+        const city = get(["locality", "postal_town"]);
+        const province = get(["administrative_area_level_1"]);
+        const postalCode = get(["postal_code"]);
+        setForm((f) => ({
+          ...f,
+          street: street || f.street,
+          suburb: suburb || f.suburb,
+          city: city || f.city,
+          province: province || f.province,
+          postalCode: postalCode || f.postalCode,
+        }));
+        setTouched((t) => ({ ...t, street: true, suburb: true, city: true, province: true, postalCode: true }));
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const fieldKeys: FormKey[] = ["fullName", "email", "phone", "street", "suburb", "city", "province", "postalCode"];
+  const errors = fieldKeys.reduce<Record<FormKey, string | null>>((acc, k) => {
+    acc[k] = validateField(k, form[k]);
+    return acc;
+  }, {} as Record<FormKey, string | null>);
+  const isFormValid = fieldKeys.every((k) => !errors[k]);
+
+  const fieldClass = (k: FormKey) => {
+    if (!touched[k]) return "";
+    return errors[k]
+      ? "border-red-400 focus-visible:ring-red-300"
+      : "border-green-400 focus-visible:ring-green-300";
+  };
+
+  const FieldError = ({ k }: { k: FormKey }) =>
+    touched[k] && errors[k] ? <p className="text-xs text-red-600 mt-1">{errors[k]}</p> : null;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setTouched(fieldKeys.reduce((acc, k) => ({ ...acc, [k]: true }), {} as Record<FormKey, boolean>));
+    if (!isFormValid) return;
     setLoading(true);
     setError(null);
 
+    const address = `${form.street}, ${form.suburb}, ${form.city}, ${form.province}, ${form.postalCode}`;
+    const customer = {
+      fullName: form.fullName,
+      email: form.email,
+      phone: form.phone,
+      address,
+    };
+
     try {
       const { data, error: fnError } = await supabase.functions.invoke("create-payfast-payment", {
-        body: { items, subtotal, customer: form },
+        body: { items, subtotal, customer },
       });
 
       if (fnError) throw new Error(fnError.message);
@@ -80,21 +221,125 @@ const Checkout = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Full Name</Label>
-                  <Input id="fullName" required value={form.fullName} onChange={handleChange("fullName")} />
+                  <Input
+                    id="fullName"
+                    required
+                    value={form.fullName}
+                    onChange={handleChange("fullName")}
+                    onBlur={handleBlur("fullName")}
+                    className={fieldClass("fullName")}
+                  />
+                  <FieldError k="fullName" />
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" required value={form.email} onChange={handleChange("email")} />
+                    <Input
+                      id="email"
+                      type="email"
+                      required
+                      value={form.email}
+                      onChange={handleChange("email")}
+                      onBlur={handleBlur("email")}
+                      className={fieldClass("email")}
+                    />
+                    <FieldError k="email" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone</Label>
-                    <Input id="phone" type="tel" required value={form.phone} onChange={handleChange("phone")} />
+                    <Input
+                      id="phone"
+                      type="tel"
+                      required
+                      placeholder="+27 XX XXX XXXX"
+                      pattern="[\+0][0-9\s]{9,14}"
+                      value={form.phone}
+                      onChange={handleChange("phone")}
+                      onBlur={handleBlur("phone")}
+                      className={fieldClass("phone")}
+                    />
+                    <p className="text-xs text-grey-500 mt-1">Format: +27 82 123 4567 or 082 123 4567</p>
+                    <FieldError k="phone" />
                   </div>
                 </div>
+
                 <div className="space-y-2">
-                  <Label htmlFor="address">Delivery Address (South Africa only)</Label>
-                  <Textarea id="address" required rows={4} value={form.address} onChange={handleChange("address")} />
+                  <Label htmlFor="street">Street Address (South Africa only)</Label>
+                  <Input
+                    id="street"
+                    ref={streetRef}
+                    required
+                    autoComplete="street-address"
+                    placeholder="Start typing your address…"
+                    value={form.street}
+                    onChange={handleChange("street")}
+                    onBlur={handleBlur("street")}
+                    className={fieldClass("street")}
+                  />
+                  <FieldError k="street" />
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="suburb">Suburb</Label>
+                    <Input
+                      id="suburb"
+                      required
+                      value={form.suburb}
+                      onChange={handleChange("suburb")}
+                      onBlur={handleBlur("suburb")}
+                      className={fieldClass("suburb")}
+                    />
+                    <FieldError k="suburb" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="city">City</Label>
+                    <Input
+                      id="city"
+                      required
+                      value={form.city}
+                      onChange={handleChange("city")}
+                      onBlur={handleBlur("city")}
+                      className={fieldClass("city")}
+                    />
+                    <FieldError k="city" />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="province">Province</Label>
+                    <select
+                      id="province"
+                      required
+                      value={form.province}
+                      onChange={handleChange("province")}
+                      onBlur={handleBlur("province")}
+                      className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${fieldClass("province")}`}
+                    >
+                      <option value="">Select province</option>
+                      {SA_PROVINCES.map((p) => (
+                        <option key={p} value={p}>
+                          {p}
+                        </option>
+                      ))}
+                    </select>
+                    <FieldError k="province" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="postalCode">Postal Code</Label>
+                    <Input
+                      id="postalCode"
+                      required
+                      inputMode="numeric"
+                      maxLength={4}
+                      value={form.postalCode}
+                      onChange={handleChange("postalCode")}
+                      onBlur={handleBlur("postalCode")}
+                      className={fieldClass("postalCode")}
+                    />
+                    <FieldError k="postalCode" />
+                  </div>
                 </div>
 
                 {error && (
@@ -104,7 +349,7 @@ const Checkout = () => {
                   </div>
                 )}
 
-                <HeroButton variant="hero" type="submit" className="w-full" disabled={loading}>
+                <HeroButton variant="hero" type="submit" className="w-full" disabled={loading || !isFormValid}>
                   {loading ? (
                     <span className="flex items-center justify-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin" />
