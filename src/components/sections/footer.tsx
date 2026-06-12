@@ -103,7 +103,7 @@ export const Footer = () => {
                       ? isSupabaseConfigured
                         ? "bg-emerald-400"
                         : "bg-red-400"
-                      : "bg-grey-400"
+                      : "bg-red-400"
                   }`}
                   aria-hidden="true"
                 />
@@ -115,7 +115,7 @@ export const Footer = () => {
                         ? isSupabaseConfigured
                           ? "text-emerald-400"
                           : "text-red-400"
-                        : "text-grey-400"
+                        : "text-red-400"
                     }
                   >
                     {isPeptideSide
