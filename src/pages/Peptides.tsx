@@ -244,20 +244,52 @@ const Peptides = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* The Science Behind Every Formula */}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="heading-lg text-royal-purple mb-4">Trusted by South Africans</h2>
+            <h2 className="heading-lg text-royal-purple mb-4">The Science Behind Every Formula</h2>
+            <p className="body-md text-grey-600 max-w-3xl mx-auto">
+              Every product is built on peptide ingredients with a track record of peer-reviewed research — not customer testimonials.
+            </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-8 shadow-medium">
-                <div className="flex text-yellow-400 mb-4">{"★★★★★"}</div>
-                <p className="body-md text-grey-700 mb-4 italic">"{t.quote}"</p>
-                <p className="text-sm text-grey-500">— {t.name}, {t.location}</p>
-              </div>
-            ))}
+            <div className="bg-white rounded-2xl p-8 shadow-medium">
+              <span className="inline-block bg-royal-purple/10 text-royal-purple text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                🔬 Research-Backed
+              </span>
+              <h3 className="heading-sm text-grey-900 mb-3">GHK-Cu — Copper Tripeptide-1</h3>
+              <p className="body-md text-grey-600 mb-6 leading-relaxed">
+                One of the most studied peptides in cosmetic dermatology, with peer-reviewed research spanning five decades into its role in supporting collagen synthesis and reducing markers of oxidative stress.
+              </p>
+              <Link to="/peptides/guides/ghk-cu-copper-peptide" className="text-sm font-semibold text-fresh-teal hover:underline">
+                Read the research →
+              </Link>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-medium">
+              <span className="inline-block bg-royal-purple/10 text-royal-purple text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                🔬 Research-Backed
+              </span>
+              <h3 className="heading-sm text-grey-900 mb-3">Argireline & Matrixyl 3000</h3>
+              <p className="body-md text-grey-600 mb-6 leading-relaxed">
+                Two of the most widely studied peptide actives in cosmetic skincare, frequently combined in clinical formulations for their complementary roles in supporting smoother, firmer-looking skin.
+              </p>
+              <Link to="/peptides/guides/argireline-vs-botox" className="text-sm font-semibold text-fresh-teal hover:underline">
+                Read the research →
+              </Link>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-medium">
+              <span className="inline-block bg-royal-purple/10 text-royal-purple text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                🔬 Research-Backed
+              </span>
+              <h3 className="heading-sm text-grey-900 mb-3">Eyeliss & Syn-Coll Complexes</h3>
+              <p className="body-md text-grey-600 mb-6 leading-relaxed">
+                Peptide complexes developed specifically for firming and eye-contour applications, studied for their potential to support skin density and reduce the appearance of puffiness with consistent use.
+              </p>
+              <Link to="/peptides/guides/what-are-peptides" className="text-sm font-semibold text-fresh-teal hover:underline">
+                Read the research →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
