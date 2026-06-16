@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Navigation } from "@/components/sections/navigation";
 import { Footer } from "@/components/sections/footer";
 import { Badge } from "@/components/ui/badge";
@@ -72,8 +73,9 @@ const PeptidesGuides = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {filtered.map((article) => (
-                <div
+                <Link
                   key={article.slug}
+                  to={`/peptides/guides/${article.slug}`}
                   className="bg-white rounded-2xl p-6 shadow-medium hover:shadow-large transition-shadow duration-300 flex flex-col"
                 >
                   <div className="flex items-center justify-between mb-4">
@@ -84,7 +86,7 @@ const PeptidesGuides = () => {
                   <h2 className="heading-sm text-grey-900 mb-3 line-clamp-2">{article.title}</h2>
                   <p className="body-md text-grey-600 mb-4 line-clamp-3 flex-1">{article.excerpt}</p>
                   <span className="text-royal-purple font-medium">Read guide →</span>
-                </div>
+                </Link>
               ))}
             </div>
           )}

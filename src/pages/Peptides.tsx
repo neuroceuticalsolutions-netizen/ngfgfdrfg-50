@@ -262,7 +262,7 @@ const Peptides = () => {
               <p className="body-md text-grey-600 mb-6 leading-relaxed">
                 One of the most studied peptides in cosmetic dermatology, with peer-reviewed research spanning five decades into its role in supporting collagen synthesis and reducing markers of oxidative stress.
               </p>
-              <Link to="/peptides/guides" className="text-sm font-semibold text-fresh-teal hover:underline">
+              <Link to="/peptides/guides/ghk-cu-copper-peptide" className="text-sm font-semibold text-fresh-teal hover:underline">
                 Read the research →
               </Link>
             </div>
@@ -274,7 +274,7 @@ const Peptides = () => {
               <p className="body-md text-grey-600 mb-6 leading-relaxed">
                 Two of the most widely studied peptide actives in cosmetic skincare, frequently combined in clinical formulations for their complementary roles in supporting smoother, firmer-looking skin.
               </p>
-              <Link to="/peptides/guides" className="text-sm font-semibold text-fresh-teal hover:underline">
+              <Link to="/peptides/guides/argireline-vs-botox" className="text-sm font-semibold text-fresh-teal hover:underline">
                 Read the research →
               </Link>
             </div>
@@ -286,7 +286,7 @@ const Peptides = () => {
               <p className="body-md text-grey-600 mb-6 leading-relaxed">
                 Peptide complexes developed specifically for firming and eye-contour applications, studied for their potential to support skin density and reduce the appearance of puffiness with consistent use.
               </p>
-              <Link to="/peptides/guides" className="text-sm font-semibold text-fresh-teal hover:underline">
+              <Link to="/peptides/guides/what-are-peptides" className="text-sm font-semibold text-fresh-teal hover:underline">
                 Read the research →
               </Link>
             </div>

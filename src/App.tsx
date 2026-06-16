@@ -43,6 +43,7 @@ import PeptidesProducts from "./pages/PeptidesProducts";
 import PeptideDetail from "./pages/PeptideDetail";
 import PeptidesScience from "./pages/PeptidesScience";
 import PeptidesGuides from "./pages/PeptidesGuides";
+import PeptideGuideDetail from "./pages/PeptideGuideDetail";
 import FocusFaqs from "./pages/FocusFaqs";
 import Checkout from "./pages/Checkout";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
@@ -103,6 +104,7 @@ const App = () => {
           <Route path="/peptides/products/:slug" element={<PeptideDetail />} />
           <Route path="/peptides/science" element={<PeptidesScience />} />
           <Route path="/peptides/guides" element={<PeptidesGuides />} />
+          <Route path="/peptides/guides/:slug" element={<PeptideGuideDetail />} />
           <Route path="/focus" element={<FocusFaqs />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
